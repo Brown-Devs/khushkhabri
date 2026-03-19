@@ -62,8 +62,10 @@ export default function Testimonials({ testimonials }) {
                                 <SwiperSlide key={idx} className="h-auto">
                                     <div className="bg-white/80 backdrop-blur-md border border-white duration-300 rounded-3xl p-5 md:p-6 flex flex-col sm:flex-row gap-6 h-full items-stretch min-h-[380px] sm:min-h-[320px]">
 
-                                        {/* TESTIMONIAL PHOTO */}
-                                        <div className="w-full sm:w-[42%] aspect-[9/16] sm:aspect-auto sm:h-auto min-h-[280px] rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0 relative shadow-md">
+                                        {/* TESTIMONIAL PHOTO 
+                                            Supports Aspect Ratio: 3:4 (Portrait)
+                                        */}
+                                        <div className="w-full sm:w-[38%] aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0 relative shadow-sm">
                                             {t.thumbnail ? (
                                                 <Image 
                                                     src={t.thumbnail} 
@@ -79,7 +81,7 @@ export default function Testimonials({ testimonials }) {
                                         </div>
 
                                         {/* CONTENT */}
-                                        <div className="flex flex-col justify-between w-full sm:w-[58%] gap-4">
+                                        <div className="flex flex-col justify-between w-full sm:w-[62%] gap-4">
 
                                             <div>
                                                 {/* Stars */}
@@ -99,7 +101,7 @@ export default function Testimonials({ testimonials }) {
                                             <div className="mt-4 pt-4 border-t border-gray-200/60 flex items-center gap-4">
                                                 <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-[#fff0f3] shadow-sm flex-shrink-0">
                                                     <Image
-                                                        src={t.image || "/testimonial1.png"}
+                                                        src={t.image || "/avatar.jpg"}
                                                         alt={t.name}
                                                         fill
                                                         className="object-cover"

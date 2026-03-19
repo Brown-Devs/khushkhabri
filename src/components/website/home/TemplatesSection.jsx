@@ -18,7 +18,7 @@ const templates = [
         category: "Hindu Wedding",
         price: "₹1,499",
         description: "Soft pastels and delicate floral borders for a modern yet traditional celebration.",
-        image: "/templates/sikh/preview.png",
+        image: "/templates/sikh/invite2.png",
 
     },
     {
@@ -27,7 +27,7 @@ const templates = [
         category: "Hindu Wedding",
         price: "₹1,499",
         description: "Classic golden lotus motifs set against a rich, warm backdrop.",
-        image: "/templates/sikh/preview.png",
+        image: "/templates/sikh/invite3.png",
 
     },
     {
@@ -36,7 +36,7 @@ const templates = [
         category: "Sikh Wedding",
         price: "₹1,499",
         description: "Serene and elegant design featuring watercolor florals and the Ek Onkar symbol.",
-        image: "/templates/sikh/preview.png",
+        image: "/templates/sikh/invite4.png",
 
     },
     {
@@ -45,7 +45,7 @@ const templates = [
         category: "Guruji Satsang",
         price: "₹1,499",
         description: "A peaceful and divine layout specifically crafted for Guruji's Satsang invitations.",
-        image: "/templates/sikh/preview.png",
+        image: "/templates/sikh/invite5.png",
 
     },
 ];
@@ -79,10 +79,6 @@ export default function TemplatesSection() {
                     {templates.map((theme, index) => (
                         <motion.div
                             key={theme.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
                             className="flex flex-col items-center bg-white/80 backdrop-blur-sm rounded-3xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-white/50 w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33%-1.5rem)] max-w-[360px]"
                         >
                             {/* Vertical Image Aspect Ratio Card */}

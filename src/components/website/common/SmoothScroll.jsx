@@ -6,14 +6,15 @@ import Lenis from "lenis";
 export default function SmoothScroll({ children }) {
     useEffect(() => {
         const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            direction: 'vertical', 
-            gestureDirection: 'vertical', 
+            duration: 2.2,
+            lerp: 0.05,
+            direction: "vertical",
+            gestureDirection: "vertical",
             smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
+            mouseMultiplier: 1.1,
             touchMultiplier: 2,
+            smoothTouch: true,
+            syncTouch: true,
             infinite: false,
         });
 

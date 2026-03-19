@@ -81,11 +81,14 @@ export const authOptions = {
         })
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, account, profile }) {
             if (user) {
                 token.id = user.id;
                 token.role = user.role;
                 token.phone = user.phone;
+                token.name = user.name;
+                token.email = user.email;
+                token.picture = user.image;
 
                 const maxAge = user.role === 'user' ? 60 * 60 * 24 * 30 : 60 * 30;
                 token.exp = Math.floor(Date.now() / 1000) + maxAge;
@@ -96,7 +99,10 @@ export const authOptions = {
             session.user = {
                 id: token.id,
                 role: token.role,
-                phone: token.phone
+                phone: token.phone,
+                name: token.name,
+                email: token.email,
+                image: token.picture
             };
             return session;
         }

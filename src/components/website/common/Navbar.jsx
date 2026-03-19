@@ -3,10 +3,10 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { FiMenu } from 'react-icons/fi'
+import { FiMenu, FiX, FiLayout, FiUser, FiLogOut } from 'react-icons/fi'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import BigNav from './BigNav'
 import AuthDialog from '@/components/auth/LoginDialog'
 
@@ -14,6 +14,7 @@ export default function NavBar() {
 
     const [mobileOpen, setMobileOpen] = useState(false)
     const [authOpen, setAuthOpen] = useState(false)
+    const [profileOpen, setProfileOpen] = useState(false)
     const pathname = usePathname()
     const { data: session, status } = useSession()
 
@@ -27,7 +28,7 @@ export default function NavBar() {
 
     // Only add My Profile if authenticated
     if (status === 'authenticated') {
-        items.push({ label: 'My Profile', href: '/cs' });
+        // items.push({ label: 'My Profile', href: '/cs' });
     } else {
         items.push({ label: 'Login', action: () => setAuthOpen(true) });
     }
@@ -37,25 +38,46 @@ export default function NavBar() {
             <nav className="w-full bg-white">
 
                 {/* Logo Row */}
-                <div className="flex justify-center items-center py-3 relative">
+                <div className="flex justify-center items-center py-4 relative border-b border-gray-100 md:border-none">
 
                     {/* mobile button */}
                     <button
                         onClick={() => setMobileOpen(true)}
-                        className="md:hidden absolute left-4"
+                        className="md:hidden absolute left-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
                     >
-                        <FiMenu size={26} />
+                        <FiMenu size={24} />
                     </button>
 
-                    <Link href="/">
+                    <Link href="/" className="transition-transform hover:scale-[1.02]">
                         <Image
                             src="/logo.png"
                             alt="Brown Devs"
-                            width={400}
-                            height={200}
-                            className="h-23 w-auto"
+                            width={240}
+                            height={120}
+                            className="h-19 w-auto"
                         />
                     </Link>
+
+                    {/* User Avatar */}
+                    <div className="absolute right-4 flex items-center sm:hidden">
+                        <button
+                            onClick={() => {
+                                if (status === 'authenticated') {
+                                    setProfileOpen(true);
+                                } else {
+                                    setAuthOpen(true);
+                                }
+                            }}
+                            className="relative h-10 w-10 rounded-full overflow-hidden border-2 border-primary/20 hover:border-primary transition-all shadow-md group"
+                        >
+                            <Image
+                                src={session?.user?.image || "/avatar.jpg"}
+                                alt="User Avatar"
+                                fill
+                                className="object-cover transition-transform group-hover:scale-110"
+                            />
+                        </button>
+                    </div>
 
                 </div>
 
@@ -79,63 +101,192 @@ export default function NavBar() {
             {/* Mobile Menu */}
             <AnimatePresence>
                 {mobileOpen && (
-                    <motion.div
-                        initial={{ x: '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '100%' }}
-                        transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-                        className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm z-50 bg-white shadow-lg p-6 pt-20"
-                    >
-
-                        <button
+                    <>
+                        {/* Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             onClick={() => setMobileOpen(false)}
-                            className="absolute top-6 right-6 text-2xl"
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] md:hidden"
+                        />
+
+                        <motion.div
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                            className="fixed top-0 left-0 bottom-0 w-full z-[101] bg-white shadow-2xl p-0 flex flex-col md:hidden"
                         >
-                            ✕
-                        </button>
+                            {/* Mobile Logo & Close */}
+                            <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                                <Link href="/" onClick={() => setMobileOpen(false)}>
+                                    <Image
+                                        src="/logo.png"
+                                        alt="Brown Devs"
+                                        width={140}
+                                        height={70}
+                                        className="h-10 w-auto"
+                                    />
+                                </Link>
+                                <button
+                                    onClick={() => setMobileOpen(false)}
+                                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                >
+                                    <FiX size={24} />
+                                </button>
+                            </div>
 
-                        <div className="flex flex-col gap-6">
+                            <div className="flex flex-col p-6 gap-2">
+                                {items.map(item => {
+                                    const isActive =
+                                        item.href === '/'
+                                            ? pathname === '/'
+                                            : pathname.startsWith(item.href)
 
-                            {items.map(item => {
+                                    if (item.action) {
+                                        return (
+                                            <button
+                                                key={item.label}
+                                                onClick={() => {
+                                                    setMobileOpen(false);
+                                                    item.action();
+                                                }}
+                                                className="text-lg font-medium text-gray-700 text-left p-3 hover:bg-primary/5 hover:text-primary rounded-xl transition-all"
+                                            >
+                                                {item.label}
+                                            </button>
+                                        )
+                                    }
 
-                                const isActive =
-                                    item.href === '/'
-                                        ? pathname === '/'
-                                        : pathname.startsWith(item.href)
-
-                                if (item.action) {
                                     return (
-                                        <button
-                                            key={item.label}
-                                            onClick={() => {
-                                                setMobileOpen(false);
-                                                item.action();
-                                            }}
-                                            className="text-lg font-semibold text-gray-700 text-left"
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={`text-lg font-medium p-3 rounded-xl transition-all ${isActive
+                                                ? 'bg-primary/10 text-primary'
+                                                : 'text-gray-700 hover:bg-gray-50'
+                                                }`}
                                         >
                                             {item.label}
-                                        </button>
+                                        </Link>
                                     )
-                                }
+                                })}
+                            </div>
 
-                                return (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        onClick={() => setMobileOpen(false)}
-                                        className={`text-lg font-semibold ${isActive
-                                            ? 'text-black'
-                                            : 'text-gray-700'
-                                            }`}
+                            {/* Mobile Bottom Section */}
+                            <div className="mt-auto p-6 border-t border-gray-100 bg-gray-50/50">
+                                {status === 'authenticated' ? (
+                                    <div className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
+                                        <div className="h-12 w-12 rounded-full overflow-hidden border-2 border-primary/10">
+                                            <Image
+                                                src={session.user.image || "/avatar.jpg"}
+                                                alt="Profile"
+                                                width={48}
+                                                height={48}
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-bold text-gray-900 truncate">
+                                                {session.user.name || 'User'}
+                                            </p>
+                                            <p className="text-xs text-gray-500 truncate">
+                                                {session.user.email || session.user.phone}
+                                            </p>
+                                        </div>
+                                        <Link
+                                            href="/cs"
+                                            onClick={() => setMobileOpen(false)}
+                                            className="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"
+                                        >
+                                            <FiLayout size={20} />
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <button
+                                        onClick={() => {
+                                            setMobileOpen(false);
+                                            setAuthOpen(true);
+                                        }}
+                                        className="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:bg-primary/90 transition-all"
                                     >
-                                        {item.label}
-                                    </Link>
-                                )
-                            })}
+                                        Login to Account
+                                        <FiUser size={20} />
+                                    </button>
+                                )}
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
 
-                        </div>
+            {/* Profile Detail Dialog */}
+            <AnimatePresence>
+                {profileOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setProfileOpen(false)}
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[200]"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-white rounded-3xl shadow-2xl z-[201] overflow-hidden"
+                        >
+                            <div className="relative p-8">
+                                <button
+                                    onClick={() => setProfileOpen(false)}
+                                    className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                >
+                                    <FiX size={20} />
+                                </button>
 
-                    </motion.div>
+                                <div className="flex flex-col items-center text-center">
+                                    <div className="relative h-24 w-24 rounded-full overflow-hidden border-4 border-primary/20 shadow-lg mb-4">
+                                        <Image
+                                            src={session?.user?.image || "/avatar.jpg"}
+                                            alt="User"
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                                        {session?.user?.name || 'Welcome Back!'}
+                                    </h2>
+                                    <p className="text-gray-500 mb-6">
+                                        {session?.user?.email || session?.user?.phone}
+                                    </p>
+
+                                    <div className="w-full space-y-3">
+                                        <Link
+                                            href="/cs"
+                                            onClick={() => setProfileOpen(false)}
+                                            className="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/25"
+                                        >
+                                            <FiLayout size={20} />
+                                            Go to Dashboard
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                signOut();
+                                                setProfileOpen(false);
+                                            }}
+                                            className="w-full flex items-center justify-center gap-2 py-4 bg-gray-50 text-gray-700 font-semibold rounded-2xl hover:bg-red-50 hover:text-red-600 transition-all border border-gray-100"
+                                        >
+                                            <FiLogOut size={20} />
+                                            Logout
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
 

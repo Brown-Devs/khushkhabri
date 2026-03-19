@@ -77,7 +77,7 @@ export default function AboutHero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-4xl md:text-7xl  text-[#5a1e2b] mb-8 leading-tight font-script"
+                    className="text-4xl md:text-7xl font-semibold  text-[#5a1e2b] mb-8 leading-tight font-script"
                 >
                     Crafting Digital Stories for Your Eternal Moments
                 </motion.h1>

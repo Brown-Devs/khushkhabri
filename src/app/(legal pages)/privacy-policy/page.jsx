@@ -1,51 +1,59 @@
-// app/privacy-policy/page.jsx
-import WebsiteLayout from "@/components/website/WebsiteLayout";
-import { getHomePageData } from "@/lib/main/getHomePageData";
+import NavBar from "@/components/website/common/Navbar";
+import Footer from "@/components/website/common/Footer";
 import { getPrivacyPolicy } from "@/lib/main/getStaticData";
 import ReactMarkdown from 'react-markdown';
 import styles from './components/post.module.css';
 import rehypeRaw from 'rehype-raw';
+import { motion } from "framer-motion";
 
 export default async function page() {
-    // const { services, categories } = await getHomePageData();
     const privacyPolicy = await getPrivacyPolicy();
 
-    console.log(privacyPolicy)
-
     return (
-        <WebsiteLayout>
-            {/* Full-width header section */}
-            {privacyPolicy &&
-                <div>
-                    <div className="w-full min-h-[35vh] lg:min-h-[50vh] flex justify-center items-center py-22"
-                        style={{
-                            background: "radial-gradient(circle at center, #ffffff 0%, #87cefa 100%)",
-                        }}
-                    >
-                        <div className="max-w-7xl mx-auto px-5 text-center">
-                            <h1 className="text-4xl md:text-5xl font-bold text-black">Privacy Policy</h1>
-                            <div className="mt-4 text-blue-800">
+        <div className="relative min-h-screen w-full flex flex-col">
+            {/* GLOBAL FIXED BACKGROUND FOR PARALLAX */}
+            <div
+                className="fixed inset-0 z-0 bg-cover bg-center"
+                style={{ backgroundImage: `url('/bg/pinkbg.png')`, backgroundColor: '#FFEAED' }}
+            />
+            {/* Shared Overlay */}
+            <div className="fixed inset-0 z-0 bg-white/60 backdrop-blur-[2px]" />
+
+            {/* FOREGROUND CONTENT */}
+            <div className="relative z-10 flex flex-col min-h-screen">
+                <NavBar />
+                
+                {privacyPolicy && (
+                    <>
+                        {/* Header Section */}
+                        <div className="py-20 md:py-24 px-4 text-center max-w-4xl mx-auto">
+                            <h1 className="text-4xl md:text-7xl text-[#5a1e2b] mb-8 leading-tight font-script">
+                                Privacy Policy
+                            </h1>
+                            <p className="text-[#7a2535] font-medium opacity-80">
                                 Last updated: {new Date(privacyPolicy.lastUpdated).toLocaleDateString('en-US', {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric'
                                 })}
-                            </div>
+                            </p>
                         </div>
-                    </div>
 
-                    {/* Content section */}
-                    <div className="max-w-7xl mx-auto px-5 py-6">
-                        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-                            <div className={`${styles.postStyle} p-6 md:px-10`}>
-                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                                    {privacyPolicy.content}
-                                </ReactMarkdown>
+                        {/* Content section */}
+                        <div className="max-w-5xl mx-auto px-4 pb-20 w-full">
+                            <div className="bg-white/40 backdrop-blur-lg rounded-3xl shadow-xl overflow-hidden border border-white/60">
+                                <div className={`${styles.postStyle} p-8 md:p-14 text-gray-800`}>
+                                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                        {privacyPolicy.content}
+                                    </ReactMarkdown>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            }
-        </WebsiteLayout>
+                    </>
+                )}
+
+                <Footer />
+            </div>
+        </div>
     )
-}
+}

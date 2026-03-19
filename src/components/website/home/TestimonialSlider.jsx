@@ -5,7 +5,7 @@ const testimonialsLocal = [
   {
     name: "Riya Verma",
     place: "Kurukshetra, Haryana",
-    image: "/testimonial1.png",
+    image: "/avatar.jpg",
     thumbnail: "/images/invite1.png",
     heading: "Beautiful Wedding Invite",
     message:
@@ -15,7 +15,7 @@ const testimonialsLocal = [
   {
     name: "Avinash Arora",
     place: "Mumbai, Maharashtra",
-    image: "/testimonial1.png",
+    image: "/avatar.jpg",
     thumbnail: "/images/invite2.png",
     heading: "Smooth Experience",
     message:
@@ -25,7 +25,7 @@ const testimonialsLocal = [
   {
     name: "Pooja Singh",
     place: "Lucknow, UP",
-    image: "/testimonial1.png",
+    image: "/avatar.jpg",
     thumbnail: "/images/invite3.png",
     heading: "Loved by Everyone",
     message:
@@ -35,7 +35,7 @@ const testimonialsLocal = [
   {
     name: "Ramesh Kumar",
     place: "Delhi",
-    image: "/testimonial1.png",
+    image: "/avatar.jpg",
     thumbnail: "/images/invite1.png",
     heading: "Perfect for Satsang",
     message:
@@ -45,7 +45,7 @@ const testimonialsLocal = [
   {
     name: "Sunita Reddy",
     place: "Hyderabad, Telangana",
-    image: "/testimonial1.png",
+    image: "/avatar.jpg",
     thumbnail: "/images/invite2.png",
     heading: "Elegant and Easy",
     message:

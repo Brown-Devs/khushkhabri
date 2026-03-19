@@ -91,7 +91,7 @@ export default function Footer() {
               </Link>
 
               <Link
-                href="/terms-and-conditions"
+                href="/terms&conditions"
                 className="hover:text-white transition"
               >
                 Terms & Conditions
@@ -161,10 +161,19 @@ export default function Footer() {
 
 
         {/* Bottom Copyright */}
-        <div className="text-center text-sm text-gray-400 mt-8">
-
-          © {new Date().getFullYear()} Khushkhabri. All rights reserved.
-
+        <div className="text-center text-sm text-gray-400 mt-8 space-y-2">
+          <p>© {new Date().getFullYear()} Khushkhabri. All rights reserved.</p>
+          <p className="text-gray-500">
+            Designed and Developed by{" "}
+            <a
+              href="https://www.browndevs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Brown Devs
+            </a>
+          </p>
         </div>
 
       </div>
