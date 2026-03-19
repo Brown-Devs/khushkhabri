@@ -4,7 +4,6 @@ import { getPrivacyPolicy } from "@/lib/main/getStaticData";
 import ReactMarkdown from 'react-markdown';
 import styles from './components/post.module.css';
 import rehypeRaw from 'rehype-raw';
-import { motion } from "framer-motion";
 
 export default async function page() {
     const privacyPolicy = await getPrivacyPolicy();
