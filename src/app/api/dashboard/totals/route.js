@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Category from "@/models/categoryModel";
-import Service from "@/models/serviceModel";
 import User from "@/models/userModel";
 import Blog from "@/models/blogModel";
 
@@ -10,17 +9,16 @@ export async function GET() {
     await connectDB();
 
     // Fetch counts in parallel
-    const [categoriesCount, servicesCount, usersCount, blogsCount] =
+    const [categoriesCount, usersCount, blogsCount] =
       await Promise.all([
         Category.countDocuments(),
-        Service.countDocuments(),
         User.countDocuments({ role: "user" }),
         Blog.countDocuments(),
       ]);
 
     return NextResponse.json({
       categoriesCount,
-      servicesCount,
+      servicesCount: 0,
       usersCount,
       blogsCount,
     });
