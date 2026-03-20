@@ -1,3 +1,7 @@
+"use client";
+import { motion } from "framer-motion";
+import FloatingIcons from "./FloatingIcons";
+
 const eventMeta = {
     engagement: {
         title: "Engagement",
@@ -33,16 +37,22 @@ const normalizeType = (type) => {
 
 export default function EventsSection({ events = [] }) {
     return (
-        <section className="relative w-full">
+        <section className="relative w-full overflow-hidden">
+            <FloatingIcons sectionId="events" count={15} icons={[1, 2, 5, 6, 7, 14, 15, 16, 25, 26]} />
 
             {/* Temple full width overlap */}
-            <div className="absolute -top-110 left-0 w-full z-10">
+            <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="absolute -top-[70px] left-0 w-full z-10"
+            >
                 <img
                     src="/templates/sikh/temple.png"
                     alt="temple"
                     className="w-full object-contain"
                 />
-            </div>
+            </motion.div>
 
             {/* Background IMAGE (static feel) */}
             <div
@@ -73,7 +83,14 @@ export default function EventsSection({ events = [] }) {
                         if (!meta) return null;
 
                         return (
-                            <div key={index} className="flex flex-col items-center">
+                            <motion.div 
+                                key={index} 
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                                className="flex flex-col items-center z-10"
+                            >
 
                                 {/* Image */}
                                 <div className="w-[450px]">
@@ -102,7 +119,7 @@ export default function EventsSection({ events = [] }) {
                                     {event.time}
                                 </p>
 
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>

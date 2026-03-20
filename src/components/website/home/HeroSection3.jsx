@@ -155,7 +155,7 @@ export default function HeroSection() {
                 {/* Main Floating Envelope on Mobile */}
                 <motion.img
                     src="/icons/17.png"
-                    className="w-24 sm:w-28 mb-6 sm:mb-3 block pointer-events-none"
+                    className="w-24 sm:w-28 mb-2 sm:mb-7 block pointer-events-none"
                     animate={{ y: [0, -10, 0], rotate: [-5, 5, -5] }}
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 />

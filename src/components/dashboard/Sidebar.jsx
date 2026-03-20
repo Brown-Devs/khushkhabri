@@ -23,6 +23,7 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, sidebarLinks }) {
     function can(resource, action) {
         if (role === 'admin') return true;
         if (role === 'sub-admin') return !!perms?.[resource]?.[action];
+        if (role === 'user') return true;
         return false;
     }
 

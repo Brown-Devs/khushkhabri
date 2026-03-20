@@ -1,9 +1,12 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import FloatingIcons from "./FloatingIcons";
 
-export default function GallerySection() {
+export default function GallerySection({ invitation }) {
+    const { bride, groom } = invitation?.weddingDetails || {};
 
     const images = [
         "/templates/sikh/couple1.jpeg",
@@ -12,16 +15,22 @@ export default function GallerySection() {
     ];
 
     return (
-        <section className="relative w-full">
+        <section className="relative w-full overflow-hidden">
+            <FloatingIcons sectionId="gallery" count={12} icons={[8, 9, 10, 17, 18, 19, 20]} />
 
             {/* 🔥 Sticker */}
-            <div className="absolute -top-45 left-1/2 -translate-x-1/2 z-10 w-full">
+            <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1 }}
+                className="absolute -top-45 left-1/2 -translate-x-1/2 z-10 w-full"
+            >
                 <img
                     src="/templates/sikh/routeSticker.png"
                     alt="route"
                     className=" w-full"
                 />
-            </div>
+            </motion.div>
 
             {/* Background */}
             <div
@@ -32,13 +41,19 @@ export default function GallerySection() {
             >
 
                 {/* ===== Bride & Groom ===== */}
-                <p className="text-white text-sm italic">
-                    Meet the
-                </p>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <p className="text-white text-sm italic">
+                        Meet the
+                    </p>
 
-                <h2 className="text-white text-3xl font-script mt-1">
-                    Bride & Groom
-                </h2>
+                    <h2 className="text-white text-3xl font-script mt-1">
+                        Bride & Groom
+                    </h2>
+                </motion.div>
 
                 <div className="mt-10">
                     <Swiper
@@ -62,7 +77,12 @@ export default function GallerySection() {
                 </div>
 
                 {/* ===== Pre Wedding Section ===== */}
-                <div className="mt-20 px-6">
+                <motion.div 
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="mt-20 px-6"
+                >
 
                     <p className="text-white text-sm italic">
                         Watch our
@@ -92,13 +112,21 @@ export default function GallerySection() {
 
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* ===== Final Blessing Section ===== */}
-                <div className="mt-24 px-6 text-center">
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    className="mt-24 px-6 text-center"
+                >
 
                     {/* Logo / Symbol */}
-                    <img
+                    <motion.img
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 100 }}
                         src="/templates/sikh/onkar.png"
                         alt="symbol"
                         className="w-16 mx-auto mb-6"
@@ -113,20 +141,20 @@ export default function GallerySection() {
                     </p>
 
                     <h2 className="text-white text-4xl font-script mt-6 leading-tight">
-                        Simran
+                        {bride?.name?.split(' ')[0] || 'Bride'}
                     </h2>
 
                     <p className="text-white text-lg">&</p>
 
                     <h2 className="text-white text-4xl font-script leading-tight">
-                        Gurpreet
+                        {groom?.name?.split(' ')[0] || 'Groom'}
                     </h2>
 
                     <p className="text-white text-sm mt-6 italic">
                         begin their forever...
                     </p>
 
-                </div>
+                </motion.div>
 
             </div>
         </section>

@@ -3,81 +3,34 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema(
   {
     orderId: { type: String, unique: true, required: true },
-    type: { type: String, enum: ["pos", "website"], required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    shippingDetails: {
-      fullName: { type: String, required: true },
-      contact: { type: String, required: true },
-      email: { type: String, required: true },
-      address: { type: String, required: true },
-      state: { type: String, required: true },
-      pin: { type: String, required: true },
-    },
-    cart: [
-      {
-        // serviceId: {
-        //   type: mongoose.Schema.Types.ObjectId,
-        //   ref: "Service",
-        //   required: true,
-        // },
-        // variantId: { type: mongoose.Schema.Types.ObjectId, required: true },
-        serviceName: { type: String, required: true },
-        variantName: { type: String, required: true },
-        variantImage: { type: String, required: true },
-        quantity: { type: Number, required: true },
-        price: { type: Number, required: true },
-      },
-    ],
+    themeName: { type: String, required: true },
     orderValue: { type: Number, required: true },
-    discount: { type: Number },
-    subTotal: { type: Number, required: true },
-    shippingCharges: { type: Number },
+    discount: { type: Number, default: 0 },
     totalAmount: { type: Number, required: true },
-    paymentStatus: {
+    razorpayOrderId: { type: String },
+    paymentId: { type: String },
+    paymentDate: { type: Date },
+    status: {
       type: String,
-      enum: ["paid", "pending"],
-      default: "pending",
+      enum: ["created", "paid", "expired"],
+      default: "created",
     },
-    paymentMethod: {
-      type: String,
-      enum: ["cod", "online", "Cash", "UPI"],
-      required: true,
+    mainDetails: {
+        brideName: String,
+        brideFatherName: String,
+        brideMotherName: String,
+        groomName: String,
+        groomFatherName: String,
+        groomMotherName: String,
+        weddingDate: Date,
     },
-    paymentDate: {
-      type: Date,
-    },
-    paymentMessage: {
-      type: String,
-    },
-    status: [
-      {
-        currentStatus: {
-          type: String,
-          enum: [
-            "New",
-            "Processing",
-            "Packed",
-            "Shipped",
-            "Ready for delivery",
-            "Delivered",
-            "cancelled",
-          ],
-          default: "New",
-        },
-        message: {
-          type: String,
-        },
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
-    transactionId: { type: String },
-    razorpayOrder: { type: String },
   },
   { timestamps: true }
 );
 
 const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
-export default Order;
+if (Order.schema.path('mainDetails') === undefined) {
+    delete mongoose.models.Order;
+}
+export default mongoose.models.Order || mongoose.model("Order", orderSchema);

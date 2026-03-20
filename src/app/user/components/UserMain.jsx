@@ -7,7 +7,7 @@ import UserProfileSkeleton from './UserProfileSkeleton';
 
 function UserMain() {
     const { data: session } = useSession()
-    const { getUserQuery } = useUsers('user', 1, 10)
+    const { getUserQuery } = useUsers({ role: 'user', page: 1, pageSize: 10 })
     const userId = session?.user?.id
 
     const {

@@ -117,18 +117,27 @@ export const ADMIN_SIDEBAR_LINKS = [
     href: "/admin/terms-and-conditions",
     icon: <FaFileContract />,
   },
-  // {
-  //     key: Resources.ABOUT_US,
-  //     label: 'About Us',
-  //     href: '/admin/about-us',
-  //     icon: <FaInfoCircle />,
-  // },
-  // {
-  //     key: Resources.CONTACT_US,
-  //     label: 'Contact Us',
-  //     href: '/admin/contact-us',
-  //     icon: <FaAddressCard />,
-  // },
+];
+
+export const USER_SIDEBAR_LINKS = [
+  {
+    key: "my-templates",
+    label: "My Templates",
+    href: "/user/templates",
+    icon: <FaThLarge />,
+  },
+  {
+    key: "orders-history",
+    label: "Orders History",
+    href: "/user/orders",
+    icon: <FaClipboardList />,
+  },
+  {
+    key: "my-profile",
+    label: "My Profile",
+    href: "/user/profile",
+    icon: <FaUser />,
+  },
 ];
 
 export const NAVBAR_LINKS = [

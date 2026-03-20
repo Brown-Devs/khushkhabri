@@ -1,8 +1,6 @@
 // app/layout.jsx
-import EnquiryWidget from "@/components/EnquiryWidget";
 import "./globals.css";
 import { Poppins, Montserrat, DM_Sans, Anton } from "next/font/google";
-import ContactWidget from "@/components/ContactWidget";
 import Script from "next/script";
 import AuthProvider from "@/components/auth/AuthProvider";
 import SmoothScroll from "@/components/website/common/SmoothScroll";
@@ -127,9 +125,7 @@ export default function RootLayout({ children }) {
         className={`${poppins.variable} ${montserrat.variable} ${dmSans.variable} ${anton.variable} antialiased`}
       >
         <AuthProvider>
-          <SmoothScroll>
-            <main>{children}</main>
-          </SmoothScroll>
+          <main>{children}</main>
         </AuthProvider>
 
         {/* <div className="max-[1024px]:hidden">

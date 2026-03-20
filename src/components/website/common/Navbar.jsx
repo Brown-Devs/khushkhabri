@@ -38,7 +38,7 @@ export default function NavBar() {
             <nav className="w-full bg-white">
 
                 {/* Logo Row */}
-                <div className="flex justify-center items-center py-4 relative border-b border-gray-100 md:border-none">
+                <div className="flex justify-center items-center py-1 relative border-b border-gray-100 md:border-none">
 
                     {/* mobile button */}
                     <button
@@ -49,11 +49,9 @@ export default function NavBar() {
                     </button>
 
                     <Link href="/" className="transition-transform hover:scale-[1.02]">
-                        <Image
+                        <img
                             src="/logo.png"
-                            alt="Brown Devs"
-                            width={240}
-                            height={120}
+                            alt="Khushkhabri"
                             className="h-19 w-auto"
                         />
                     </Link>
@@ -70,10 +68,9 @@ export default function NavBar() {
                             }}
                             className="relative h-10 w-10 rounded-full overflow-hidden border-2 border-primary/20 hover:border-primary transition-all shadow-md group"
                         >
-                            <Image
+                            <img
                                 src={session?.user?.image || "/avatar.jpg"}
                                 alt="User Avatar"
-                                fill
                                 className="object-cover transition-transform group-hover:scale-110"
                             />
                         </button>
@@ -121,11 +118,9 @@ export default function NavBar() {
                             {/* Mobile Logo & Close */}
                             <div className="flex items-center justify-between p-6 border-b border-gray-100">
                                 <Link href="/" onClick={() => setMobileOpen(false)}>
-                                    <Image
+                                    <img
                                         src="/logo.png"
-                                        alt="Brown Devs"
-                                        width={140}
-                                        height={70}
+                                        alt="Khushkhabri"
                                         className="h-10 w-auto"
                                     />
                                 </Link>
@@ -180,11 +175,9 @@ export default function NavBar() {
                                 {status === 'authenticated' ? (
                                     <div className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
                                         <div className="h-12 w-12 rounded-full overflow-hidden border-2 border-primary/10">
-                                            <Image
-                                                src={session.user.image || "/avatar.jpg"}
+                                            <img
+                                                src={session?.user?.image || "/avatar.jpg"}
                                                 alt="Profile"
-                                                width={48}
-                                                height={48}
                                                 className="object-cover"
                                             />
                                         </div>
@@ -249,10 +242,9 @@ export default function NavBar() {
 
                                 <div className="flex flex-col items-center text-center">
                                     <div className="relative h-24 w-24 rounded-full overflow-hidden border-4 border-primary/20 shadow-lg mb-4">
-                                        <Image
+                                        <img
                                             src={session?.user?.image || "/avatar.jpg"}
                                             alt="User"
-                                            fill
                                             className="object-cover"
                                         />
                                     </div>

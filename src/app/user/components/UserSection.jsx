@@ -10,11 +10,11 @@ function UserSection({ loading, error, userData }) {
     if (loading) return <UserProfileSkeleton />;
     if (error) return <div className="text-red-500 p-4 text-center">Error loading user data</div>;
 
-    const joinDate = format(new Date(userData.createdAt), 'MMMM d, yyyy');
+    const joinDate = userData?.createdAt ? format(new Date(userData.createdAt), 'MMMM d, yyyy') : 'Recently';
 
     // console.log(userData)
 
-    const serviceOrdersData = userData?.orders.reverse();
+    const serviceOrdersData = userData?.orders ? [...userData.orders].reverse() : [];
 
 
     // console.log(userData)

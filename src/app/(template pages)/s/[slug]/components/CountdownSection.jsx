@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import TimeBox from "./TimeBox";
+import FloatingIcons from "./FloatingIcons";
 
 export default function CountdownSection({ weddingDate }) {
     const [timeLeft, setTimeLeft] = useState(getTimeLeft());
@@ -42,16 +44,22 @@ export default function CountdownSection({ weddingDate }) {
     }, []);
 
     return (
-        <section className="relative w-full">
+        <section className="relative w-full overflow-hidden">
+            <FloatingIcons sectionId="countdown" count={8} icons={[21, 24, 27, 28]} />
 
             {/* Sticker */}
-            <div className="absolute -top-24 left-1/2 -translate-x-1/2 z-10">
+            <motion.div 
+                initial={{ opacity: 0, x: 50, rotate: 20 }}
+                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                transition={{ duration: 0.8 }}
+                className="absolute -top-24 left-1/2 -translate-x-1/2 z-10"
+            >
                 <img
                     src="/templates/sikh/scooter.png"
                     alt="sticker"
                     className="w-[260px]"
                 />
-            </div>
+            </motion.div>
 
             {/* Background */}
             <div
@@ -76,13 +84,18 @@ export default function CountdownSection({ weddingDate }) {
                 </div>
 
                 {/* Clock */}
-                <div className="mt-10 flex justify-center">
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100 }}
+                    className="mt-10 flex justify-center"
+                >
                     <img
                         src="/templates/sikh/clock.png"
                         alt="clock"
                         className="w-[200px]"
                     />
-                </div>
+                </motion.div>
 
             </div>
         </section>

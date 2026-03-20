@@ -1,50 +1,53 @@
 'use client'
 import React, { useState } from 'react'
 import { format } from 'date-fns'
-import { ChevronDown, ChevronUp, MapPin, Clock } from 'lucide-react'
+import { ChevronDown, ChevronUp, Package, Clock, CreditCard } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
-import DownloadInvoiceButton from '@/app/admin/orders/components/DownloadInvoiceButton'
 
 export default function OrderAccordion({ order }) {
     const [open, setOpen] = useState(false)
 
-    console.log(order)
-
-    // helper to get variant data from populated serviceId
-    const getVariant = (cartItem) =>
-        cartItem.serviceId.variants.find(v => v.name === cartItem.variantName)
-
-    // derive current status from last entry
-    const latestStatus = order.status[order.status.length - 1]?.currentStatus || ''
+    // derive current status
+    const latestStatus = order.status || 'created'
 
     return (
-        <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <div className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
             {/* Header */}
             <button
                 onClick={() => setOpen(!open)}
-                className="w-full flex gap-3 justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition"
+                className="w-full flex gap-4 justify-between items-center p-5 bg-white hover:bg-gray-50 transition-colors"
             >
                 <div className="text-left flex-grow">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-                        <p className="font-medium">Order #{order?.orderId}</p>
-                        <span className={`mt-1 sm:mt-0 inline-block w-fit px-2 py-1 text-sm font-semibold rounded-sm mb-2
-              ${latestStatus === 'Delivered' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 mb-1">
+                        <p className="font-bold text-gray-900 text-lg">Order #{order?.orderId}</p>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold
+              ${latestStatus === 'paid' ? 'bg-green-100 text-green-700' : 
+                latestStatus === 'created' ? 'bg-blue-100 text-blue-700' : 'bg-red-100 text-red-700'}`}
                         >
-                            {latestStatus}
+                            {latestStatus.toUpperCase()}
                         </span>
                     </div>
-                    <p className="text-sm text-gray-500">
-                        {format(new Date(order.createdAt), 'MMM d, yyyy')} •{' '}
-                        Payment Status: <span className={`font-semibold capitalize ${order.paymentStatus === 'paid' ? 'text-green-600' : 'text-red-600'}`}>
-                            {order.paymentStatus}
+                    <div className="flex items-center gap-3 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                            <Clock size={14} />
+                            {format(new Date(order.createdAt), 'MMM d, yyyy')}
                         </span>
-                    </p>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                            <Package size={14} />
+                            Theme: {order.themeName}
+                        </span>
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <p className="font-semibold">₹{order.totalAmount}</p>
-                    {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                <div className="flex items-center gap-4">
+                    <div className="text-right hidden sm:block">
+                        <p className="text-sm text-gray-500 uppercase font-semibold tracking-wider">Total</p>
+                        <p className="font-bold text-gray-900">₹{order.totalAmount}</p>
+                    </div>
+                    <div className={`p-2 rounded-full ${open ? 'bg-gray-100' : 'bg-transparent'} transition-colors`}>
+                        {open ? <ChevronUp size={20} className="text-gray-600" /> : <ChevronDown size={20} className="text-gray-400" />}
+                    </div>
                 </div>
             </button>
 
@@ -57,79 +60,72 @@ export default function OrderAccordion({ order }) {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="overflow-hidden"
+                        className="overflow-hidden bg-gray-50/50"
                     >
-                        <div className="p-4 bg-white space-y-6">
-                            {/* Cart items */}
-                            <div className="space-y-4">
-                                {order?.cart?.map((item, idx) => {
-                                    return (
-                                        <div key={idx} className="flex items-center gap-4">
-                                            <div className="relative w-16 h-16 flex-shrink-0">
-                                                {item?.variantImage &&
-                                                    <Image
-                                                        src={item?.variantImage}
-                                                        alt={`${item?.serviceName} – ${item?.variantName}`}
-                                                        fill
-                                                        className="object-cover rounded"
-                                                    />
-                                                }
-                                            </div>
-                                            <div className="flex-grow">
-                                                <p className="font-medium">
-                                                    {item?.serviceName} – {item?.variantName}
-                                                </p>
-                                                <p className="text-sm text-gray-500">Qty: {item?.quantity}</p>
-                                            </div>
-                                            <p className="font-semibold">
-                                                ₹{(item.price ?? variant.discountedPrice) * item.quantity}
-                                            </p>
+                        <div className="p-6 border-t border-gray-100 space-y-6">
+                            {/* Order Details */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-4">
+                                    <h4 className="flex items-center text-sm font-bold text-gray-400 uppercase tracking-widest">
+                                        Configuration Info
+                                    </h4>
+                                    <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                        <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                                            <span className="text-gray-500">Theme Name</span>
+                                            <span className="font-semibold text-gray-900">{order.themeName}</span>
                                         </div>
-                                    )
-                                })}
-                            </div>
-
-                            {/* Shipping and Status */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Shipping Card */}
-                                <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                                    <h4 className="flex items-center text-lg font-semibold mb-3 text-gray-700">
-                                        <MapPin className="mr-2" size={20} /> Shipping Details
-                                    </h4>
-                                    <p className="text-sm text-gray-600"><span className="font-medium">Name:</span> {order.shippingDetails.fullName}</p>
-                                    <p className="text-sm text-gray-600">
-                                        <span className="font-medium">Address:</span> {order.shippingDetails.address}, {order.shippingDetails.state} – {order.shippingDetails.pin}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        <span className="font-medium">Contact:</span> {order.shippingDetails.contact}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        <span className="font-medium">Email:</span> {order.shippingDetails.email}
-                                    </p>
+                                        <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                                            <span className="text-gray-500">Base Value</span>
+                                            <span className="font-semibold text-gray-900">₹{order.orderValue}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                                            <span className="text-gray-500">Discount</span>
+                                            <span className="font-semibold text-green-600">- ₹{order.discount || 0}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 pt-3">
+                                            <span className="text-gray-900 font-bold">Total Paid</span>
+                                            <span className="text-lg font-bold text-[#00441e]">₹{order.totalAmount}</span>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                {/* Status History Card */}
-                                <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                                    <h4 className="flex items-center text-lg font-semibold mb-3 text-gray-700">
-                                        <Clock className="mr-2" size={20} /> Status History
+                                <div className="space-y-4">
+                                    <h4 className="flex items-center text-sm font-bold text-gray-400 uppercase tracking-widest">
+                                        Payment Status
                                     </h4>
-                                    <ul className="text-sm text-gray-600 space-y-2">
-                                        {order.status.map((s, i) => (
-                                            <li key={i} className="flex items-start">
-                                                <time className="mr-2 whitespace-nowrap">
-                                                    {format(new Date(s.date), 'PPP, p')}
-                                                </time>
-                                                <span className="font-medium">{s.currentStatus}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm space-y-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className={`p-2 rounded-lg ${order.status === 'paid' ? 'bg-green-50 text-green-600' : 'bg-yellow-50 text-yellow-600'}`}>
+                                                <CreditCard size={20} />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm text-gray-500 leading-none">Status</p>
+                                                <p className="font-bold text-gray-900 capitalize">{order.status}</p>
+                                            </div>
+                                        </div>
+                                        {order.razorpayOrderId && (
+                                            <div className="pt-2 border-t border-gray-50">
+                                                <p className="text-xs text-gray-400 uppercase">Razorpay Order ID</p>
+                                                <p className="text-sm font-mono text-gray-600">{order.razorpayOrderId}</p>
+                                            </div>
+                                        )}
+                                        {order.paymentId && (
+                                            <div>
+                                                <p className="text-xs text-gray-400 uppercase">Payment ID</p>
+                                                <p className="text-sm font-mono text-gray-600">{order.paymentId}</p>
+                                            </div>
+                                        )}
+                                        {order.paymentDate && (
+                                            <div>
+                                                <p className="text-xs text-gray-400 uppercase">Payment Date</p>
+                                                <p className="text-sm text-gray-600">
+                                                    {format(new Date(order.paymentDate), 'PPP, p')}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-
-                            {/* Download GST Bill button */}
-                            {order.status[order.status.length - 1].currentStatus === "Delivered" && order.paymentStatus === 'paid' &&
-                                <DownloadInvoiceButton order={order} />
-                            }
                         </div>
                     </motion.div>
                 )}

@@ -1,65 +1,55 @@
+import { connectDB } from "@/lib/mongodb";
+import Invitation from "@/models/invitationModel";
+import { notFound } from "next/navigation";
 import Hero from "./components/hero";
 import EventsSection from "./components/events";
 import GallerySection from "./components/gallery";
 import CountdownSection from "./components/CountdownSection";
+import SmoothScroll from "@/components/website/common/SmoothScroll";
 
-export default function SikhTemplatePage() {
+export default async function SikhTemplatePage({ params }) {
+    const { slug } = await params;
 
-    const events = [
-        {
-            type: "engagement",
+    await connectDB();
+    const invitation = await Invitation.findOne({ slug }).lean();
+
+    if (!invitation) {
+        return notFound();
+    }
+
+    // Map DB events to template format
+    const dbEvents = invitation.events || [];
+    const templateEvents = dbEvents.filter(e => e.enabled).map(e => {
+        let type = e.name.toLowerCase();
+        // Theme specific mapping
+        if (type === 'wedding') type = 'anand_karaj';
+        if (type === 'mehendi') type = 'mehndi';
+
+        return {
+            type,
             active: true,
-            date: "25 Feb 2026",
-            location: "Rambagh, Jaipur",
-            time: "9 PM Onwards",
-        },
-        {
-            type: "haldi",
-            active: true,
-            date: "26 Feb 2026",
-            location: "Rambagh, Jaipur",
-            time: "9 PM Onwards",
-        },
-        {
-            type: "mehandi",
-            active: true,
-            date: "26 Feb 2026",
-            location: "Rambagh, Jaipur",
-            time: "9 PM Onwards",
-        },
-        {
-            type: "Cocktail Party",
-            active: true,
-            date: "26 Feb 2026",
-            location: "Rambagh, Jaipur",
-            time: "9 PM Onwards",
-        },
-        {
-            type: "Anand Karaj",
-            active: true,
-            date: "26 Feb 2026",
-            location: "Rambagh, Jaipur",
-            time: "9 PM Onwards",
-        },
-        {
-            type: "Reception",
-            active: true,
-            date: "26 Feb 2026",
-            location: "Rambagh, Jaipur",
-            time: "9 PM Onwards",
-        },
-    ];
+            date: e.date ? new Date(e.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '',
+            location: e.venue,
+            time: e.time,
+        };
+    });
+
+    const weddingDate = invitation.weddingDetails?.weddingDate
+        ? new Date(invitation.weddingDetails.weddingDate).toISOString().split('T')[0]
+        : "2026-03-26";
 
     return (
-        <div className="w-full max-w-[680px] mx-auto bg-white shadow-lg">
-            <main className="bg-[#fffaf5] min-h-screen flex justify-center">
-                <div className="w-full max-w-5xl">
-                    <Hero />
-                    <EventsSection events={events} />
-                    <GallerySection />
-                    <CountdownSection weddingDate="2026-03-26" />
-                </div>
-            </main>
-        </div>
+        <SmoothScroll>
+            <div className="w-full max-w-[680px] mx-auto bg-white shadow-lg">
+                <main className="bg-[#fffaf5] min-h-screen flex justify-center">
+                    <div className="w-full max-w-5xl">
+                        <Hero invitation={JSON.parse(JSON.stringify(invitation))} />
+                        <EventsSection events={templateEvents} />
+                        <GallerySection invitation={JSON.parse(JSON.stringify(invitation))} />
+                        <CountdownSection weddingDate={weddingDate} />
+                    </div>
+                </main>
+            </div>
+        </SmoothScroll>
     );
 }

@@ -74,14 +74,3 @@ export async function getRefundPolicy() {
     return null;
   }
 }
-
-export async function getCallPlanData() {
-  try {
-    await connectDB();
-    const latest = await CallPlan.find().sort({ updatedAt: -1 });
-    return JSON.parse(JSON.stringify(latest));
-  } catch (error) {
-    console.error("Error fetching call plans:", error);
-    return [];
-  }
-}

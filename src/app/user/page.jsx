@@ -1,12 +1,5 @@
-import React from 'react'
-import WebsiteLayout from '@/components/website/WebsiteLayout';
-import UserMain from './components/UserMain';
+import { redirect } from 'next/navigation';
 
 export default async function page() {
-
-    return (
-        <WebsiteLayout>
-            <UserMain />
-        </WebsiteLayout>
-    )
+    redirect('/user/templates');
 }

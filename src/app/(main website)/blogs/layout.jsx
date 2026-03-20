@@ -1,5 +1,7 @@
 // app/blogs/layout.jsx
 
+import SmoothScroll from "@/components/website/common/SmoothScroll";
+
 export const metadata = {
     title: "Technology Blogs | Web, App, AI & Digital Growth Insights - Brown Devs",
     description:
@@ -57,7 +59,9 @@ export default function Layout({ children }) {
                     }),
                 }}
             />
-            {children}
+            <SmoothScroll>
+                {children}
+            </SmoothScroll>
         </>
     );
 }
