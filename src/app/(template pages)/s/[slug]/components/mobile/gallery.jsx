@@ -17,7 +17,7 @@ export default function GallerySection({ invitation }) {
     ];
 
     return (
-        <section className="relative w-full overflow-visible font-serif">
+        <section className="relative w-full overflow-visible font-serif ">
             {/* Background */}
             <div
                 className="pt-55 pb-95 bg-cover bg-center bg-no-repeat text-center"

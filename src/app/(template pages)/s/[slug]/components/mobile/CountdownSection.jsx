@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import TimeBox from "./TimeBox";
-// import FloatingIcons from "./FloatingIcons";
-
 export default function CountdownSection({ weddingDate }) {
     const [timeLeft, setTimeLeft] = useState(getTimeLeft());
 
@@ -45,10 +43,6 @@ export default function CountdownSection({ weddingDate }) {
 
     return (
         <section className="relative w-full overflow-hidden font-serif">
-            {/* <FloatingIcons sectionId="countdown" count={8} icons={[21, 24, 27, 28]} /> */}
-
-
-
             {/* Background */}
             <div
                 className="pt-55 pb-24 text-center bg-cover bg-center font-script"

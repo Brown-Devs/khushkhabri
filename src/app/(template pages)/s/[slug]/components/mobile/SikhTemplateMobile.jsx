@@ -7,7 +7,7 @@ import CountdownSection from "./CountdownSection";
 
 export default function SikhTemplateMobile({ invitation, events, weddingDate }) {
     return (
-        <div className="w-full max-w-[680px] mx-auto bg-white shadow-lg">
+        <div className="w-full max-w-[680px] mx-auto bg-white shadow-lg overflow-x-hidden">
             <main className="bg-[#fffaf5] min-h-screen flex justify-center">
                 <div className="w-full max-w-5xl">
                     <Hero invitation={invitation} />

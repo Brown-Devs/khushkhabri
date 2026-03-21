@@ -36,7 +36,7 @@ const normalizeType = (type) => {
 
 export default function EventsSection({ events = [] }) {
     return (
-        <section className="relative w-full overflow-visible font-serif">
+        <section className="relative w-full overflow-visible font-serif ">
             {/* Background IMAGE (static feel) */}
             <div
                 className="pt-44 pb-60 px-4 text-center bg-cover bg-center bg-no-repeat"

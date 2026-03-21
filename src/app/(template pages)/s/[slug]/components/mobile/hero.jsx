@@ -1,16 +1,19 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-// import FloatingIcons from "./FloatingIcons";
+import FloatingIcons from "./FloatingIcons";
 
 export default function Hero({ invitation }) {
     const { bride, groom, side } = invitation?.weddingDetails || {};
     const containerRef = useRef(null);
 
+    const { scrollY } = useScroll();
+    const slowY = useTransform(scrollY, [0, 500], [0, 150]);
+
     return (
-        <section ref={containerRef} className="relative w-full overflow-visible font-serif">
+        <section ref={containerRef} className="relative w-full overflow-visible font-serif ">
             {/* Background Image WITHOUT Parallax */}
-            <div className="w-full  h-full overflow-hidden">
+            <div className="w-full h-full overflow-hidden">
                 <img
                     src="/templates/sikh/hero2.png"
                     alt="invitation background"
@@ -19,38 +22,36 @@ export default function Hero({ invitation }) {
             </div>
 
             {/* Overlay Content */}
-            <div className="absolute inset-0 flex flex-col items-center text-center px-4 z-10 ">
+            <div className="absolute inset-0 flex flex-col items-center text-center px-4 z-10">
 
-                <div className="mt-20" />
+                {/* 🔥 ICONS BEHIND TEXT */}
+                <div className="absolute inset-0 z-0">
+                    <FloatingIcons slowY={slowY} />
+                </div>
+                <div className="mt-16" />
 
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-white text-6xl md:text-8xl font-light tracking-wide font-script"
-                >
-                    {bride?.name?.split(' ')[0] || 'Bride'}
-                </motion.h1>
+                <motion.div style={{ y: slowY }} className="flex flex-col items-center relative z-10">
+                    <h1
+                        className="text-white text-6xl md:text-8xl font-light tracking-wide font-script"
+                    >
+                        {bride?.name?.split(' ')[0] || 'Bride'}
+                    </h1>
 
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-white text-xl md:text-3xl mt-2 font-script"
-                >
-                    weds
-                </motion.p>
+                    <p
+                        className="text-white text-xl md:text-3xl mt-2 font-script"
+                    >
+                        weds
+                    </p>
 
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                    className="text-white text-6xl md:text-8xl mt-2 font-script"
-                >
-                    {groom?.name?.split(' ')[0] || 'Groom'}
-                </motion.h2>
+                    <h2
+                        className="text-white text-6xl md:text-8xl mt-2 font-script"
+                    >
+                        {groom?.name?.split(' ')[0] || 'Groom'}
+                    </h2>
 
-                <div className="h-[30%]" />
+                </motion.div>
+
+                <div className="h-[32%]" />
 
                 <img
                     src="/templates/sikh/khanda.png"
@@ -58,10 +59,7 @@ export default function Hero({ invitation }) {
                     className="w-auto h-45 mb-12"
                 />
 
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                <div
                     className="w-full px-6 text-center text-white space-y-5"
                 >
 
@@ -116,11 +114,11 @@ export default function Hero({ invitation }) {
                         )}
                     </p>
 
-                </motion.div>
+                </div>
             </div>
             {/* Temple full width overlap */}
             <motion.div
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 1, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
                 className="absolute bottom-[-170px] left-0 w-full z-50"
