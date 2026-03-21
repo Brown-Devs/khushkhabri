@@ -190,7 +190,7 @@ export default function NavBar() {
                                             </p>
                                         </div>
                                         <Link
-                                            href="/cs"
+                                            href="/user"
                                             onClick={() => setMobileOpen(false)}
                                             className="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"
                                         >
@@ -257,7 +257,7 @@ export default function NavBar() {
 
                                     <div className="w-full space-y-3">
                                         <Link
-                                            href="/cs"
+                                            href="/user"
                                             onClick={() => setProfileOpen(false)}
                                             className="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/25"
                                         >
