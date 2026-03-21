@@ -28,23 +28,23 @@ export default function Hero({ invitation }) {
                 <div className="absolute inset-0 z-0">
                     <FloatingIcons slowY={slowY} />
                 </div>
-                <div className="mt-16" />
+                <div className="mt-20" />
 
                 <motion.div style={{ y: slowY }} className="flex flex-col items-center relative z-10">
                     <h1
-                        className="text-white text-6xl md:text-8xl font-light tracking-wide font-script"
+                        className="text-white text-7xl md:text-8xl font-light tracking-wide font-script"
                     >
                         {bride?.name?.split(' ')[0] || 'Bride'}
                     </h1>
 
                     <p
-                        className="text-white text-xl md:text-3xl mt-2 font-script"
+                        className="text-white text-xl md:text-4xl mt-2 font-script"
                     >
                         weds
                     </p>
 
                     <h2
-                        className="text-white text-6xl md:text-8xl mt-2 font-script"
+                        className="text-white text-7xl md:text-8xl mt-2 font-script"
                     >
                         {groom?.name?.split(' ')[0] || 'Groom'}
                     </h2>

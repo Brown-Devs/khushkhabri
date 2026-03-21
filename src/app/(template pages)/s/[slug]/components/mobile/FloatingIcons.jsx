@@ -1,64 +1,46 @@
 "use client";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
 
-export default function FloatingIcons({ slowY }) {
+const STATIC_ICONS = [
+    // Left side - fixed positions
+    { src: "/icons/30.png", left: "3%", top: "4%" },
+    { src: "/icons/31.png", left: "12%", top: "11%" },
+    { src: "/icons/32.png", left: "5%", top: "20%" },
+    { src: "/icons/30.png", left: "18%", top: "6%" },
+    { src: "/icons/31.png", left: "8%", top: "30%" },
+    { src: "/icons/32.png", left: "20%", top: "18%" },
 
-    const baseIcons = ["/icons/30.png", "/icons/31.png", "/icons/32.png"];
+    // Right side - fixed positions (mirrored feel)
+    { src: "/icons/31.png", left: "94%", top: "4%" },
+    { src: "/icons/32.png", left: "85%", top: "11%" },
+    { src: "/icons/30.png", left: "92%", top: "20%" },
+    { src: "/icons/31.png", left: "78%", top: "6%" },
+    { src: "/icons/32.png", left: "89%", top: "30%" },
+    { src: "/icons/30.png", left: "76%", top: "18%" },
+];
 
-    const icons = useMemo(() => {
-        const generatedIcons = [];
-        const countPerSide = 10;
-
-        // Left side (more spread + organic feel)
-        for (let i = 0; i < countPerSide; i++) {
-            generatedIcons.push({
-                src: baseIcons[i % 3],
-
-                // 🔥 wider + uneven spread
-                left: `${Math.random() * 25 + 2}%`, // 2% → 27%
-
-                // ✅ SAME Y RANGE (unchanged)
-                top: `${Math.random() * 25 + 2}%`,
-            });
-        }
-
-        // Right side (mirror spread)
-        for (let i = 0; i < countPerSide; i++) {
-            generatedIcons.push({
-                src: baseIcons[i % 3],
-
-                // 🔥 wider + uneven spread
-                left: `${Math.random() * 25 + 73}%`, // 73% → 98%
-
-                // ✅ SAME Y RANGE (unchanged)
-                top: `${Math.random() * 25 + 2}%`,
-            });
-        }
-
-        return generatedIcons;
-    }, []);
-
+export default function FloatingIcons() {
     return (
         <>
-            {icons.map((icon, i) => (
+            {STATIC_ICONS.map((icon, i) => (
                 <motion.img
                     key={i}
                     src={icon.src}
                     style={{
+                        position: "absolute",
                         left: icon.left,
                         top: icon.top,
-                        y: slowY,
                     }}
-                    className="absolute w-14 md:w-16 opacity-80 z-0 pointer-events-none"
+                    className="w-12 md:w-14 opacity-80 pointer-events-none"
                     animate={{
-                        y: [0, -15, 0],
-                        rotate: [0, 6, -6, 0],
+                        y: [0, -12, 0],
+                        rotate: [0, 4, -4, 0],
                     }}
                     transition={{
-                        duration: 5 + (i % 5),
+                        duration: 3.5 + (i % 4) * 0.6,
                         repeat: Infinity,
                         ease: "easeInOut",
+                        delay: (i % 5) * 0.4,
                     }}
                 />
             ))}
