@@ -89,7 +89,7 @@ export default function TemplatesSection() {
                     if (verifyData.success) {
                         toast.success("Theme purchased successfully! 🎉", { id: toastId });
                         setBuyingTheme(null);
-                        router.push("/cs");
+                        router.push("/user");
                     } else {
                         toast.error("Payment verification failed", { id: toastId });
                         setBuyingTheme(null);
