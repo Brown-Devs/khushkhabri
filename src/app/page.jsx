@@ -26,7 +26,7 @@ export default async function Home() {
         {/* FOREGROUND CONTENT */}
         <div className="relative z-10">
           {/* First Fold (Navbar + Hero) */}
-          <div className="flex flex-col min-h-[99dvh] sm:min-h-[100vh]">
+          <div className="flex flex-col min-h-[100dvh] sm:min-h-[100vh]">
             <NavBar />
             <HeroSection3 />
           </div>

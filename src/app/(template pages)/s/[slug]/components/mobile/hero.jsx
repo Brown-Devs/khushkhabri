@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import FloatingIcons from "./FloatingIcons";
+// import FloatingIcons from "./FloatingIcons";
 
 export default function Hero({ invitation }) {
     const { bride, groom, side } = invitation?.weddingDetails || {};
@@ -12,7 +12,7 @@ export default function Hero({ invitation }) {
             {/* Background Image WITHOUT Parallax */}
             <div className="w-full  h-full overflow-hidden">
                 <img
-                    src="/templates/sikh/hero.png"
+                    src="/templates/sikh/hero2.png"
                     alt="invitation background"
                     className="w-full h-full object-cover object-top scale-100 md:scale-110"
                 />
@@ -21,7 +21,7 @@ export default function Hero({ invitation }) {
             {/* Overlay Content */}
             <div className="absolute inset-0 flex flex-col items-center text-center px-4 z-10 ">
 
-                <div className="mt-10" />
+                <div className="mt-20" />
 
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
@@ -50,7 +50,7 @@ export default function Hero({ invitation }) {
                     {groom?.name?.split(' ')[0] || 'Groom'}
                 </motion.h2>
 
-                <div className="h-[25%]" />
+                <div className="h-[30%]" />
 
                 <img
                     src="/templates/sikh/khanda.png"

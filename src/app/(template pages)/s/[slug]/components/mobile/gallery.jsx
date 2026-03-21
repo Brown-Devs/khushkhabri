@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import FloatingIcons from "./FloatingIcons";
+// import FloatingIcons from "./FloatingIcons";
 
 export default function GallerySection({ invitation }) {
     const { bride, groom } = invitation?.weddingDetails || {};
@@ -12,15 +12,17 @@ export default function GallerySection({ invitation }) {
         "/templates/sikh/couple1.jpeg",
         "/templates/sikh/couple2.jpeg",
         "/templates/sikh/couple3.jpeg",
+        "/templates/sikh/couple3.jpeg",
+        "/templates/sikh/couple3.jpeg",
     ];
 
     return (
         <section className="relative w-full overflow-visible font-serif">
             {/* Background */}
             <div
-                className="pt-55 pb-24 bg-cover bg-center bg-no-repeat text-center"
+                className="pt-55 pb-95 bg-cover bg-center bg-no-repeat text-center"
                 style={{
-                    backgroundImage: "url('/bg/darkBlue.png')",
+                    backgroundImage: "url('/bg/darkBlue4.png')",
                 }}
             >
 
@@ -146,10 +148,10 @@ export default function GallerySection({ invitation }) {
                 initial={{ opacity: 0, x: 50, rotate: 20 }}
                 whileInView={{ opacity: 1, x: 0, rotate: 0 }}
                 transition={{ duration: 0.8 }}
-                className="absolute bottom-[-170px] left-1/2 -translate-x-1/2 z-10 w-full"
+                className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 z-10 w-full"
             >
                 <img
-                    src="/templates/sikh/scooter.png"
+                    src="/templates/sikh/scooter2.png"
                     alt="sticker"
                     className="w-full"
                 />
