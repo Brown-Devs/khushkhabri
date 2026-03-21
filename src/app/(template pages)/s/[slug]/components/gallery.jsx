@@ -15,26 +15,10 @@ export default function GallerySection({ invitation }) {
     ];
 
     return (
-        <section className="relative w-full overflow-hidden">
-            <FloatingIcons sectionId="gallery" count={12} icons={[8, 9, 10, 17, 18, 19, 20]} />
-
-            {/* 🔥 Sticker */}
-            <motion.div 
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1 }}
-                className="absolute -top-45 left-1/2 -translate-x-1/2 z-10 w-full"
-            >
-                <img
-                    src="/templates/sikh/routeSticker.png"
-                    alt="route"
-                    className=" w-full"
-                />
-            </motion.div>
-
+        <section className="relative w-full overflow-visible font-serif">
             {/* Background */}
             <div
-                className="pt-28 pb-24 bg-cover bg-center bg-no-repeat text-center"
+                className="pt-55 pb-24 bg-cover bg-center bg-no-repeat text-center"
                 style={{
                     backgroundImage: "url('/bg/darkBlue.png')",
                 }}
@@ -46,11 +30,11 @@ export default function GallerySection({ invitation }) {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <p className="text-white text-sm italic">
+                    <p className="text-white text-2xl italic">
                         Meet the
                     </p>
 
-                    <h2 className="text-white text-3xl font-script mt-1">
+                    <h2 className="text-white text-6xl font-script mt-5">
                         Bride & Groom
                     </h2>
                 </motion.div>
@@ -68,7 +52,7 @@ export default function GallerySection({ invitation }) {
                                     <img
                                         src={img}
                                         alt="couple"
-                                        className="w-[260px] h-[460px] object-cover rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                                        className="w-[300px] h-[520px] object-cover rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
                                     />
                                 </div>
                             </SwiperSlide>
@@ -77,24 +61,24 @@ export default function GallerySection({ invitation }) {
                 </div>
 
                 {/* ===== Pre Wedding Section ===== */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     className="mt-20 px-6"
                 >
 
-                    <p className="text-white text-sm italic">
+                    <p className="text-white text-2xl italic">
                         Watch our
                     </p>
 
-                    <h2 className="text-white text-3xl font-script mt-1">
+                    <h2 className="text-white text-6xl font-script mt-5">
                         Pre Wedding
                     </h2>
 
                     {/* Video Card */}
                     <div className="mt-8 flex justify-center">
-                        <div className="w-[260px] h-[460px] rounded-[28px] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+                        <div className="w-[300px] h-[520px] rounded-[28px] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
 
                             {/* Thumbnail */}
                             <img
@@ -115,7 +99,7 @@ export default function GallerySection({ invitation }) {
                 </motion.div>
 
                 {/* ===== Final Blessing Section ===== */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.5 }}
@@ -129,34 +113,47 @@ export default function GallerySection({ invitation }) {
                         transition={{ type: "spring", stiffness: 100 }}
                         src="/templates/sikh/onkar.png"
                         alt="symbol"
-                        className="w-16 mx-auto mb-6"
+                        className="w-46 mx-auto mb-6"
                     />
 
-                    <p className="text-white text-sm italic">
+                    <p className="text-white text-2xl italic">
                         With the blessings of
                     </p>
 
-                    <p className="text-white text-lg mt-1">
+                    <p className="text-white text-2xl mt-1">
                         Waheguru Ji
                     </p>
 
-                    <h2 className="text-white text-4xl font-script mt-6 leading-tight">
+                    <h2 className="text-white text-6xl font-script mt-6 leading-tight">
                         {bride?.name?.split(' ')[0] || 'Bride'}
                     </h2>
 
-                    <p className="text-white text-lg">&</p>
+                    <p className="text-white text-2xl">&</p>
 
-                    <h2 className="text-white text-4xl font-script leading-tight">
+                    <h2 className="text-white text-6xl font-script leading-tight">
                         {groom?.name?.split(' ')[0] || 'Groom'}
                     </h2>
 
-                    <p className="text-white text-sm mt-6 italic">
+                    <p className="text-white text-2xl mt-6 italic">
                         begin their forever...
                     </p>
 
                 </motion.div>
 
             </div>
+            {/* Sticker */}
+            <motion.div
+                initial={{ opacity: 0, x: 50, rotate: 20 }}
+                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                transition={{ duration: 0.8 }}
+                className="absolute bottom-[-170px] left-1/2 -translate-x-1/2 z-10 w-full"
+            >
+                <img
+                    src="/templates/sikh/scooter.png"
+                    alt="sticker"
+                    className="w-full"
+                />
+            </motion.div>
         </section>
     );
 }

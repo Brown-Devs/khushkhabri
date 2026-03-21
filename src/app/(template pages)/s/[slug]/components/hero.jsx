@@ -8,9 +8,7 @@ export default function Hero({ invitation }) {
     const containerRef = useRef(null);
 
     return (
-        <section ref={containerRef} className="relative w-full overflow-hidden font-serif">
-            <FloatingIcons sectionId="hero" count={12} icons={[1, 2, 3, 4, 11, 12, 13, 22, 23, 29]} />
-
+        <section ref={containerRef} className="relative w-full overflow-visible font-serif">
             {/* Background Image WITHOUT Parallax */}
             <div className="w-full  h-full overflow-hidden">
                 <img
@@ -120,6 +118,19 @@ export default function Hero({ invitation }) {
 
                 </motion.div>
             </div>
+            {/* Temple full width overlap */}
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="absolute bottom-[-170px] left-0 w-full z-50"
+            >
+                <img
+                    src="/templates/sikh/temple.png"
+                    alt="temple"
+                    className="w-full object-contain"
+                />
+            </motion.div>
         </section>
     );
 }

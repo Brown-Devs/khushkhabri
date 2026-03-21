@@ -44,32 +44,20 @@ export default function CountdownSection({ weddingDate }) {
     }, []);
 
     return (
-        <section className="relative w-full overflow-hidden">
+        <section className="relative w-full overflow-hidden font-serif">
             <FloatingIcons sectionId="countdown" count={8} icons={[21, 24, 27, 28]} />
 
-            {/* Sticker */}
-            <motion.div 
-                initial={{ opacity: 0, x: 50, rotate: 20 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                transition={{ duration: 0.8 }}
-                className="absolute -top-24 left-1/2 -translate-x-1/2 z-10"
-            >
-                <img
-                    src="/templates/sikh/scooter.png"
-                    alt="sticker"
-                    className="w-[260px]"
-                />
-            </motion.div>
+
 
             {/* Background */}
             <div
-                className="pt-28 pb-24 text-center bg-cover bg-center"
+                className="pt-55 pb-24 text-center bg-cover bg-center font-script"
                 style={{
                     backgroundImage: "url('/bg/blue-texture.png')",
                 }}
             >
 
-                <p className="text-[#2c2c2c] italic">
+                <p className="text-[#2c2c2c] italic text-4xl">
                     and the Countdown begins...
                 </p>
 
@@ -84,16 +72,16 @@ export default function CountdownSection({ weddingDate }) {
                 </div>
 
                 {/* Clock */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ type: "spring", stiffness: 100 }}
-                    className="mt-10 flex justify-center"
+                    className="mt-10 flex justify-center mb-10"
                 >
                     <img
                         src="/templates/sikh/clock.png"
                         alt="clock"
-                        className="w-[200px]"
+                        className="w-[250px]"
                     />
                 </motion.div>
 

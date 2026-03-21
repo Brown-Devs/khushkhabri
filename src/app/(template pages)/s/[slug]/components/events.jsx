@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import FloatingIcons from "./FloatingIcons";
 
 const eventMeta = {
     engagement: {
@@ -37,38 +36,21 @@ const normalizeType = (type) => {
 
 export default function EventsSection({ events = [] }) {
     return (
-        <section className="relative w-full overflow-hidden">
-            <FloatingIcons sectionId="events" count={15} icons={[1, 2, 5, 6, 7, 14, 15, 16, 25, 26]} />
-
-            {/* Temple full width overlap */}
-            <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                className="absolute -top-[70px] left-0 w-full z-10"
-            >
-                <img
-                    src="/templates/sikh/temple.png"
-                    alt="temple"
-                    className="w-full object-contain"
-                />
-            </motion.div>
-
+        <section className="relative w-full overflow-visible font-serif">
             {/* Background IMAGE (static feel) */}
             <div
-                className="pt-32 pb-60 px-4 text-center bg-cover bg-center bg-no-repeat"
+                className="pt-44 pb-60 px-4 text-center bg-cover bg-center bg-no-repeat"
                 style={{
                     backgroundImage: "url('/bg/blue-texture.png')",
                     backgroundAttachment: "fixed",
                 }}
             >
-
                 {/* Heading */}
-                <p className="text-white text-sm italic">
+                <p className="text-white text-2xl italic">
                     You are invited to the following
                 </p>
 
-                <h2 className="text-white text-3xl mt-2 font-script">
+                <h2 className="text-white text-6xl mt-8 font-script">
                     Events
                 </h2>
 
@@ -83,8 +65,8 @@ export default function EventsSection({ events = [] }) {
                         if (!meta) return null;
 
                         return (
-                            <motion.div 
-                                key={index} 
+                            <motion.div
+                                key={index}
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -102,20 +84,20 @@ export default function EventsSection({ events = [] }) {
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="text-white text-3xl mt-6 font-script">
+                                <h3 className="text-white text-6xl mt-6 font-script">
                                     {meta.title}
                                 </h3>
 
                                 {/* Details */}
-                                <p className="text-white text-sm mt-3 font-medium">
+                                <p className="text-white text-xl mt-3 font-medium">
                                     {event.date}
                                 </p>
 
-                                <p className="text-white text-sm mt-1">
+                                <p className="text-white text-xl mt-1">
                                     at {event.location}
                                 </p>
 
-                                <p className="text-white text-sm mt-1 mb-2">
+                                <p className="text-white text-xl mt-1 mb-2">
                                     {event.time}
                                 </p>
 
@@ -124,6 +106,19 @@ export default function EventsSection({ events = [] }) {
                     })}
                 </div>
             </div>
+            {/* 🔥 Sticker */}
+            <motion.div
+                initial={{ y: 50 }}
+                whileInView={{ y: 0 }}
+                transition={{ duration: 1 }}
+                className="absolute bottom-[-170px] left-1/2 -translate-x-1/2 z-10 w-full"
+            >
+                <img
+                    src="/templates/sikh/routeSticker.png"
+                    alt="route"
+                    className="w-full"
+                />
+            </motion.div>
         </section>
     );
 }
