@@ -16,7 +16,7 @@ export default function BigNav({ onLoginClick, session, status }) {
     ]
 
     if (status === 'authenticated') {
-        menu.push({ label: 'My Profile', href: '/cs' });
+        menu.push({ label: 'My Profile', href: '/user' });
     } else {
         menu.push({ label: 'Login', action: onLoginClick });
     }
@@ -31,43 +31,43 @@ export default function BigNav({ onLoginClick, session, status }) {
                         ? pathname === '/'
                         : pathname.startsWith(link.href)
 
-                    if (link.action) {
-                        return (
-                             <button
-                                key={idx}
-                                onClick={link.action}
-                                className={`relative text-sm font-medium group transition text-gray-700 hover:text-black`}
-                            >
-                                {link.label}
-                                <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-transparent">
-                                    <div className="h-full transition-all duration-300 origin-left w-0 group-hover:w-full bg-black" />
-                                </div>
-                            </button>
-                        )
-                    }
-
+                if (link.action) {
                     return (
-                        <Link
+                        <button
                             key={idx}
-                            href={link.href}
-                            className={`relative text-sm font-medium group transition
-                            ${isActive ? 'text-black' : 'text-gray-700 hover:text-black'}
-                            `}
+                            onClick={link.action}
+                            className={`relative text-sm font-medium group transition text-gray-700 hover:text-black`}
                         >
                             {link.label}
-
                             <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-transparent">
-                                <div
-                                    className={`h-full transition-all duration-300 origin-left
-                                    ${isActive
-                                            ? 'w-full bg-black'
-                                            : 'w-0 group-hover:w-full bg-black'
-                                        }`}
-                                />
+                                <div className="h-full transition-all duration-300 origin-left w-0 group-hover:w-full bg-black" />
                             </div>
-
-                        </Link>
+                        </button>
                     )
+                }
+
+                return (
+                    <Link
+                        key={idx}
+                        href={link.href}
+                        className={`relative text-sm font-medium group transition
+                            ${isActive ? 'text-black' : 'text-gray-700 hover:text-black'}
+                            `}
+                    >
+                        {link.label}
+
+                        <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-transparent">
+                            <div
+                                className={`h-full transition-all duration-300 origin-left
+                                    ${isActive
+                                        ? 'w-full bg-black'
+                                        : 'w-0 group-hover:w-full bg-black'
+                                    }`}
+                            />
+                        </div>
+
+                    </Link>
+                )
             })}
 
         </div>

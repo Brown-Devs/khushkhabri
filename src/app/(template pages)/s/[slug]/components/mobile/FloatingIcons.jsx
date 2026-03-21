@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const STATIC_ICONS = [
     // Left side - fixed positions
-    { src: "/icons/30.png", left: "3%", top: "4%" },
+    { src: "/icons/30.png", left: "3%", top: "1%" },
     { src: "/icons/31.png", left: "12%", top: "11%" },
     { src: "/icons/32.png", left: "5%", top: "20%" },
     { src: "/icons/30.png", left: "18%", top: "6%" },
