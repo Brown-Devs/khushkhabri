@@ -69,11 +69,11 @@ export default function InviteForm({ order }) {
             });
 
             if (res.ok) {
-                toast.success("New customization created! Edit it below.", { id: toastId });
+                toast.success("New invitation created! Edit it below.", { id: toastId });
                 router.refresh();
             } else {
                 const data = await res.json();
-                toast.error(data.error || "Failed to create customization", { id: toastId });
+                toast.error(data.error || "Failed to create invitation", { id: toastId });
             }
         } catch (err) {
             toast.error("Something went wrong", { id: toastId });
@@ -212,7 +212,7 @@ export default function InviteForm({ order }) {
                                 className="px-12 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-md transform active:scale-[0.98] flex items-center gap-2"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg>
-                                Create Customization
+                                Create Invitation
                             </button>
                         )}
                     </div>

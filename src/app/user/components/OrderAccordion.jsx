@@ -74,16 +74,16 @@ export default function OrderAccordion({ order }) {
                                             <span className="text-gray-500">Theme Name</span>
                                             <span className="font-semibold text-gray-900">{order.themeName}</span>
                                         </div>
-                                        <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                                        {/* <div className="flex justify-between items-center py-2 border-b border-gray-50">
                                             <span className="text-gray-500">Base Value</span>
                                             <span className="font-semibold text-gray-900">₹{order.orderValue}</span>
                                         </div>
                                         <div className="flex justify-between items-center py-2 border-b border-gray-50">
                                             <span className="text-gray-500">Discount</span>
                                             <span className="font-semibold text-green-600">- ₹{order.discount || 0}</span>
-                                        </div>
+                                        </div> */}
                                         <div className="flex justify-between items-center py-2 pt-3">
-                                            <span className="text-gray-900 font-bold">Total Paid</span>
+                                            <span className="text-gray-900 font-bold">Total Amount</span>
                                             <span className="text-lg font-bold text-[#00441e]">₹{order.totalAmount}</span>
                                         </div>
                                     </div>

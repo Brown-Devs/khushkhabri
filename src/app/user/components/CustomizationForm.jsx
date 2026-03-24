@@ -40,7 +40,7 @@ export default function CustomizationForm({ invitation, orderId }) {
 
     const handleSave = async () => {
         setLoading(true);
-        const toastId = toast.loading("Saving customization...");
+        const toastId = toast.loading("Saving invitation...");
 
         try {
             const res = await fetch("/api/invitation/save", {
@@ -57,13 +57,13 @@ export default function CustomizationForm({ invitation, orderId }) {
 
             const data = await res.json();
             if (res.ok) {
-                toast.success("Customization saved! 🎉", { id: toastId });
+                toast.success("Invitation saved! 🎉", { id: toastId });
                 router.refresh();
             } else {
-                toast.error(data.error || "Failed to save customization", { id: toastId });
+                toast.error(data.error || "Failed to save invitation", { id: toastId });
             }
         } catch (err) {
-            console.error("Save customization error:", err);
+            console.error("Save invitation error:", err);
             toast.error("Something went wrong", { id: toastId });
         } finally {
             setLoading(false);
@@ -204,7 +204,7 @@ export default function CustomizationForm({ invitation, orderId }) {
                     className="flex items-center gap-3 px-16 py-5 bg-[#8b2c3c] text-white rounded-3xl font-bold hover:bg-[#5a1e2b] transition-all shadow-xl shadow-[#8b2c3c]/20 transform active:scale-[0.98] disabled:opacity-50"
                 >
                     <Save size={24} />
-                    <span>{loading ? 'Saving...' : 'Save Customization'}</span>
+                    <span>{loading ? 'Saving...' : 'Save Invitation'}</span>
                 </button>
             </div>
         </div>

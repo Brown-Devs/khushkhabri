@@ -1,49 +1,67 @@
 "use client";
-import { motion } from "framer-motion";
-
-const STATIC_ICONS = [
-    // Left side - fixed positions
-    { src: "/icons/30.png", left: "3%", top: "1%" },
-    { src: "/icons/31.png", left: "12%", top: "11%" },
-    { src: "/icons/32.png", left: "5%", top: "20%" },
-    { src: "/icons/30.png", left: "18%", top: "6%" },
-    { src: "/icons/31.png", left: "8%", top: "30%" },
-    { src: "/icons/32.png", left: "20%", top: "18%" },
-
-    // Right side - fixed positions (mirrored feel)
-    { src: "/icons/31.png", left: "94%", top: "4%" },
-    { src: "/icons/32.png", left: "85%", top: "11%" },
-    { src: "/icons/30.png", left: "92%", top: "20%" },
-    { src: "/icons/31.png", left: "78%", top: "6%" },
-    { src: "/icons/32.png", left: "89%", top: "30%" },
-    { src: "/icons/30.png", left: "76%", top: "18%" },
-];
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useMemo } from "react";
 
 export default function FloatingIcons() {
+    const { scrollY } = useScroll();
+
+    const smoothScroll = useSpring(scrollY, {
+        stiffness: 50,
+        damping: 20,
+    });
+
+    const icons = useMemo(() => {
+        return Array.from({ length: 24 }).map(() => ({
+            left: Math.random() * 100,
+            top: Math.random() * 100,
+            size: (25 + Math.random() * 25) * 1.5, // 🔥 1.5x size
+            depth: 0.3 + Math.random() * 0.7,
+            delay: Math.random() * 0.6,
+            rotate: -20 + Math.random() * 40, // 🔥 random tilt (-20 to +20)
+        }));
+    }, []);
+
     return (
         <>
-            {STATIC_ICONS.map((icon, i) => (
-                <motion.img
-                    key={i}
-                    src={icon.src}
-                    style={{
-                        position: "absolute",
-                        left: icon.left,
-                        top: icon.top,
-                    }}
-                    className="w-12 md:w-14 opacity-80 pointer-events-none"
-                    animate={{
-                        y: [0, -12, 0],
-                        rotate: [0, 4, -4, 0],
-                    }}
-                    transition={{
-                        duration: 3.5 + (i % 4) * 0.6,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: (i % 5) * 0.4,
-                    }}
-                />
-            ))}
+            {icons.map((icon, i) => {
+
+                const y = useTransform(
+                    smoothScroll,
+                    [0, 500],
+                    [0, 120 * icon.depth]
+                );
+
+                return (
+                    <motion.img
+                        key={i}
+                        src="/icons/34.png"
+                        initial={{
+                            y: 80,
+                            opacity: 0,
+                            rotate: icon.rotate - 10,
+                        }}
+                        animate={{
+                            y: 0,
+                            opacity: 0.7,
+                            rotate: icon.rotate,
+                        }}
+                        transition={{
+                            duration: 0.9,
+                            delay: icon.delay,
+                            ease: "easeOut",
+                        }}
+                        style={{
+                            position: "absolute",
+                            left: `${icon.left}%`,
+                            top: `${icon.top}%`,
+                            width: `${icon.size}px`,
+                            y,
+                            rotate: icon.rotate, // 🔥 static tilt maintain
+                        }}
+                        className="pointer-events-none"
+                    />
+                );
+            })}
         </>
     );
 }

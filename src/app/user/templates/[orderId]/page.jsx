@@ -70,9 +70,9 @@ export default async function TemplatePage({ params, searchParams }) {
 
     return (
         <InnerDashboardLayout>
-            <div className="max-w-4xl mx-auto space-y-10 pb-20">
+            <div className="max-w-4xl mx-auto space-y-6 pb-20">
                 {/* Navigation Header */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-3">
                     <Link href="/user/templates" className="group flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors">
                         <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
                         <span className="font-medium">Back to Templates</span>
@@ -147,14 +147,14 @@ export default async function TemplatePage({ params, searchParams }) {
                         
                         {allInvites.length === 0 && (
                             <div className="bg-gray-50 border-2 border-dashed border-gray-100 rounded-[40px] p-12 text-center">
-                                <p className="text-gray-400 font-medium">No customizations yet. Click "Create Customization" above to start.</p>
+                                <p className="text-gray-400 font-medium">No Invitations yet. Click "Create Invitation" above to start.</p>
                             </div>
                         )}
 
                         {inviteId && existingInvite && (
                             <div className="pt-10 border-t border-gray-100">
                                 <div className="mb-8">
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Edit Customization</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Edit Invitation</h3>
                                     <p className="text-gray-500">Update event details and side selection for this invitation.</p>
                                 </div>
                                 <CustomizationForm invitation={existingInvite} orderId={order._id} />
