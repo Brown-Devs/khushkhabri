@@ -1,18 +1,61 @@
+"use client";
+import { motion } from "framer-motion";
+
 export default function HeroBottom({ invitation }) {
     const { bride, groom, side } = invitation?.weddingDetails || {};
 
-    return (
-        <section className="absolute bottom-50 left-0 w-full pb-10 text-center text-white px-6">
+    // 🔥 container stagger
+    const container = {
+        hidden: {},
+        show: {
+            transition: {
+                staggerChildren: 0.25,
+                delayChildren: 0.3,
+            },
+        },
+    };
 
-            <img
+    // 💎 smooth cinematic animation
+    const item = {
+        hidden: {
+            opacity: 0,
+            y: 40,
+            filter: "blur(6px)",
+        },
+        show: {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            transition: {
+                duration: 1.2,
+                ease: [0.22, 1, 0.36, 1], // premium easing
+            },
+        },
+    };
+
+    return (
+        <section className="absolute bottom-[13%] left-0 w-full pb-10 text-center text-white px-6">
+
+            {/* 🔥 khanda animation */}
+            <motion.img
                 src="/templates/sikh/khanda.png"
                 alt="khanda"
                 className="w-auto h-36 mx-auto mb-10"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                viewport={{ once: true }}
             />
 
-            <div className="space-y-7">
+            <motion.div
+                variants={container}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-100px" }}
+                className="space-y-7"
+            >
 
-                <p className="text-xl leading-relaxed">
+                <motion.p variants={item} className="text-xl leading-relaxed">
                     {side === 'groom' ? (
                         <>
                             Sardar {groom?.father} <br />
@@ -24,32 +67,34 @@ export default function HeroBottom({ invitation }) {
                             Sardani {bride?.mother}
                         </>
                     )}
-                </p>
+                </motion.p>
 
-                <h2 className="text-5xl font-script italic tracking-wide">
+                <motion.h2 variants={item} className="text-5xl font-script italic tracking-wide">
                     Invites you
-                </h2>
+                </motion.h2>
 
-                <p className="text-lg leading-relaxed">
+                <motion.p variants={item} className="text-lg leading-relaxed">
                     to join the wedding celebration of their{" "}
                     {side === 'groom' ? 'son' : 'daughter'}
-                </p>
+                </motion.p>
 
-                <h3 className="text-5xl font-script tracking-wide">
+                <motion.h3 variants={item} className="text-5xl font-script tracking-wide">
                     {side === 'groom' ? groom?.name : bride?.name}
-                </h3>
+                </motion.h3>
 
-                <p className="text-lg">with</p>
+                <motion.p variants={item} className="text-lg">
+                    with
+                </motion.p>
 
-                <h3 className="text-5xl font-script tracking-wide">
+                <motion.h3 variants={item} className="text-5xl font-script tracking-wide">
                     {side === 'groom' ? bride?.name : groom?.name}
-                </h3>
-                
-                <p className="text-lg mt-4">
-                    {side === 'groom' ? 'daughter of' : 'son of'}
-                </p>
+                </motion.h3>
 
-                <p className="text-2xl leading-relaxed">
+                <motion.p variants={item} className="text-lg mt-4">
+                    {side === 'groom' ? 'daughter of' : 'son of'}
+                </motion.p>
+
+                <motion.p variants={item} className="text-2xl leading-relaxed">
                     {side === 'groom' ? (
                         <>
                             Sardar {bride?.father || 'Father'} &<br />
@@ -61,8 +106,9 @@ export default function HeroBottom({ invitation }) {
                             Sardami {groom?.mother || 'Mother'}
                         </>
                     )}
-                </p>
-            </div>
+                </motion.p>
+
+            </motion.div>
         </section>
     );
 }

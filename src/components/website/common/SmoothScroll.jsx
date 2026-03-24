@@ -41,19 +41,19 @@ import Lenis from "lenis";
 export default function SmoothScroll({ children }) {
     useEffect(() => {
 
-        const isMobile = window.innerWidth <= 768;
-
         const lenis = new Lenis({
             smoothWheel: true,
             smoothTouch: true,
 
-            // 💎 cinematic smoothness
-           touchMultiplier: 0.3,
-duration: 1.8,
-lerp: 0.05,
-            wheelMultiplier: 0.7,
+            // 💎 same feel everywhere
+            duration: 2.4,
+            lerp: 0.045,
 
-            // ❌ important
+            // 🎯 CONTROL SPEED (main part)
+            wheelMultiplier: 0.6,
+            touchMultiplier: 0.45,
+
+            // ❌ avoid weird jumps
             syncTouch: false,
         });
 

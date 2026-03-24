@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+
 import "swiper/css";
-// import FloatingIcons from "./FloatingIcons";
+import "swiper/css/pagination";
 
 export default function GallerySection({ invitation }) {
     const { bride, groom } = invitation?.weddingDetails || {};
@@ -12,13 +14,13 @@ export default function GallerySection({ invitation }) {
         "/templates/sikh/couple1.jpeg",
         "/templates/sikh/couple2.jpeg",
         "/templates/sikh/couple3.jpeg",
-        "/templates/sikh/couple3.jpeg",
-        "/templates/sikh/couple3.jpeg",
+        "/templates/sikh/couple2.jpeg",
+        "/templates/sikh/couple1.jpeg",
     ];
 
     return (
-        <section className="relative w-full overflow-visible font-serif ">
-            {/* Background */}
+        <section className="relative w-full overflow-visible font-serif">
+
             <div
                 className="pt-55 pb-95 bg-cover bg-center bg-no-repeat text-center"
                 style={{
@@ -26,11 +28,11 @@ export default function GallerySection({ invitation }) {
                 }}
             >
 
-                {/* ===== Bride & Groom ===== */}
+                {/* ===== Heading ===== */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 1 }}
                 >
                     <p className="text-white text-2xl italic">
                         Meet the
@@ -41,12 +43,25 @@ export default function GallerySection({ invitation }) {
                     </h2>
                 </motion.div>
 
-                <div className="mt-10">
+                {/* ===== SLIDER ===== */}
+                <div className="mt-10 px-0">
+
                     <Swiper
+                        modules={[Autoplay, Pagination]}
                         spaceBetween={20}
-                        slidesPerView={1.3}
+                        slidesPerView={1.2}
                         centeredSlides={true}
+                        loop={true} // 🔥 infinite loop
                         grabCursor={true}
+
+                        autoplay={{
+                            delay: 2500, // auto move
+                            disableOnInteraction: false,
+                        }}
+
+                        pagination={{
+                            clickable: true,
+                        }}
                     >
                         {images.map((img, index) => (
                             <SwiperSlide key={index}>
@@ -54,22 +69,40 @@ export default function GallerySection({ invitation }) {
                                     <img
                                         src={img}
                                         alt="couple"
-                                        className="w-[300px] h-[520px] object-cover rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                                        className="w-[300px] h-[520px] object-cover rounded-[18px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
                                     />
                                 </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
+
+                    {/* 🔥 custom dots styling */}
+                    <style jsx global>{`
+                        .swiper-pagination {
+                            margin-top: 20px;
+                            position: relative;
+                        }
+
+                        .swiper-pagination-bullet {
+                            background: rgba(255,255,255,0.4);
+                            opacity: 1;
+                        }
+
+                        .swiper-pagination-bullet-active {
+                            background: white;
+                            transform: scale(1.2);
+                        }
+                    `}</style>
+
                 </div>
 
-                {/* ===== Pre Wedding Section ===== */}
+                {/* ===== Pre Wedding ===== */}
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }}
+                    initial={{ opacity: 0, y: 60 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 1 }}
                     className="mt-20 px-6"
                 >
-
                     <p className="text-white text-2xl italic">
                         Watch our
                     </p>
@@ -78,18 +111,15 @@ export default function GallerySection({ invitation }) {
                         Pre Wedding
                     </h2>
 
-                    {/* Video Card */}
                     <div className="mt-8 flex justify-center">
-                        <div className="w-[300px] h-[520px] rounded-[28px] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+                        <div className="w-[300px] h-[520px] rounded-[18px] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
 
-                            {/* Thumbnail */}
                             <img
                                 src="/templates/sikh/couple2.jpeg"
                                 alt="pre wedding"
                                 className="w-full h-full object-cover"
                             />
 
-                            {/* Play Button */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="w-14 h-14 bg-white/80 rounded-full flex items-center justify-center">
                                     ▶
@@ -100,15 +130,14 @@ export default function GallerySection({ invitation }) {
                     </div>
                 </motion.div>
 
-                {/* ===== Final Blessing Section ===== */}
+                {/* ===== Blessing ===== */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.5 }}
+                    transition={{ duration: 1.2 }}
                     className="mt-24 px-6 text-center"
                 >
 
-                    {/* Logo / Symbol */}
                     <motion.img
                         initial={{ scale: 0 }}
                         whileInView={{ scale: 1 }}
@@ -126,13 +155,13 @@ export default function GallerySection({ invitation }) {
                         Waheguru Ji
                     </p>
 
-                    <h2 className="text-white text-6xl font-script mt-6 leading-tight">
+                    <h2 className="text-[#D1CBA9] text-7xl font-script mt-6 leading-tight">
                         {bride?.name?.split(' ')[0] || 'Bride'}
                     </h2>
 
-                    <p className="text-white text-2xl">&</p>
+                    <p className="text-white text-3xl">&</p>
 
-                    <h2 className="text-white text-6xl font-script leading-tight">
+                    <h2 className="text-[#D1CBA9]  text-7xl font-script leading-tight">
                         {groom?.name?.split(' ')[0] || 'Groom'}
                     </h2>
 
@@ -143,11 +172,12 @@ export default function GallerySection({ invitation }) {
                 </motion.div>
 
             </div>
+
             {/* Sticker */}
             <motion.div
                 initial={{ opacity: 0, x: 50, rotate: 20 }}
                 whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 1 }}
                 className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 z-10 w-full"
             >
                 <img
@@ -156,6 +186,7 @@ export default function GallerySection({ invitation }) {
                     className="w-full"
                 />
             </motion.div>
+
         </section>
     );
 }

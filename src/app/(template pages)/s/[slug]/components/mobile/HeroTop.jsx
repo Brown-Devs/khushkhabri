@@ -38,7 +38,7 @@ export default function HeroTop({ bride, groom }) {
 
     return (
         <section className="relative h-[90vh] flex items-start justify-center text-center pt-24">
-            <div className="absolute top-0 left-0 w-full h-[120vh] z-0 pointer-events-none">
+            <div className="absolute top-0 left-0 w-full h-[120vh] z-0 overflow-visible pointer-events-none">
                 <BackIcons />
                 <MidIcons />
                 <FrontIcons />

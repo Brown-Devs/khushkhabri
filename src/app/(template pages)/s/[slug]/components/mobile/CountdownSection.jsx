@@ -47,16 +47,16 @@ export default function CountdownSection({ weddingDate }) {
             <div
                 className="pt-55 pb-24 text-center bg-cover bg-center font-script"
                 style={{
-                    backgroundImage: "url('/bg/blue-texture.png')",
+                    backgroundImage: "url('/bg/bgRed.png')",
                 }}
             >
 
-                <p className="text-[#2c2c2c] italic text-4xl">
+                <p className="text-[#D1CBA9] italic text-4xl">
                     and the Countdown begins...
                 </p>
 
                 {/* Countdown */}
-                <div className="flex justify-center gap-6 mt-6">
+                <div className="flex justify-center gap-6 mt-6 text-[#D1CBA9]">
 
                     <TimeBox value={timeLeft.days} label="days" />
                     <TimeBox value={timeLeft.hours} label="hours" />

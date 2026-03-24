@@ -31,7 +31,7 @@ export default function FrontIcons() {
         const y = useTransform(
             smooth,
             [-500, 0, 500],
-            [250, 0, -250] // correct direction
+            [250, 0, -100] // correct direction
         );
 
         const rotate = -25 + Math.random() * 50;

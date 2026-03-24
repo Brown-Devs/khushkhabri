@@ -10,7 +10,7 @@ export default function Hero({ invitation }) {
     const containerRef = useRef(null);
 
     return (
-        <section ref={containerRef} className="relative w-full font-serif">
+        <section ref={containerRef} className="relative w-full font-serif h-fit max-h-[2200px] overflow-hidden">
 
             {/* ✅ MAIN IMAGE (NOT BACKGROUND) */}
             <img
@@ -25,18 +25,7 @@ export default function Hero({ invitation }) {
                 <HeroTop bride={bride} groom={groom} />
                 <HeroBottom invitation={invitation} />
 
-                <motion.div
-                    initial={{ opacity: 1, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1 }}
-                    className="absolute bottom-[-170px] left-0 w-full z-50"
-                >
-                    <img
-                        src="/templates/sikh/temple.png"
-                        alt="temple"
-                        className="w-full object-contain"
-                    />
-                </motion.div>
+              
             </div>
 
         </section>

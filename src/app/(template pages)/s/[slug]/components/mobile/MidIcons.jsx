@@ -19,7 +19,7 @@ export default function MidIcons() {
     ];
 
     return icons.map((icon, i) => {
-        const y = useTransform(smooth, [-500, 0, 500], [-120, 0, 120]);
+        const y = useTransform(smooth, [-500, 0, 500], [-120, 0, 80]);
         const rotate = -25 + Math.random() * 50;
 
         return (

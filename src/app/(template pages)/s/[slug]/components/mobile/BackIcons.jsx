@@ -22,14 +22,22 @@ export default function BackIcons() {
         { left: "14%", top: "58%" }, { left: "34%", top: "63%" },
     ];
 
+    const iconTypes = ["/icons/32.png", "/icons/34.png"];
+
     return icons.map((icon, i) => {
-        const y = useTransform(smooth, [-500, 0, 500], [-200, 0, 200]);
-        const rotate = -25 + Math.random() * 50;
+        const y = useTransform(smooth, [-500, 0, 500], [-200, 0, 100]);
+
+        // 🔥 balanced mix (not fully random)
+        const src = iconTypes[i % 2];
+
+        // slight variation for natural feel
+        const rotate = -25 + (i * 7 % 50);
+        const scale = 0.9 + (i % 3) * 0.15;
 
         return (
             <motion.img
                 key={i}
-                src="/icons/34.png"
+                src={src}
                 style={{
                     position: "absolute",
                     left: icon.left,
@@ -37,6 +45,7 @@ export default function BackIcons() {
                     width: "20px",
                     y,
                     rotate,
+                    scale,
                     opacity: 0.35,
                 }}
             />
