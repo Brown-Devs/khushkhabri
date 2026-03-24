@@ -10,6 +10,7 @@ import { IMAGES } from "@/lib/constants/assets";
 import { usePermissions } from "@/hooks/usePermissions";
 import SidebarSkeleton from "./SidebarSkeleton";
 import LogoutDialog from "../auth/LogoutDialog";
+import { useSession, signOut } from 'next-auth/react'
 
 
 export default function Sidebar({ isOpen, setIsSidebarOpen, sidebarLinks }) {
@@ -19,7 +20,8 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, sidebarLinks }) {
 
     const role = data?.role;
     const perms = data?.permissions || {};
-
+    const { data: session, status } = useSession()
+    // console.log(session)
     function can(resource, action) {
         if (role === 'admin') return true;
         if (role === 'sub-admin') return !!perms?.[resource]?.[action];
@@ -85,17 +87,26 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, sidebarLinks }) {
             {/* Profile Section */}
             <div className="mt-auto w-full border-t border-gray-700 pt-6">
                 <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-lg transition-colors">
-                    <Image
+                    {/* <Image
                         src={IMAGES.AVATAR}
                         alt="User"
                         width={40}
                         height={40}
                         className="rounded-full ring-2 ring-gray-400"
+                    /> */}
+                    <img
+                        src={session?.user?.image || "/avatar.jpg"}
+                        alt="User"
+                        className="object-cover h-10 w-10 rounded-full"
                     />
-                    <div>
-                        <p className="text-sm font-medium sm:hidden lg:block text-gray-100 capitalize">{role}</p>
-                        <p className="text-xs text-gray-400 sm:hidden lg:block">khushkhabri.in</p>
-                    </div>
+                    <div className="flex-grow">
+    <p className="text-sm font-medium text-gray-100 capitalize">
+        {session?.user?.name || "User"}
+    </p>
+    <p className="text-xs text-gray-400">
+        khushkhabri.in
+    </p>
+</div>
                 </div>
 
                 <Button

@@ -212,7 +212,7 @@ export default function UserDialog({ open, onOpenChange, selectedUser, onCreate,
                             </Label>
                             <div className="col-span-3">
                                 <select
-                                    disabled={selectedUser}
+                                    disabled={true}
                                     id="role"
                                     {...register("role", { required: "Role is required" })}
                                     className={clsx("w-full border px-3 py-2 rounded disabled:text-gray-600 disabled:bg-gray-200", {
@@ -220,9 +220,9 @@ export default function UserDialog({ open, onOpenChange, selectedUser, onCreate,
                                     })}
                                 >
                                     <option value="user">User</option>
-                                    {onlyAdmin &&
+                                    {/* {onlyAdmin &&
                                         <option value="sub-admin">Sub Admin</option>
-                                    }
+                                    } */}
                                 </select>
                                 {errors.role && (
                                     <p className="text-sm text-red-500 mt-1">

@@ -29,19 +29,19 @@ function page() {
             <div className='space-y-4 w-full'>
                 <TotalsCards />
 
-                <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
-                    <OrdersStatusPieCharts />
-                    <div className='sm:col-span-2'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                    {/* <OrdersStatusPieCharts /> */}
+                    {/* <div className='sm:col-span-2'> */}
                         <OrdersAreaChart />
-                    </div>
+                        <UserBarChart />
+                    {/* </div> */}
                 </div>
 
-                <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
+                {/* <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
                     <div className='sm:col-span-2'>
-                        <UserBarChart />
                     </div>
                     <EnquiriesPieChart />
-                </div>
+                </div> */}
 
                 <RevenueSummary />
 

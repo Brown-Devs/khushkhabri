@@ -5,11 +5,9 @@ import { useQuery } from '@tanstack/react-query'
 import {
     AreaChart,
     Area,
-    CartesianGrid,
     Tooltip,
     XAxis,
     ResponsiveContainer,
-    Legend,
 } from 'recharts'
 import {
     Card,
@@ -35,11 +33,11 @@ export default function OrdersAreaChart({ days = 7 }) {
 
     const chartData = React.useMemo(() => {
         if (!data) return []
-        const { dates, websiteCounts, posCounts } = data
+        const { dates, counts } = data
+
         return dates.map((date, idx) => ({
             date,
-            Orders: websiteCounts[idx] || 0,
-            POS: posCounts[idx] || 0,
+            Orders: counts[idx] || 0,
         }))
     }, [data])
 
@@ -58,50 +56,38 @@ export default function OrdersAreaChart({ days = 7 }) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Orders in Last {days} Days</CardTitle>
+                <CardTitle>Orders (Last {days} Days)</CardTitle>
                 <CardDescription>
-                    Showing order trends from {startDate} to {endDate}
+                    {startDate} to {endDate}
                 </CardDescription>
             </CardHeader>
 
             <CardContent className="h-64">
                 {isLoading && <div>Loading chart...</div>}
                 {isError && <div>Error loading data.</div>}
+
                 {!isLoading && !isError && (
                     <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart
-                            data={chartData}
-                            margin={{ left: 12, right: 12, top: 10, bottom: 10 }}
-                        >
-                            {/* <CartesianGrid vertical={false} stroke="#e5e7eb" /> */}
+                        <AreaChart data={chartData}>
                             <XAxis
                                 dataKey="date"
                                 tickFormatter={formatDate}
                                 tickLine={false}
                                 axisLine={false}
-                                padding={{ left: 0, right: 0 }}
                             />
+
                             <Tooltip
-                                contentStyle={{ backgroundColor: '#fff', borderRadius: '0.5rem' }}
                                 labelFormatter={(label) => formatDate(label)}
                             />
-                            {/* <Legend /> */}
+
                             <Area
                                 type="monotone"
                                 dataKey="Orders"
                                 stroke="#6366f1"
                                 fill="#6366f1"
-                                fillOpacity={0.4}
+                                fillOpacity={0.3}
                                 strokeWidth={2}
                             />
-                            {/* <Area
-                                type="monotone"
-                                dataKey="POS"
-                                stroke="#06b6d4"
-                                fill="#06b6d4"
-                                fillOpacity={0.4}
-                                strokeWidth={2}
-                            /> */}
                         </AreaChart>
                     </ResponsiveContainer>
                 )}

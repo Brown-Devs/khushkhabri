@@ -82,7 +82,13 @@ export default function TemplatesSection() {
                     const verifyRes = await fetch("/api/theme-order/verify", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(response),
+                        // body: JSON.stringify(response),
+                        body: JSON.stringify({
+                            ...response,
+                            themeName,
+                            userId: session.user.id,
+                            amount: themePrice,
+                        }),
                     });
                     const verifyData = await verifyRes.json();
 
@@ -102,7 +108,8 @@ export default function TemplatesSection() {
                 theme: { color: "#8b2c3c" },
                 modal: {
                     ondismiss: () => {
-                        toast.error("Payment cancelled", { id: toastId });
+                        toast.dismiss(toastId); // 👈 loading hatao
+                        toast.error("Payment cancelled"); // 👈 new toast
                         setBuyingTheme(null);
                     },
                 },
@@ -111,7 +118,8 @@ export default function TemplatesSection() {
             new window.Razorpay(options).open();
         } catch (err) {
             console.error("Buy theme error:", err);
-            toast.error("Something went wrong", { id: toastId });
+            toast.dismiss(toastId);
+            toast.error("Something went wrong");
             setBuyingTheme(null);
         }
     };

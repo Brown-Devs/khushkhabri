@@ -1,3 +1,4 @@
+
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/orderModel";
 
@@ -21,46 +22,43 @@ export async function GET(request) {
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - days);
 
-  // Step 1: Get counts by day/type
+  // ✅ Only PAID orders
   const agg = await Order.aggregate([
     {
       $match: {
         createdAt: { $gte: cutoff },
+        status: "paid",
       },
     },
     {
       $group: {
         _id: {
-          day: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-          type: "$type",
+          day: {
+            $dateToString: {
+              format: "%Y-%m-%d",
+              date: "$createdAt",
+            },
+          },
         },
         count: { $sum: 1 },
       },
     },
   ]);
 
-  // Step 2: Convert to lookup
+  // Convert to map
   const dataMap = {};
   for (const { _id, count } of agg) {
-    const day = _id.day;
-    const type = _id.type;
-    if (!dataMap[day]) dataMap[day] = { website: 0, pos: 0 };
-    if (type === "website") dataMap[day].website = count;
-    if (type === "pos") dataMap[day].pos = count;
+    dataMap[_id.day] = count;
   }
 
-  // Step 3: Fill missing dates and preserve order
   const dates = getDateRangeArray(days);
-  const websiteCounts = [];
-  const posCounts = [];
+  const counts = [];
 
   for (const date of dates) {
-    const dayData = dataMap[date] || { website: 0, pos: 0 };
-    websiteCounts.push(dayData.website);
-    posCounts.push(dayData.pos);
+    counts.push(dataMap[date] || 0);
   }
 
-  return new Response(JSON.stringify({ dates, websiteCounts, posCounts }), {
+  return new Response(JSON.stringify({ dates, counts }), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });

@@ -28,8 +28,6 @@ function page() {
 
     console.log(ordersData)
 
-    // console.log(ordersData)
-
     const totalCount = useMemo(() => {
         return ordersQuery?.data?.totalCount || 0;
     }, [ordersQuery.data]);
@@ -49,7 +47,7 @@ function page() {
 
             <div className="flex flex-wrap items-center gap-4 mb-6">
                 {/* Status Select */}
-                <div className="flex items-center space-x-2">
+                {/* <div className="flex items-center space-x-2">
                     <Select value={status} onValueChange={(value) => { setStatus(value); setPage(1); }}>
                         <SelectTrigger className="w-[150px]">
                             <SelectValue placeholder="Status" />
@@ -60,7 +58,7 @@ function page() {
                             <SelectItem value="completed">Completed</SelectItem>
                         </SelectContent>
                     </Select>
-                </div>
+                </div> */}
 
                 {/* Page size selector */}
                 <Select

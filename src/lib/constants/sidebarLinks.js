@@ -38,18 +38,18 @@ export const ADMIN_SIDEBAR_LINKS = [
     href: "/admin/orders",
     icon: <FaClipboardList />,
   },
-  {
-    key: Resources.ENQUIRIES,
-    label: "Enquiries",
-    href: "/admin/enquiries",
-    icon: <FaEnvelope />,
-  },
-  {
-    key: Resources.SERVICES,
-    label: "Services",
-    href: "/admin/products",
-    icon: <FaBriefcase />,
-  },
+  // {
+  //   key: Resources.ENQUIRIES,
+  //   label: "Enquiries",
+  //   href: "/admin/enquiries",
+  //   icon: <FaEnvelope />,
+  // },
+  // {
+  //   key: Resources.SERVICES,
+  //   label: "Services",
+  //   href: "/admin/products",
+  //   icon: <FaBriefcase />,
+  // },
   {
     key: Resources.BLOGS,
     label: "Blogs",
@@ -74,12 +74,12 @@ export const ADMIN_SIDEBAR_LINKS = [
     href: "/admin/media",
     icon: <FaImages />,
   },
-  {
-    key: Resources.BANNERS,
-    label: "Banners",
-    href: "/admin/banners",
-    icon: <SiAffinitydesigner />,
-  },
+  // {
+  //   key: Resources.BANNERS,
+  //   label: "Banners",
+  //   href: "/admin/banners",
+  //   icon: <SiAffinitydesigner />,
+  // },
   {
     key: Resources.USERS,
     label: "Users",

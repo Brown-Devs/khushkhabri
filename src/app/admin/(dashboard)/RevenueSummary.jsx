@@ -7,13 +7,18 @@ import {
     Tooltip,
     ResponsiveContainer,
     XAxis,
-    Legend,
 } from 'recharts'
 import { useQuery } from '@tanstack/react-query'
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
+import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardContent,
+    CardDescription
+} from '@/components/ui/card'
 
-const fetchRevenueData = async () => {
-    const res = await fetch('/api/dashboard/revenue-summary?days=28')
+const fetchRevenueData = async (days = 28) => {
+    const res = await fetch(`/api/dashboard/revenue-summary?days=${days}`)
     if (!res.ok) throw new Error('Failed to fetch revenue data')
     return res.json()
 }
@@ -26,40 +31,35 @@ const formatDate = (dateStr) => {
     })
 }
 
-const RevenueSummary = () => {
-    const { data, isLoading } = useQuery({
-        queryKey: ['revenue-summary'],
-        queryFn: fetchRevenueData,
+const RevenueSummary = ({ days = 28 }) => {
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ['revenue-summary', days],
+        queryFn: () => fetchRevenueData(days),
     })
 
     if (isLoading) return <div className="p-4">Loading chart...</div>
+    if (isError) return <div className="p-4">Error loading data</div>
 
     const chartData = data.dates.map((date, index) => ({
-        date: formatDate(date),
-        // pos: data.posRevenue[index],
-        orders: data.websiteRevenue[index],
+        date,
+        revenue: data.revenues[index] || 0,
     }))
 
     return (
         <Card>
             <CardHeader className="flex flex-row justify-between items-start">
                 <div>
-                    <CardTitle>Revenue Summary</CardTitle>
+                    <CardTitle>Revenue (Last {days} Days)</CardTitle>
                     <CardDescription>
-                        Showing the total revenue from orders in last 28 Days
+                        Paid orders revenue trend
                     </CardDescription>
                 </div>
-                {/* Mini Cards */}
-                <div className="grid grid-cols-1 gap-2">
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-md text-xs font-semibold text-center">
-                        ₹{data.totalRevenue}<br />Total Revenue
-                    </div>
-                    {/* <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-md text-xs font-semibold text-center">
-                        ₹{data.posRevenueTotal}<br />POS
-                    </div>
-                    <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-md text-xs font-semibold text-center">
-                        ₹{data.websiteRevenueTotal}<br />Website
-                    </div> */}
+
+                {/* Total Revenue */}
+                <div className="bg-green-100 text-green-800 px-3 py-2 rounded-md text-xs font-semibold text-center">
+                    ₹{data.totalRevenue?.toLocaleString()}
+                    <br />
+                    Total Revenue
                 </div>
             </CardHeader>
 
@@ -68,36 +68,29 @@ const RevenueSummary = () => {
                     <AreaChart data={chartData}>
                         <XAxis
                             dataKey="date"
+                            tickFormatter={formatDate}
                             tickLine={false}
                             axisLine={false}
-                            tick={{ fontSize: 12 }}
                         />
+
                         <Tooltip
                             formatter={(value) => `₹${value}`}
-                            labelFormatter={(label) => `Date: ${label}`}
+                            labelFormatter={(label) => formatDate(label)}
                         />
-                        <Legend verticalAlign="top" height={36} />
-                        {/* <Area
-                            type="monotone"
-                            dataKey="pos"
-                            stroke="#3b82f6"
-                            fill="#3b82f6"
-                            fillOpacity={0.2}
-                            name="POS Revenue"
-                        /> */}
+
                         <Area
                             type="monotone"
-                            dataKey="orders"
-                            stroke="#8b5cf6"
-                            fill="#8b5cf6"
-                            fillOpacity={0.2}
-                            name="Orders Revenue"
+                            dataKey="revenue"
+                            stroke="#22c55e"
+                            fill="#22c55e"
+                            fillOpacity={0.25}
+                            strokeWidth={2}
                         />
                     </AreaChart>
                 </ResponsiveContainer>
 
                 <p className="text-xs text-muted-foreground mt-4 text-right">
-                    From {formatDate(data.dates[0])} to {formatDate(data.dates.at(-1))}
+                    {formatDate(data.dates[0])} - {formatDate(data.dates.at(-1))}
                 </p>
             </CardContent>
         </Card>

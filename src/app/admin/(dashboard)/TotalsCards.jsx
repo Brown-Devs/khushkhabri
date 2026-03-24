@@ -31,7 +31,7 @@ export default function TotalsCards() {
 
     if (isLoading) return (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {Array.from({ length: 3 }).map((_, i) => (
                 <Card key={i} className="h-full rounded-2xl bg-white shadow-md border-0 overflow-hidden relative">
                     <div className="p-6">
                         <div className="h-12 w-12 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl mb-5 animate-pulse" />

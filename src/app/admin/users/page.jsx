@@ -101,7 +101,7 @@ function page() {
                                 {onlyAdmin &&
                                     <>
                                         <SelectItem value="admin">Admin</SelectItem>
-                                        <SelectItem value="sub-admin">Sub-Admin</SelectItem>
+                                        {/* <SelectItem value="sub-admin">Sub-Admin</SelectItem> */}
                                     </>
                                 }
                                 <SelectItem value="user">User</SelectItem>

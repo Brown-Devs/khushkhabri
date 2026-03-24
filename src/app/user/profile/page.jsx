@@ -80,10 +80,10 @@ export default function ProfilePage() {
                             <p className="text-gray-500 text-sm mb-4">
                                 Your account is secured via {session?.user?.email ? 'Google' : 'Phone'} authentication.
                             </p>
-                            <Button variant="outline" disabled>
+                            {/* <Button variant="outline" disabled>
                                 Update Profile Details
-                            </Button>
-                            <p className="text-xs text-gray-400 mt-2 italic">Profile editing is coming soon.</p>
+                            </Button> */}
+                            {/* <p className="text-xs text-gray-400 mt-2 italic">Profile editing is coming soon.</p> */}
                         </div>
                     </div>
                 </div>

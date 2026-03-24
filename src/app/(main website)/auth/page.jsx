@@ -8,11 +8,10 @@ function page() {
             <div className="flex flex-col gap-4 p-6 md:p-10">
                 <div className="flex justify-center gap-2 md:justify-start">
                     <a href="#" className="flex items-center gap-2 font-medium">
-                        <Image
+                        <img
                             src={'/logo.png'}
-                            height={500}
-                            width={100}
                             alt="logo1"
+                            className='h-20 w-auto'
                         />
                     </a>
                 </div>
@@ -24,7 +23,7 @@ function page() {
             </div >
             <div className="bg-muted relative hidden md:block">
                 <img
-                    src="/ghee.png"
+                    src="/images/auth-bg.jpg"
                     alt="Image"
                     className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale" />
             </div>

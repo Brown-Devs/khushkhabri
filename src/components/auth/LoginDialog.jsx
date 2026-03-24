@@ -47,7 +47,7 @@ const AuthDialog = ({ open, onOpenChange }) => {
                 }
             } else {
                 onOpenChange(false);
-                window.location.href = result?.url || '/cs';
+                window.location.href = result?.url || '/user';
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -61,7 +61,7 @@ const AuthDialog = ({ open, onOpenChange }) => {
         setIsGoogleLoading(true);
         setErrorMsg('');
         try {
-            await signIn('google', { callbackUrl: '/cs' });
+            await signIn('google', { callbackUrl: '/user' });
         } catch (error) {
              console.error('Google login error:', error);
              setErrorMsg('Google login failed. Please try again.');

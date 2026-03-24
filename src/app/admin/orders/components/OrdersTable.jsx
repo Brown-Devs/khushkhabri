@@ -36,9 +36,7 @@ function OrdersTable({
     onPageChange,
     updateOrder
 }) {
-    const [selectedColumns, setSelectedColumns] = useState([
-        'name', 'contact', 'products', 'paymentMethod', 'paymentStatus', 'amount', 'status', 'type', 'createdAt', 'actions'
-    ])
+
     const [viewOrderDialog, setViewOrderDialog] = useState(false)
     const [viewingOrder, setViewingOrder] = useState(null)
 
@@ -47,7 +45,7 @@ function OrdersTable({
 
     const [statusHistorySheet, setStatusHistorySheet] = useState(false)
 
-    console.log(orders)
+    // console.log(orders)
 
     if (isLoading) {
         return <TableSkeleton
@@ -69,42 +67,38 @@ function OrdersTable({
                         <TableRow>
                             <TableHead>#</TableHead>
                             <TableHead>Order Id</TableHead>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Contact</TableHead>
-                            {/* <TableHead>Products</TableHead> */}
-                            <TableHead>Payment Method</TableHead>
-                            <TableHead>Payment Status</TableHead>
+                            <TableHead>User</TableHead>
+                            {/* <TableHead>Phone</TableHead> */}
+                            <TableHead>Theme</TableHead>
                             <TableHead>Amount</TableHead>
-                            <TableHead>Status</TableHead>
-                            {/* <TableHead>Type</TableHead> */}
+                            {/* <TableHead>Status</TableHead> */}
                             <TableHead>Created At</TableHead>
                             <TableHead className='text-center'>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {orders.map((order, idx) => {
-                            const lastStatus = order.status?.[order.status.length - 1]?.currentStatus || 'N/A';
                             return (
                                 <TableRow key={order._id}>
                                     <TableCell>{idx + 1}</TableCell>
                                     <TableCell>{order?.orderId || '-'}</TableCell>
-                                    <TableCell>{order.shippingDetails?.fullName}</TableCell>
-                                    <TableCell>{order.shippingDetails?.contact}</TableCell>
-                                    {/* <TableCell className={''}>
-                                        <div className='w-xs text-wrap'>
-                                            {order.cart.map((item) => `${item.serviceName} (${item.variantName})`).join(', ')}
-                                        </div>
+                                    <TableCell>
+                                <div className='flex gap-2 items-center justify-start'>
+                                    {order?.user?.image && <img src={order.user.image} alt={order.user.name} className='w-8 h-8 rounded-full object-cover' />}
+                                    <div>
+                                        <div className='text-sm'>{order?.user?.name || '-'}</div>
+                                    <span className='text-xs text-muted-foreground'>{order?.user?.email || '-'}</span>
+                                    </div>
+                                </div>
+
+                                    </TableCell>
+                                    {/* <TableCell>{order?.user?.phone || '-'}</TableCell> */}
+<TableCell className={'capitalize'}>{order?.themeName || '-'}</TableCell>
+
+                                    <TableCell>₹{order?.totalAmount ? order.totalAmount.toLocaleString() : '-'}</TableCell>
+                                    {/* <TableCell>
+                                        <Badge variant="secondary" className='capitalize'>{order?.status || "-"}</Badge>
                                     </TableCell> */}
-                                    <TableCell>
-                                        <Badge variant="outline" className='capitalize'>{order.paymentMethod}</Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Badge variant="outline" className='capitalize'>{order.paymentStatus}</Badge>
-                                    </TableCell>
-                                    <TableCell>₹{order.totalAmount.toLocaleString()}</TableCell>
-                                    <TableCell>
-                                        <Badge variant="secondary" className='capitalize'>{lastStatus}</Badge>
-                                    </TableCell>
                                     {/* <TableCell>
                                         <Badge className='capitalize'>{order.type}</Badge>
                                     </TableCell> */}
@@ -130,22 +124,22 @@ function OrdersTable({
                                                         setTimeout(() => setViewOrderDialog(true), 100);
                                                     }}
                                                 > View</DropdownMenuItem>
-                                                <DropdownMenuItem
+                                                {/* <DropdownMenuItem
                                                     onClick={() => {
                                                         setViewingOrder(order);
                                                         setTimeout(() => setUpdateStatusDialog(true), 100);
                                                     }}
-                                                >Update Status</DropdownMenuItem>
+                                                >Update Status</DropdownMenuItem> */}
                                                 {/* payment status update */}
-                                                {order.paymentStatus !== 'paid' &&
+                                                {/* {order.paymentStatus !== 'paid' &&
                                                     <DropdownMenuItem
                                                         onClick={() => {
                                                             setViewingOrder(order);
                                                             setTimeout(() => setUpdatePaymentStatusDialog(true), 100);
                                                         }}
                                                     >Update Payment Status</DropdownMenuItem>
-                                                }
-                                                <DropdownMenuItem
+                                                } */}
+                                                {/* <DropdownMenuItem
                                                     onClick={() => {
                                                         setViewingOrder(order)
                                                         setTimeout(() => setStatusHistorySheet(true), 100)
@@ -156,7 +150,7 @@ function OrdersTable({
                                                     <DropdownMenuItem>
                                                         <DownloadInvoiceButton order={order} />
                                                     </DropdownMenuItem>
-                                                }
+                                                } */}
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </TableCell>

@@ -22,6 +22,7 @@ export default function RegularUsersTable({
     canDelete,
     canEdit,
 }) {
+    console.log(users)
     const [deletingUserId, setDeletingUserId] = useState(null)
 
     const handleDeleteClick = (userId) => {
@@ -49,10 +50,12 @@ export default function RegularUsersTable({
                     <TableHeader>
                         <TableRow>
                             <TableHead className={''}>S. No.</TableHead>
+                            <TableHead>Img</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Phone</TableHead>
+                            <TableHead>Email</TableHead>
                             <TableHead>Orders</TableHead>
-                            <TableHead>Role</TableHead>
+                            {/* <TableHead>Role</TableHead> */}
                             <TableHead>Joined Date</TableHead>
                             <TableHead className="text-center">Actions</TableHead>
                         </TableRow>
@@ -61,23 +64,27 @@ export default function RegularUsersTable({
                         {users.map((user, idx) => (
                             <TableRow key={user._id}>
                                 <TableCell className={''}>{(page - 1) * users.length + idx + 1}</TableCell>
+                                <TableCell>
+                                    <img src={user?.image} alt={user.name} className="w-10 h-10 rounded-full" />
+                                </TableCell>
                                 <TableCell>{user.name || 'User'}</TableCell>
-                                <TableCell>{user.phone}</TableCell>
+                                <TableCell>{user?.phone || "-"}</TableCell>
+                                <TableCell>{user?.email|| "-"}</TableCell>
                                 <TableCell>
                                     <span className="bg-gray-100 text-gray-800 rounded-full px-3 py-1 text-xs">
                                         {user.orders?.length || 0}
                                     </span>
                                 </TableCell>
-                                <TableCell>
+                                {/* <TableCell>
                                     <span className={`px-2 py-1 capitalize rounded-full text-xs ${user.role === 'user'
                                         ? 'bg-pink-100 text-pink-800'
                                         : 'bg-blue-100 text-blue-800'
                                         }`}>
                                         {user.role}
                                     </span>
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
-                                    {new Date(user.createdAt).toDateString()}
+                                    {user.createdAt ? new Date(user.createdAt).toDateString() : user.updatedAt ? new Date(user.updatedAt).toDateString() : "-"}
                                 </TableCell>
                                 <TableCell className="flex justify-center gap-2">
                                     {canEdit && (
