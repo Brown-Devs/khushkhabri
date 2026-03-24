@@ -1,10 +1,14 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
+import FloatingIcons from "./FloatingIcons";
+import BackIcons from "./BackIcons";
+import MidIcons from "./MidIcons";
+import FrontIcons from "./FrontIcons";
 
 export default function HeroTop({ bride, groom }) {
     const { scrollY } = useScroll();
 
-    const textY = useTransform(scrollY, [0, 500], [0, 80]);
+    const textY = useTransform(scrollY, [0, 500], [0, 160]);
 
     const container = {
         hidden: {},
@@ -34,7 +38,11 @@ export default function HeroTop({ bride, groom }) {
 
     return (
         <section className="relative h-[90vh] flex items-start justify-center text-center pt-24">
-
+            <div className="absolute top-0 left-0 w-full h-[120vh] z-0 pointer-events-none">
+                <BackIcons />
+                <MidIcons />
+                <FrontIcons />
+            </div>
             <motion.div
                 style={{ y: textY }}
                 variants={container}

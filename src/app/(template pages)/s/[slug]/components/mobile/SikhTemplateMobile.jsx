@@ -4,9 +4,11 @@ import Hero from "./hero";
 import EventsSection from "./events";
 import GallerySection from "./gallery";
 import CountdownSection from "./CountdownSection";
+import SmoothScroll from "@/components/website/common/SmoothScroll";
 
 export default function SikhTemplateMobile({ invitation, events, weddingDate }) {
     return (
+        <SmoothScroll>
         <div className="w-full max-w-[680px] mx-auto bg-white shadow-lg overflow-x-hidden">
             <main className="bg-[#fffaf5] min-h-screen flex justify-center">
                 <div className="w-full max-w-5xl">
@@ -17,5 +19,6 @@ export default function SikhTemplateMobile({ invitation, events, weddingDate }) 
                 </div>
             </main>
         </div>
+        </SmoothScroll>
     );
 }

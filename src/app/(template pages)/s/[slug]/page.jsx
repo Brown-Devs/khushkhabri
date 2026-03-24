@@ -35,6 +35,7 @@ export default async function SikhTemplatePage({ params }) {
         : "2026-03-26";
 
     return (
+
         <ResponsiveTemplateWrapper
             invitation={JSON.parse(JSON.stringify(invitation))}
             events={templateEvents}

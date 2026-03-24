@@ -7,12 +7,12 @@ export default function HeroBottom({ invitation }) {
             <img
                 src="/templates/sikh/khanda.png"
                 alt="khanda"
-                className="w-auto h-32 mx-auto mb-6"
+                className="w-auto h-36 mx-auto mb-10"
             />
 
-            <div className="space-y-4">
+            <div className="space-y-7">
 
-                <p className="text-xl">
+                <p className="text-xl leading-relaxed">
                     {side === 'groom' ? (
                         <>
                             Sardar {groom?.father} <br />
@@ -26,42 +26,42 @@ export default function HeroBottom({ invitation }) {
                     )}
                 </p>
 
-                <h2 className="text-4xl font-script italic">
+                <h2 className="text-5xl font-script italic tracking-wide">
                     Invites you
                 </h2>
 
-                <p>
+                <p className="text-lg leading-relaxed">
                     to join the wedding celebration of their{" "}
                     {side === 'groom' ? 'son' : 'daughter'}
                 </p>
 
-                <h3 className="text-4xl font-script">
+                <h3 className="text-5xl font-script tracking-wide">
                     {side === 'groom' ? groom?.name : bride?.name}
                 </h3>
 
-                <p>with</p>
+                <p className="text-lg">with</p>
 
-                <h3 className="text-4xl font-script">
+                <h3 className="text-5xl font-script tracking-wide">
                     {side === 'groom' ? bride?.name : groom?.name}
                 </h3>
                 
-  <p className="text-lg mt-4">
-                        {side === 'groom' ? 'daughter of' : 'son of'}
-                    </p>
+                <p className="text-lg mt-4">
+                    {side === 'groom' ? 'daughter of' : 'son of'}
+                </p>
 
-                    <p className="text-2xl mt-1 ">
-                        {side === 'groom' ? (
-                            <>
-                                Sardar {bride?.father || 'Father'} &<br />
-                                Sardami {bride?.mother || 'Mother'}
-                            </>
-                        ) : (
-                            <>
-                                Sardar {groom?.father || 'Father'} &<br />
-                                Sardami {groom?.mother || 'Mother'}
-                            </>
-                        )}
-                    </p>
+                <p className="text-2xl leading-relaxed">
+                    {side === 'groom' ? (
+                        <>
+                            Sardar {bride?.father || 'Father'} &<br />
+                            Sardami {bride?.mother || 'Mother'}
+                        </>
+                    ) : (
+                        <>
+                            Sardar {groom?.father || 'Father'} &<br />
+                            Sardami {groom?.mother || 'Mother'}
+                        </>
+                    )}
+                </p>
             </div>
         </section>
     );
