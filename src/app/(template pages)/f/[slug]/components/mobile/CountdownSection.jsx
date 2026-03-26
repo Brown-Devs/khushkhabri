@@ -92,7 +92,7 @@ export default function CountdownSection({ weddingDate }) {
 
             {/* Top part with bottom1 background */}
             <div
-                className="relative w-full pt-30 pb-20 flex flex-col items-center bg-cover bg-bottom z-10"
+                className="relative w-full pt-50 pb-20 flex flex-col items-center bg-cover bg-bottom z-10"
                 style={{ backgroundImage: "url('/templates/floral/bottom1.png')" }}
             >
                 <motion.div

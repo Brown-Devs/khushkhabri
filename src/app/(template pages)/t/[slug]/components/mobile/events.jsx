@@ -1,6 +1,7 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { MapPin } from "lucide-react";
 
 const container = {
     hidden: {},
@@ -100,6 +101,26 @@ function FloatingEventIcons({ icon }) {
     );
 }
 
+const formatEventTime = (timeStr) => {
+    if (!timeStr) return "";
+
+    // Handle HH:MM format (24 hour)
+    const [hoursStr, minutesStr] = timeStr.split(":");
+    let hours = parseInt(hoursStr);
+    let minutes = parseInt(minutesStr);
+
+    if (isNaN(hours)) return timeStr; // Return original if not a direct HH:MM
+
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const displayHours = hours % 12 || 12;
+
+    if (minutes < 30) {
+        return `${displayHours} ${ampm} Onwards`;
+    } else {
+        return `${displayHours}:30 ${ampm} Onwards`;
+    }
+};
+
 function EventItem({ event, meta }) {
     const ref = useRef(null);
     const isInView = useInView(ref, {
@@ -143,8 +164,21 @@ function EventItem({ event, meta }) {
             </motion.p>
 
             <motion.p variants={item} className="text-white text-xl mt-1 mb-2 relative z-10">
-                {event.time}
+                {formatEventTime(event.time)}
             </motion.p>
+
+            {event.mapLink && (
+                <motion.a
+                    variants={item}
+                    href={event.mapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-white/90 text-lg mt-2 bg-white/10 px-4 py-1.5 rounded-full border border-white/20 backdrop-blur-sm z-30"
+                >
+                    <MapPin size={18} />
+                    <span>See Location</span>
+                </motion.a>
+            )}
         </motion.div>
     );
 }

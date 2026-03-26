@@ -51,7 +51,7 @@ export default function HeroTop({ bride, groom }) {
                 className="z-10"
             >
                 <motion.h1 variants={item} className="text-white text-7xl font-script">
-                    {bride?.name?.split(' ')[0] || 'Bride'}
+                    {groom?.name?.split(' ')[0] || 'Groom'}
                 </motion.h1>
 
                 <motion.p variants={item} className="text-white text-2xl mt-2 font-script">
@@ -59,7 +59,7 @@ export default function HeroTop({ bride, groom }) {
                 </motion.p>
 
                 <motion.h2 variants={item} className="text-white text-7xl mt-2 font-script">
-                    {groom?.name?.split(' ')[0] || 'Groom'}
+                    {bride?.name?.split(' ')[0] || 'Bride'}
                 </motion.h2>
             </motion.div>
 

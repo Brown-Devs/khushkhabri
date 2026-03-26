@@ -18,7 +18,7 @@ export default async function SikhTemplatePage({ params }) {
     const dbEvents = invitation.events || [];
     const templateEvents = dbEvents.filter(e => e.enabled).map(e => {
         let type = e.name.toLowerCase();
-        if (type === 'wedding') type = 'anand_karaj';
+        if (type === 'wedding') type = 'shaadi';
         if (type === 'mehendi') type = 'mehndi';
 
         return {
@@ -27,6 +27,7 @@ export default async function SikhTemplatePage({ params }) {
             date: e.date ? new Date(e.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '',
             location: e.venue,
             time: e.time,
+            mapLink: e.mapLink
         };
     });
 

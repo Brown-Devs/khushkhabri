@@ -43,6 +43,7 @@ const invitationSchema = new mongoose.Schema(
                 enum: ["bride", "groom"],
             },
         },
+        rsvpNumber: String,
 
         events: [
             {
@@ -51,6 +52,7 @@ const invitationSchema = new mongoose.Schema(
                 date: Date,
                 time: String,
                 venue: String,
+                mapLink: String,
             },
         ],
     },
