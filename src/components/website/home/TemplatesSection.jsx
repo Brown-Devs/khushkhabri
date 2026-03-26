@@ -143,9 +143,9 @@ export default function TemplatesSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className="text-3xl sm:text-5xl font-semibold text-[#5a1e2b] tracking-tighter"
+                            className="text-3xl sm:text-5xl font-semibold text-[#5a1e2b] tracking-tighter max-w-3xl mx-auto"
                         >
-                            Our Exquisite Templates
+                            Choose a Design Your Family Will Be Proud to Share
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -156,6 +156,27 @@ export default function TemplatesSection() {
                         >
                             Browse our handpicked collection of invitation designs
                         </motion.p>
+
+                        {/* Badges */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            className="mt-8 flex flex-wrap justify-center items-center gap-3 sm:gap-6"
+                        >
+                            {[
+                                { icon: "✔", text: "RSVP Ready" },
+                                { icon: "⚡", text: "Editable Instantly" },
+                                { icon: "📱", text: "Mobile Friendly" },
+                                { icon: "🚀", text: "Publish in 10 min" },
+                            ].map((badge, idx) => (
+                                <span key={idx} className="flex items-center gap-2 bg-[#fff5f6] text-[#8b2c3c] border border-[#8b2c3c]/20 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition-transform hover:-translate-y-1 hover:shadow-md cursor-default">
+                                    <span className="text-base">{badge.icon}</span>
+                                    {badge.text}
+                                </span>
+                            ))}
+                        </motion.div>
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-7 sm:gap-10">
@@ -172,9 +193,16 @@ export default function TemplatesSection() {
                                         fill
                                         className="object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
                                     />
-                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-[#8b2c3c] shadow-sm">
+                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-[#8b2c3c] shadow-sm z-10">
                                         {theme.category}
                                     </div>
+
+                                    {/* Most Loved Badge for Royal Palace */}
+                                    {theme.title === "Royal Palace" && (
+                                        <div className="absolute top-4 left-4 bg-gradient-to-r from-green-400 to-green-500 text-green-950 px-3 py-1 rounded-full text-xs font-bold shadow-md flex items-center gap-1 z-10">
+                                            ❤️ Most Loved
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="w-full text-center px-2 flex flex-col flex-1">
@@ -194,14 +222,14 @@ export default function TemplatesSection() {
                                             rel="noopener noreferrer"
                                             className="flex-1 px-4 py-2.5 border-2 border-[#8b2c3c] text-[#8b2c3c] rounded-full text-sm font-medium hover:bg-[#8b2c3c]/5 transition-colors text-center"
                                         >
-                                            View Demo
+                                            See Live Invite
                                         </a>
                                         <button
                                             onClick={() => handleBuyNow(theme.themeName)}
                                             disabled={buyingTheme === theme.themeName}
                                             className="flex-1 px-4 py-2.5 bg-[#8b2c3c] text-white rounded-full text-sm font-medium hover:bg-[#5a1e2b] transition-colors disabled:opacity-60 disabled:cursor-wait"
                                         >
-                                            {buyingTheme === theme.themeName ? "Processing..." : "Buy Now"}
+                                            {buyingTheme === theme.themeName ? "Processing..." : "Choose This Design"}
                                         </button>
                                     </div>
                                 </div>
@@ -209,11 +237,11 @@ export default function TemplatesSection() {
                         ))}
                     </div>
 
-                    <div className="mt-16 text-center">
+                    {/* <div className="mt-16 text-center">
                         <button className="px-8 py-3 bg-white text-[#8b2c3c] border border-[#8b2c3c] rounded-full text-lg font-medium hover:bg-[#8b2c3c] hover:text-white transition-colors shadow-sm">
                             View All Templates
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </section>
 

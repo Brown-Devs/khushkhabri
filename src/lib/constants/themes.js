@@ -15,7 +15,7 @@ export const THEMES = [
         category: "Hindu Wedding",
         description: "A luxurious palace-inspired theme with royal architecture, grand aesthetics and rich colors for a majestic wedding celebration.",
         image: "/templates/sikh/invite2.png",
-        demoUrl: "/s/hindu1",
+        demoUrl: "/r/hindu1",
     },
     {
         id: 3,
@@ -24,7 +24,7 @@ export const THEMES = [
         category: "Hindu Wedding",
         description: "A sacred temple-inspired design with traditional elements and divine vibes, perfect for a spiritually rich wedding experience.",
         image: "/templates/sikh/invite3.png",
-        demoUrl: "/s/hindu2",
+        demoUrl: "/t/hindu2",
     },
     {
         id: 4,
@@ -33,7 +33,7 @@ export const THEMES = [
         category: "Hindu Wedding",
         description: "A soft and beautiful floral theme inspired by nature, bringing freshness and elegance to your wedding invitation.",
         image: "/templates/sikh/invite5.png",
-        demoUrl: "/s/hindu3",
+        demoUrl: "/f/hindu3",
     },
     {
         id: 5,
@@ -42,7 +42,7 @@ export const THEMES = [
         category: "Guruji Satsang",
         description: "A calm and devotional design crafted for Guruji Satsang invitations, reflecting peace, spirituality and simplicity.",
         image: "/templates/sikh/invite4.png",
-        demoUrl: "/s/guruji1",
+        demoUrl: "/g/guruji1",
     },
 ];
 

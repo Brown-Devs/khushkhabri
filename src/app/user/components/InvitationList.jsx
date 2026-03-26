@@ -8,8 +8,20 @@ import Link from 'next/link';
 export default function InvitationList({ invitations }) {
     const [copiedId, setCopiedId] = React.useState(null);
 
-    const copyLink = (slug, id) => {
-        const url = `${window.location.origin}/s/${slug}`;
+    const getPrefixForTheme = (themeName) => {
+        switch (themeName) {
+            case 'sikh1': return 's';      // Laavan
+            case 'hindu1': return 'r';     // Royal Palace
+            case 'hindu2': return 't';     // Temple Divine
+            case 'hindu3': return 'f';     // Floral Elegance
+            case 'guruji1': return 'g';    // Guruji Satsang
+            default: return 's';
+        }
+    };
+
+    const copyLink = (slug, id, themeName) => {
+        const prefix = getPrefixForTheme(themeName);
+        const url = `${window.location.origin}/${prefix}/${slug}`;
         navigator.clipboard.writeText(url);
         setCopiedId(id);
         toast.success("Link copied to clipboard!");
@@ -29,8 +41,8 @@ export default function InvitationList({ invitations }) {
 
             <div className="grid grid-cols-1 gap-4">
                 {invitations.map((invite) => (
-                    <div 
-                        key={invite._id} 
+                    <div
+                        key={invite._id}
                         className="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6"
                     >
                         <div className="flex items-center gap-4">
@@ -56,16 +68,16 @@ export default function InvitationList({ invitations }) {
                                 <Edit size={20} />
                             </Link>
 
-                            <button 
-                                onClick={() => copyLink(invite.slug, invite._id)}
+                            <button
+                                onClick={() => copyLink(invite.slug, invite._id, invite.themeName)}
                                 className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-gray-50 text-gray-700 rounded-2xl font-bold hover:bg-gray-100 transition-all border border-gray-100"
                             >
                                 {copiedId === invite._id ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
                                 <span>{copiedId === invite._id ? 'Copied!' : 'Copy Link'}</span>
                             </button>
-                            
-                            <a 
-                                href={`/s/${invite.slug}`}
+
+                            <a
+                                href={`/${getPrefixForTheme(invite.themeName)}/${invite.slug}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white rounded-2xl hover:bg-gray-800 transition-all"

@@ -1,350 +1,128 @@
-"use client"
-// components/HeroSection2.jsx
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function HeroSection2() {
-    const [isMobile, setIsMobile] = useState(false);
-    const [isVerySmallScreen, setIsVerySmallScreen] = useState(false);
-    const [win, setWin] = useState({ w: 1200, h: 800 });
-    const [showIntro, setShowIntro] = useState(true);
-    const [animationStage, setAnimationStage] = useState("entering"); 
-    const [wordsVisible, setWordsVisible] = useState([false, false, false]);
-
-    const blueColor = "#0077c8";
-
-    useEffect(() => {
-        const handleResize = () => {
-            const width = window.innerWidth;
-            setIsMobile(width < 500);
-            setIsVerySmallScreen(width <= 380);
-            setWin({ w: width, h: window.innerHeight });
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    // Word drop animation sequence
-    useEffect(() => {
-        const timers = [];
-
-        // Show words one by one
-        timers.push(setTimeout(() => {
-            setWordsVisible([true, false, false]);
-        }, 300));
-
-        timers.push(setTimeout(() => {
-            setWordsVisible([true, true, false]);
-        }, 800));
-
-        timers.push(setTimeout(() => {
-            setWordsVisible([true, true, true]);
-        }, 1300));
-
-        // After all words are shown, wait then start fade out animation
-        timers.push(setTimeout(() => {
-            setAnimationStage("exiting");
-        }, 2300));
-
-        // After exit animation, hide intro
-        timers.push(setTimeout(() => {
-            setAnimationStage("done");
-            setShowIntro(false);
-        }, 3500));
-
-        return () => timers.forEach(timer => clearTimeout(timer));
-    }, []);
-
-    const baseIcons = [
-        { img: "/animated/1.gif", top: isMobile ? "13%" : "15%", left: isMobile ? "5%" : "6%", baseSize: isMobile ? 60 : 95, rotate: -12 },
-        { img: "/animated/2.gif", top: isMobile ? "18%" : "49%", left: isMobile ? "45%" : "75%", baseSize: isMobile ? 60 : 95, rotate: 12 },
-        { img: "/animated/3.gif", top: isMobile ? "80%" : "64%", left: isMobile ? "10%" : "6%", baseSize: isMobile ? 70 : 125, rotate: -18 },
-        { img: "/animated/4.gif", top: isMobile ? "69%" : "76%", left: isMobile ? "44%" : "47%", baseSize: isMobile ? 60 : 95, rotate: 20 },
-        { img: "/animated/5.gif", top: isMobile ? "12%" : "15%", left: isMobile ? "76%" : "82%", baseSize: isMobile ? 70 : 95, rotate: -12 },
-        { img: "/animated/6.gif", top: isMobile ? "75%" : "72%", left: isMobile ? "74%" : "84%", baseSize: isMobile ? 70 : 125, rotate: 20 },
-        { img: "/animated/7.gif", top: isMobile ? "67%" : "39%", left: isMobile ? "-8%" : "16%", baseSize: 78, rotate: -8, desktopOnly: true },
-    ];
-
-    const icons = baseIcons.map(ic => {
-        let size;
-        if (isVerySmallScreen) {
-            size = Math.round(ic.baseSize * 0.85);
-        } else if (isMobile) {
-            size = Math.round(ic.baseSize * 1.25);
-        } else {
-            size = ic.baseSize;
-        }
-
-        const fileName = ic.img.split("/").pop().replace(".gif", ".mp4");
-        return { ...ic, size, videoSrc: `/vids/${fileName}` };
-    });
-
-    function isPercentLessThan50(value) {
-        if (typeof value === "string" && value.endsWith("%")) {
-            const num = parseFloat(value.replace("%", ""));
-            return num < 50;
-        }
-        if (typeof value === "number") {
-            return value < 50;
-        }
-        return true;
-    }
-
-    const computeInitialOffset = (left, top) => {
-        const xFromLeft = isPercentLessThan50(left) ? -win.w : win.w;
-        const yFromTop = isPercentLessThan50(top) ? -win.h : win.h;
-
-        let initial = { x: 0, y: 0 };
-        let leftNum = typeof left === "string" && left.endsWith("%") ? parseFloat(left) : null;
-        let topNum = typeof top === "string" && top.endsWith("%") ? parseFloat(top) : null;
-
-        if (leftNum !== null && Math.abs(leftNum - 50) < 15 && topNum !== null) {
-            initial = { x: 0, y: yFromTop };
-        } else {
-            initial = { x: xFromLeft, y: 0 };
-        }
-
-        return initial;
-    };
-
-    const textParent = {
-        hidden: {},
-        visible: {
-            transition: {
-                staggerChildren: 0.12,
-                delayChildren: 0.4,
-            },
-        },
-    };
-
-    const textItem = {
-        hidden: { y: 18, opacity: 0 },
-        visible: { y: 0, opacity: 1, transition: { duration: 0.7, ease: "easeOut" } },
-    };
-
     return (
-        <>
-            {/* INTRO WITH WORD DROP ANIMATION */}
-            <AnimatePresence>
-                {showIntro && (
-                    <motion.div
-                        initial={{ opacity: 1 }}
-                        animate={animationStage === "exiting" ? { opacity: 0 } : { opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.2, ease: "easeInOut" }}
-                        className="fixed inset-0 flex items-center justify-center z-[9999]"
-                        style={{
-                            background: "radial-gradient(circle at center, #ffffff 0%, #87cefa 100%)",
-                        }}
-                    >
-                        {/* Main container centered in screen */}
-                        <div className="relative w-full h-full flex items-center justify-center">
-                            {/* Words container - stacked vertically */}
-                            <div className="flex flex-col items-center justify-center">
+        <section className="relative w-full flex-1 flex items-center justify-center overflow-hidden py-12 md:py-10">
 
-                                {/* WELCOME */}
-                                <motion.div
-                                    initial={{ y: -150, opacity: 0, scale: 1.2 }}
-                                    animate={
-                                        animationStage === "entering"
-                                            ? {
-                                                y: wordsVisible[0] ? 0 : -150,
-                                                opacity: wordsVisible[0] ? 1 : 0,
-                                                scale: wordsVisible[0] ? 1 : 1.2
-                                            }
-                                            : {
-                                                // Keep the words in place during exit - only screen fades
-                                                y: 0,
-                                                opacity: 1,
-                                                scale: 1
-                                            }
-                                    }
-                                    transition={{
-                                        type: "spring",
-                                        damping: 15,
-                                        stiffness: 200,
-                                        bounce: 0.6,
-                                        delay: wordsVisible[0] ? 0.3 : 0
-                                    }}
-                                    className="w-full text-center"
-                                >
-                                    <h3 className="leading-[1.1] uppercase tracking-tight text-[40px] sm:text-5xl lg:text-7xl font-light sm:font-[400] font-anton">
-                                        WELCOME
-                                    </h3>
-                                </motion.div>
+            {/* Container */}
+            <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-3 gap-10 items-center relative z-20">
 
-                                {/* TO */}
-                                <motion.div
-                                    initial={{ y: -150, opacity: 0, scale: 1.2 }}
-                                    animate={
-                                        animationStage === "entering"
-                                            ? {
-                                                y: wordsVisible[1] ? 0 : -150,
-                                                opacity: wordsVisible[1] ? 1 : 0,
-                                                scale: wordsVisible[1] ? 1 : 1.2
-                                            }
-                                            : {
-                                                // Keep the words in place during exit - only screen fades
-                                                y: 0,
-                                                opacity: 1,
-                                                scale: 1
-                                            }
-                                    }
-                                    transition={{
-                                        type: "spring",
-                                        damping: 15,
-                                        stiffness: 200,
-                                        bounce: 0.6,
-                                        delay: wordsVisible[1] ? 0.3 : 0
-                                    }}
-                                    className="w-full text-center my-4 md:my-6"
-                                >
-                                    <h3 className="leading-[1.1] uppercase tracking-tight text-[40px] sm:text-5xl lg:text-7xl font-light sm:font-[400] font-anton">
-                                        TO
-                                    </h3>
-                                </motion.div>
+                {/* LEFT COLUMN: Text Content */}
+                <motion.div
+                    className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 lg:-mt-26 col-span-2"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    {/* Headline */}
+                    <h1 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.1] font-semibold tracking-tight text-[#5a1e2b]">
+                        Premium Wedding Invitation Websites for Modern Indian Families
+                    </h1>
 
-                                {/* BROWN DEVS */}
-                                <motion.div
-                                    initial={{ y: -150, opacity: 0, scale: 1.2 }}
-                                    animate={
-                                        animationStage === "entering"
-                                            ? {
-                                                y: wordsVisible[2] ? 0 : -150,
-                                                opacity: wordsVisible[2] ? 1 : 0,
-                                                scale: wordsVisible[2] ? 1 : 1.2
-                                            }
-                                            : {
-                                                // Keep the words in place during exit - only screen fades
-                                                y: 0,
-                                                opacity: 1,
-                                                scale: 1
-                                            }
-                                    }
-                                    transition={{
-                                        type: "spring",
-                                        damping: 15,
-                                        stiffness: 200,
-                                        bounce: 0.6,
-                                        delay: wordsVisible[2] ? 0.3 : 0
-                                    }}
-                                    className="w-full text-center"
-                                >
-                                    <h3 className="leading-[1.1] uppercase tracking-tight text-[40px] sm:text-5xl lg:text-7xl font-light sm:font-[400] font-anton">
-                                        BROWN{" "}
-                                        <span
-                                            style={{ color: blueColor }}
-                                            className="inline-block"
-                                        >
-                                            DEVS
-                                        </span>
-                                    </h3>
-                                </motion.div>
+                    {/* Subheadline */}
+                    <p className="text-lg sm:text-xl text-gray-700 max-w-xl ">
+                        Beautiful, customizable invite websites with photos, events, RSVP, maps & music — designed to impress every guest.
+                    </p>
+
+                    {/* Trust Strip */}
+                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 text-sm sm:text-base text-[#5a1e2b] font-medium bg-white/50 px-4 py-3 rounded-2xl border border-white/60 backdrop-blur-sm shadow-sm">
+                        <span className="flex items-center gap-1">⭐ Loved by 500+ families</span>
+                        <span className="hidden sm:inline text-gray-300">|</span>
+                        <span className="flex items-center gap-1">📱 Mobile-friendly</span>
+                        <span className="hidden sm:inline text-gray-300">|</span>
+                        <span className="flex items-center gap-1">⚡ Ready in 10 mins</span>
+                        <span className="hidden sm:inline text-gray-300">|</span>
+                        <span className="flex items-center gap-1">💯 No design skills</span>
+                    </div>
+
+                    {/* CTA Buttons */}
+                    <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
+                        <Link
+                            href="#templates"
+                            className="group flex items-center justify-between sm:justify-center gap-6 w-full sm:w-auto pl-8 pr-2 py-2 bg-[#8b2c3c] text-white rounded-full font-medium text-lg hover:bg-[#6e222b] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                        >
+                            <span>View Live Templates</span>
+                            <div className="bg-white text-[#8b2c3c] flex items-center justify-center rounded-full w-10 h-10 shrink-0 transition-transform group-hover:rotate-45">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
                             </div>
+                        </Link>
+                        <Link
+                            href="#how-it-works"
+                            className="group flex items-center justify-between sm:justify-center gap-6 w-full sm:w-auto pl-8 pr-2 py-2 bg-white text-[#8b2c3c] rounded-full font-medium text-lg border-2 border-[#8b2c3c] hover:bg-[#fff5f6] transition-all shadow-sm hover:shadow-md"
+                        >
+                            <span>How It Works</span>
+                            <div className="bg-[#8b2c3c] text-white flex items-center justify-center rounded-full w-10 h-10 shrink-0 transition-transform group-hover:rotate-45">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </Link>
+                    </div>
+                </motion.div>
+
+                {/* RIGHT COLUMN: Mobile Mockup */}
+                <motion.div
+                    className="flex justify-center lg:justify-end relative"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                >
+                    {/* Decorative Blooms behind the phone */}
+                    <motion.img
+                        src="/icons/2.png"
+                        className="absolute -left-10 bottom-10 w-24 sm:w-32 opacity-70 pointer-events-none z-0"
+                        animate={{ rotate: [-3, 3, -3] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                        alt="Decorative flower"
+                    />
+                    <motion.img
+                        src="/icons/3.png"
+                        className="absolute -right-6 top-10 w-24 sm:w-32 opacity-70 pointer-events-none z-0"
+                        animate={{ rotate: [3, -3, 3] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                        alt="Decorative flower"
+                    />
+
+                    {/* The Phone Box */}
+                    <div className="relative w-[280px] h-[580px] sm:w-[320px] sm:h-[650px] bg-white rounded-[40px] shadow-[0_20px_50px_rgba(139,44,60,0.15)] border-[8px] border-white overflow-hidden z-10 p-1">
+                        {/* Phone Top Notch */}
+                        <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-20">
+                            <div className="w-32 h-6 bg-white rounded-b-3xl shadow-sm"></div>
                         </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
 
-            {/* MAIN HERO */}
-            <section className="relative overflow-hidden min-h-screen flex items-center justify-center pt-10">
-                <div
-                    className="absolute inset-0 -z-10"
-                    style={{
-                        background: "radial-gradient(circle at center, #ffffff 0%, #87cefa 100%)",
-                    }}
-                />
-
-                {icons.map((ic, idx) => {
-                    if (ic.desktopOnly && isMobile) return null;
-
-                    const initialOffset = computeInitialOffset(ic.left, ic.top);
-                    const delay = 0.25 * idx + 0.2;
-
-                    return (
-                        <motion.div
-                            key={idx}
-                            initial={{ x: initialOffset.x, y: initialOffset.y, opacity: 0, scale: 0.85 }}
-                            animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                            transition={{ type: "spring", stiffness: 50, damping: 16, duration: 1.6, delay }}
-                            style={{
-                                position: "absolute",
-                                top: ic.top,
-                                left: ic.left,
-                                width: ic.size,
-                                height: ic.size,
-                                zIndex: -10,
-                                pointerEvents: "none",
-                            }}
-                        >
+                        {/* Scrolling Image Container */}
+                        <div className="w-full h-full rounded-[30px] overflow-hidden relative bg-[#FAF6F6]">
+                            {/* Image that scrolls endlessly up and down */}
                             <motion.div
-                                animate={{ y: ["0%", "-6%", "0%"] }}
-                                transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: delay + 0.6 }}
-                                className="w-full h-full flex items-center justify-center"
+                                className="w-full relative"
+                                animate={{
+                                    y: ["0%", "-60%", "0%"]
+                                }}
+                                transition={{
+                                    duration: 25,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                }}
                             >
-                                <div
-                                    style={{ transform: `rotate(${ic.rotate}deg)` }}
-                                    className="rounded-xl bg-white p-3 shadow-sm"
-                                >
-                                    <video
-                                        src={ic.videoSrc}
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                        preload="metadata"
-                                        className="object-contain"
-                                        style={{
-                                            width: Math.round(ic.size * 0.85),
-                                            height: Math.round(ic.size * 0.85),
-                                        }}
-                                    />
-                                </div>
+                                {/* We use a preview image or stack multiple template sections */}
+                                <img
+                                    src="/templates/sikh/preview.png"
+                                    alt="Live Invite Preview"
+                                    className="w-full h-auto object-cover"
+                                />
                             </motion.div>
-                        </motion.div>
-                    );
-                })}
+                        </div>
+                    </div>
+                </motion.div>
 
-                <div className="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-28 text-center">
-                    <motion.div
-                        variants={textParent}
-                        initial="hidden"
-                        animate="visible"
-                        className="mx-auto"
-                    >
-                        <motion.p
-                            variants={textItem}
-                            className="mx-auto leading-[1.1] max-w-[90%] lg:w-[900px] uppercase tracking-tight text-[40px] sm:text-5xl lg:text-7xl font-light sm:font-[400] font-anton"
-                        >
-                            WE BUILD <span className="text-[#0077c8]">APPS </span> THAT GET <span className="text-[#0077c8]">INVESTORS' </span> ATTENTION
-                        </motion.p>
-
-                        <motion.p
-                            variants={textItem}
-                            className="mt-6 text-base md:text-2xl max-w-2xl mx-auto"
-                            style={{ fontFamily: "var(--font-dm-sans)", color: "#1f2937" }}
-                        >
-                            We help businesses double their Sales with
-                            <span className="block mt-1 italic font-bold "> conversion-focused websites</span>
-                        </motion.p>
-
-                        <motion.div variants={textItem} className="mt-8 mb-20">
-                            <motion.a
-                                href="/contact-us"
-                                className="inline-block border-[#0f172a] text-[#0f172a] rounded-full border px-6 py-3 text-sm md:text-base font-medium transition-transform hover:scale-[1.02] active:scale-95 hover:bg-white shadow-sm"
-                                style={{ fontFamily: "var(--font-poppins)" }}
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.96 }}
-                            >
-                                Connect with Experts
-                            </motion.a>
-                        </motion.div>
-                    </motion.div>
-                </div>
-            </section>
-        </>
+            </div>
+        </section>
     );
 }

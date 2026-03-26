@@ -6,8 +6,11 @@ import FAQ from "@/components/website/home/FAQ";
 import Footer from "@/components/website/common/Footer";
 import ContactSection from "@/components/website/common/ContactSection";
 import TemplatesSection from "@/components/website/home/TemplatesSection";
-import HeroSection3 from "@/components/website/home/HeroSection3";
+import HeroSection2 from "@/components/website/home/HeroSection2";
 import ComparisonSection from "@/components/website/home/ComparisonSection";
+import ComparisonTableSection from "@/components/website/home/ComparisonTableSection";
+import FeatureVisualSection from "@/components/website/home/FeatureVisualSection";
+import HowItWorksSection from "@/components/website/home/HowItWorksSection";
 import SmoothScroll from "@/components/website/common/SmoothScroll";
 
 export default async function Home() {
@@ -28,7 +31,7 @@ export default async function Home() {
           {/* First Fold (Navbar + Hero) */}
           <div className="flex flex-col min-h-[100dvh] sm:min-h-[100vh]">
             <NavBar />
-            <HeroSection3 />
+            <HeroSection2 />
           </div>
 
           {/* Templates Section */}
@@ -43,6 +46,15 @@ export default async function Home() {
           >
             {/* Comparison Section (Boring vs Digital) */}
             <ComparisonSection />
+
+            {/* Comparison Table Section (Detailed features) */}
+            <ComparisonTableSection />
+
+            {/* Feature Visual Grid Section */}
+            <FeatureVisualSection />
+
+            {/* How It Works Steps */}
+            <HowItWorksSection />
 
             <TestimonialSlider />
             <FAQ />
