@@ -71,7 +71,7 @@ export default function HeroBottom({ invitation }) {
                 </motion.h2>
 
                 <motion.p variants={item} className="text-lg leading-relaxed">
-                    to join the wedding celebration of their{" "}
+                    to join the Engagement Ceremony of their{" "}
                     {side === 'groom' ? 'son' : 'daughter'}
                 </motion.p>
 

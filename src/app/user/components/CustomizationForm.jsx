@@ -18,11 +18,11 @@ export default function CustomizationForm({ invitation, orderId }) {
     const [loading, setLoading] = useState(false);
     const [side, setSide] = useState(invitation?.weddingDetails?.side || 'bride');
     const [events, setEvents] = useState(
-        invitation?.events?.length > 0 
+        invitation?.events?.length > 0
             ? invitation.events.map(e => ({
                 ...e,
                 date: e.date ? new Date(e.date).toISOString().split('T')[0] : ''
-            })) 
+            }))
             : DEFAULT_EVENTS
     );
 
@@ -85,15 +85,13 @@ export default function CustomizationForm({ invitation, orderId }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
                     <button
                         onClick={() => setSide('bride')}
-                        className={`p-6 rounded-3xl border-2 transition-all flex flex-col items-center gap-4 group ${
-                            side === 'bride' 
-                            ? 'border-[#8b2c3c] bg-[#8b2c3c]/5' 
-                            : 'border-gray-100 hover:border-gray-200 bg-gray-50'
-                        }`}
+                        className={`p-6 rounded-3xl border-2 transition-all flex flex-col items-center gap-4 group ${side === 'bride'
+                                ? 'border-[#8b2c3c] bg-[#8b2c3c]/5'
+                                : 'border-gray-100 hover:border-gray-200 bg-gray-50'
+                            }`}
                     >
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${
-                            side === 'bride' ? 'bg-[#8b2c3c] text-white' : 'bg-gray-200 text-gray-500'
-                        }`}>B</div>
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${side === 'bride' ? 'bg-[#8b2c3c] text-white' : 'bg-gray-200 text-gray-500'
+                            }`}>B</div>
                         <div className="text-center">
                             <p className={`font-bold ${side === 'bride' ? 'text-[#8b2c3c]' : 'text-gray-700'}`}>Bride Side</p>
                             <p className="text-xs text-gray-500 mt-1">Invitation for girl's family</p>
@@ -102,15 +100,13 @@ export default function CustomizationForm({ invitation, orderId }) {
 
                     <button
                         onClick={() => setSide('groom')}
-                        className={`p-6 rounded-3xl border-2 transition-all flex flex-col items-center gap-4 group ${
-                            side === 'groom' 
-                            ? 'border-[#8b2c3c] bg-[#8b2c3c]/5' 
-                            : 'border-gray-100 hover:border-gray-200 bg-gray-50'
-                        }`}
+                        className={`p-6 rounded-3xl border-2 transition-all flex flex-col items-center gap-4 group ${side === 'groom'
+                                ? 'border-[#8b2c3c] bg-[#8b2c3c]/5'
+                                : 'border-gray-100 hover:border-gray-200 bg-gray-50'
+                            }`}
                     >
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${
-                            side === 'groom' ? 'bg-[#8b2c3c] text-white' : 'bg-gray-200 text-gray-500'
-                        }`}>G</div>
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${side === 'groom' ? 'bg-[#8b2c3c] text-white' : 'bg-gray-200 text-gray-500'
+                            }`}>G</div>
                         <div className="text-center">
                             <p className={`font-bold ${side === 'groom' ? 'text-[#8b2c3c]' : 'text-gray-700'}`}>Groom Side</p>
                             <p className="text-xs text-gray-500 mt-1">Invitation for boy's family</p>
@@ -130,24 +126,22 @@ export default function CustomizationForm({ invitation, orderId }) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {events.map((event, index) => (
-                        <div 
+                        <div
                             key={event.name}
-                            className={`bg-white rounded-[32px] p-6 border transition-all duration-300 ${
-                                event.enabled 
-                                ? 'border-[#8b2c3c]/30 shadow-md ring-1 ring-[#8b2c3c]/5' 
-                                : 'border-gray-100 opacity-70 grayscale-[0.5]'
-                            }`}
+                            className={`bg-white rounded-[32px] p-6 border transition-all duration-300 ${event.enabled
+                                    ? 'border-[#8b2c3c]/30 shadow-md ring-1 ring-[#8b2c3c]/5'
+                                    : 'border-gray-100 opacity-70 grayscale-[0.5]'
+                                }`}
                         >
                             <div className="flex items-center justify-between mb-6">
-                                <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${
-                                    event.enabled ? 'bg-[#8b2c3c]/10 text-[#8b2c3c]' : 'bg-gray-100 text-gray-400'
-                                }`}>
+                                <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${event.enabled ? 'bg-[#8b2c3c]/10 text-[#8b2c3c]' : 'bg-gray-100 text-gray-400'
+                                    }`}>
                                     {event.name}
                                 </span>
                                 <label className="relative inline-flex items-center cursor-pointer">
-                                    <input 
-                                        type="checkbox" 
-                                        className="sr-only peer" 
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
                                         checked={event.enabled}
                                         onChange={() => handleEventToggle(index)}
                                     />
@@ -160,8 +154,8 @@ export default function CustomizationForm({ invitation, orderId }) {
                                     <label className="text-[10px] font-bold text-gray-400 uppercase ml-1 flex items-center gap-1.5">
                                         <Calendar size={10} /> Date
                                     </label>
-                                    <input 
-                                        type="date" 
+                                    <input
+                                        type="date"
                                         value={event.date}
                                         onChange={(e) => handleEventChange(index, 'date', e.target.value)}
                                         className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:border-[#8b2c3c] outline-none transition-all"
@@ -171,8 +165,8 @@ export default function CustomizationForm({ invitation, orderId }) {
                                     <label className="text-[10px] font-bold text-gray-400 uppercase ml-1 flex items-center gap-1.5">
                                         <Clock size={10} /> Time
                                     </label>
-                                    <input 
-                                        type="time" 
+                                    <input
+                                        type="time"
                                         value={event.time}
                                         onChange={(e) => handleEventChange(index, 'time', e.target.value)}
                                         className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:border-[#8b2c3c] outline-none transition-all"
@@ -182,7 +176,7 @@ export default function CustomizationForm({ invitation, orderId }) {
                                     <label className="text-[10px] font-bold text-gray-400 uppercase ml-1 flex items-center gap-1.5">
                                         <MapPin size={10} /> Venue
                                     </label>
-                                    <textarea 
+                                    <textarea
                                         value={event.venue}
                                         onChange={(e) => handleEventChange(index, 'venue', e.target.value)}
                                         rows={2}

@@ -76,10 +76,10 @@ export async function POST(req) {
             } else if (inviteId) {
                 invitation = await Invitation.findById(inviteId);
                 if (!invitation) return NextResponse.json({ error: "Invitation not found" }, { status: 404 });
-                
+
                 if (side) invitation.weddingDetails.side = side;
                 if (events) invitation.events = events;
-                
+
                 // Also ensures it matches latest order details if edited
                 invitation.weddingDetails.bride = { name: order.mainDetails.brideName, father: order.mainDetails.brideFatherName, mother: order.mainDetails.brideMotherName };
                 invitation.weddingDetails.groom = { name: order.mainDetails.groomName, father: order.mainDetails.groomFatherName, mother: order.mainDetails.groomMotherName };
@@ -103,7 +103,7 @@ export async function POST(req) {
                     weddingDate: new Date(weddingDate),
                 }
             }, { new: true });
-            
+
             console.log("Updated order result:", updatedOrder.mainDetails);
             return NextResponse.json({ success: true, order: updatedOrder });
         }
