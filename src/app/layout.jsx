@@ -30,36 +30,35 @@ const anton = Anton({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://www.khushkhabri.in"),
+  metadataBase: new URL("https://khushkhabri.vercel.app"),
   title: {
-    default: "Khushkhabri - Send Invitations to your close ones ",
+    default: "Khushkhabri - Create & Send Beautiful Digital Invitations",
     template: "%s | Khushkhabri",
   },
   description:
-    "Brown Devs is a leading web development and app development company delivering AI solutions, e commerce platforms, performance marketing and scalable software for businesses worldwide.",
+    "Khushkhabri helps you create and send stunning digital invitations for weddings, engagements and special events. Share your moments with beautifully designed templates.",
   keywords: [
-    "Brown Devs",
-    "browndevs",
-    "Web Development Company",
-    "App Development Company",
-    "Software Development Company",
-    "AI Development Services",
-    "E Commerce Development",
-    "Performance Marketing Agency",
-    "Digital Marketing Company India",
+    "Khushkhabri",
+    "Digital Invitation",
+    "Wedding Invitation Website",
+    "Online Wedding Cards",
+    "Invitation Maker India",
+    "E Invite Platform",
+    "Wedding Website Builder",
+    "Indian Wedding Invitations",
   ],
   openGraph: {
-    title: "Brown Devs | Web & App Development Company",
+    title: "Khushkhabri - Digital Invitation Platform",
     description:
-      "We build scalable web applications, mobile apps, AI systems, e commerce platforms and performance marketing strategies that drive measurable growth.",
-    url: "https://www.browndevs.com",
-    siteName: "Brown Devs",
+      "Design and share beautiful digital invitations for weddings and events with Khushkhabri. Easy to create, customize and send.",
+    url: "https://khushkhabri.vercel.app",
+    siteName: "Khushkhabri",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "Brown Devs Web and App Development Company",
+        alt: "Khushkhabri Digital Invitation Platform",
       },
     ],
     locale: "en_IN",
@@ -67,13 +66,13 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Brown Devs | Web & App Development Company",
+    title: "Khushkhabri - Digital Invitation Platform",
     description:
-      "Custom web development, mobile apps, AI solutions and performance marketing services built to scale.",
+      "Create elegant digital invitations for weddings and events. Share instantly with your loved ones.",
     images: ["/logo.png"],
   },
   alternates: {
-    canonical: "https://www.browndevs.com",
+    canonical: "https://khushkhabri.vercel.app",
   },
   icons: {
     icon: "/favicon.ico",
