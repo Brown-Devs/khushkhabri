@@ -1,12 +1,18 @@
 "use client"
 import React from 'react';
 import { format } from 'date-fns';
-import { ExternalLink, Copy, Edit, Check } from 'lucide-react';
+import { ExternalLink, Copy, Edit, Check, Trash2, Link2 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog ';
 
 export default function InvitationList({ invitations }) {
+    const router = useRouter();
     const [copiedId, setCopiedId] = React.useState(null);
+    const [isDeleting, setIsDeleting] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(null);
+    const [loading, setLoading] = React.useState(false);
 
     const getPrefixForTheme = (themeName) => {
         switch (themeName) {
@@ -26,6 +32,29 @@ export default function InvitationList({ invitations }) {
         setCopiedId(id);
         toast.success("Link copied to clipboard!");
         setTimeout(() => setCopiedId(null), 2000);
+    };
+
+    const handleDelete = async () => {
+        if (!deleteId) return;
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/invitation/delete?id=${deleteId}`, {
+                method: 'DELETE',
+            });
+            if (res.ok) {
+                toast.success("Invitation deleted successfully");
+                setIsDeleting(false);
+                router.refresh();
+            } else {
+                const data = await res.json();
+                toast.error(data.error || "Failed to delete invitation");
+            }
+        } catch (err) {
+            toast.error("Something went wrong");
+        } finally {
+            setLoading(false);
+            setDeleteId(null);
+        }
     };
 
     if (!invitations || invitations.length === 0) return null;
@@ -56,6 +85,10 @@ export default function InvitationList({ invitations }) {
                                 <p className="text-gray-500 text-sm">
                                     Wedding on {invite.weddingDetails?.weddingDate ? format(new Date(invite.weddingDetails.weddingDate), 'MMMM d, yyyy') : 'Date not set'}
                                 </p>
+                                <div className="flex items-center gap-1.5 mt-1 text-[#8b2c3c] bg-[#8b2c3c]/5 px-2 py-0.5 rounded-lg w-fit">
+                                    <Link2 size={12} />
+                                    <span className="text-[10px] font-bold uppercase tracking-wider">{invite.slug}</span>
+                                </div>
                             </div>
                         </div>
 
@@ -85,10 +118,30 @@ export default function InvitationList({ invitations }) {
                             >
                                 <ExternalLink size={20} />
                             </a>
+
+                            <button
+                                onClick={() => {
+                                    setDeleteId(invite._id);
+                                    setIsDeleting(true);
+                                }}
+                                className="w-12 h-12 flex items-center justify-center bg-red-50 text-red-500 rounded-2xl hover:bg-red-100 transition-all border border-red-100"
+                                title="Delete Invitation"
+                            >
+                                <Trash2 size={20} />
+                            </button>
                         </div>
                     </div>
                 ))}
             </div>
+
+            <DeleteConfirmationDialog
+                isOpen={isDeleting}
+                onOpenChange={setIsDeleting}
+                onConfirm={handleDelete}
+                isLoading={loading}
+                title="Delete Invitation"
+                description="Are you sure you want to delete this invitation? This action cannot be undone."
+            />
         </div>
     );
 }

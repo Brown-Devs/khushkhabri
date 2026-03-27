@@ -8,11 +8,27 @@ import "swiper/css";
 export default function GallerySection({ invitation }) {
     const { bride, groom } = invitation?.weddingDetails || {};
 
-    const images = [
+    const preWeddingPhotos = invitation?.mainDetails?.preWeddingPhotos || [];
+    const showPreWeddingPhotos = invitation?.mainDetails?.showPreWeddingPhotos ?? true;
+    const weddingVideo = invitation?.mainDetails?.weddingVideo;
+    const showWeddingVideo = invitation?.mainDetails?.showWeddingVideo ?? true;
+
+    const defaultImages = [
         "/templates/sikh/couple1.jpeg",
         "/templates/sikh/couple2.jpeg",
         "/templates/sikh/couple3.jpeg",
     ];
+
+    const images = preWeddingPhotos.length > 0 ? preWeddingPhotos : defaultImages;
+
+    const getYouTubeId = (url) => {
+        if (!url) return null;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    };
+
+    const videoId = getYouTubeId(weddingVideo);
 
     return (
         <section className="relative w-full overflow-visible font-serif">
@@ -24,79 +40,94 @@ export default function GallerySection({ invitation }) {
                 }}
             >
 
-                {/* ===== Bride & Groom ===== */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <p className="text-white text-2xl italic">
-                        Meet the
-                    </p>
+                {showPreWeddingPhotos && (
+                    <>
+                        {/* ===== Bride & Groom ===== */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <p className="text-white text-2xl italic">
+                                Meet the
+                            </p>
 
-                    <h2 className="text-white text-6xl font-script mt-5">
-                        Bride & Groom
-                    </h2>
-                </motion.div>
+                            <h2 className="text-white text-6xl font-script mt-5">
+                                Bride & Groom
+                            </h2>
+                        </motion.div>
 
-                <div className="mt-10">
-                    <Swiper
-                        spaceBetween={20}
-                        slidesPerView={1.3}
-                        centeredSlides={true}
-                        grabCursor={true}
-                    >
-                        {images.map((img, index) => (
-                            <SwiperSlide key={index}>
-                                <div className="flex justify-center">
-                                    <img
-                                        src={img}
-                                        alt="couple"
-                                        className="w-[300px] h-[520px] object-cover rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-
-                {/* ===== Pre Wedding Section ===== */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="mt-20 px-6"
-                >
-
-                    <p className="text-white text-2xl italic">
-                        Watch our
-                    </p>
-
-                    <h2 className="text-white text-6xl font-script mt-5">
-                        Pre Wedding
-                    </h2>
-
-                    {/* Video Card */}
-                    <div className="mt-8 flex justify-center">
-                        <div className="w-[300px] h-[520px] rounded-[28px] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
-
-                            {/* Thumbnail */}
-                            <img
-                                src="/templates/sikh/couple2.jpeg"
-                                alt="pre wedding"
-                                className="w-full h-full object-cover"
-                            />
-
-                            {/* Play Button */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-14 h-14 bg-white/80 rounded-full flex items-center justify-center">
-                                    ▶
-                                </div>
-                            </div>
-
+                        <div className="mt-10">
+                            <Swiper
+                                spaceBetween={20}
+                                slidesPerView={1.3}
+                                centeredSlides={true}
+                                grabCursor={true}
+                                loop={images.length > 1}
+                            >
+                                {images.map((img, index) => (
+                                    <SwiperSlide key={index}>
+                                        <div className="flex justify-center">
+                                            <img
+                                                src={img}
+                                                alt="couple"
+                                                className="w-[300px] h-[520px] object-cover rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                                            />
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
-                    </div>
-                </motion.div>
+                    </>
+                )}
+
+                {showWeddingVideo && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="mt-20 px-6"
+                    >
+
+                        <p className="text-white text-2xl italic">
+                            Watch our
+                        </p>
+
+                        <h2 className="text-white text-6xl font-script mt-5">
+                            Pre Wedding
+                        </h2>
+
+                        {/* Video Card */}
+                        <div className="mt-8 flex justify-center">
+                            <div className="w-[300px] h-[520px] rounded-[28px] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.4)] bg-black">
+                                {videoId ? (
+                                    <iframe
+                                        className="w-full h-full border-0"
+                                        src={`https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`}
+                                        title="Pre Wedding Video"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                ) : (
+                                    <>
+                                        {/* Thumbnail (Fallback) */}
+                                        <img
+                                            src={images[0] || "/templates/sikh/couple2.jpeg"}
+                                            alt="pre wedding"
+                                            className="w-full h-full object-cover opacity-60"
+                                        />
+                                        {/* Play Button Icon (Fallback) */}
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center text-white/40">
+                                                ?
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
 
                 {/* ===== Final Blessing Section ===== */}
                 <motion.div

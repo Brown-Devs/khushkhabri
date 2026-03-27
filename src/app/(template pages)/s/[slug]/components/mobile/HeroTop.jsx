@@ -5,7 +5,7 @@ import BackIcons from "./BackIcons";
 import MidIcons from "./MidIcons";
 import FrontIcons from "./FrontIcons";
 
-export default function HeroTop({ bride, groom }) {
+export default function HeroTop({ bride, groom, side }) {
     const { scrollY } = useScroll();
 
     const textY = useTransform(scrollY, [0, 500], [0, 160]);
@@ -36,6 +36,9 @@ export default function HeroTop({ bride, groom }) {
         },
     };
 
+    const firstName = side === 'groom' ? groom?.name : bride?.name;
+    const secondName = side === 'groom' ? bride?.name : groom?.name;
+
     return (
         <section className="relative h-[90vh] flex items-start justify-center text-center pt-24">
             <div className="absolute top-0 left-0 w-full h-[120vh] z-0 overflow-visible pointer-events-none">
@@ -51,7 +54,7 @@ export default function HeroTop({ bride, groom }) {
                 className="z-10"
             >
                 <motion.h1 variants={item} className="text-white text-7xl font-script">
-                    {bride?.name?.split(' ')[0] || 'Bride'}
+                    {firstName?.split(' ')[0] || (side === 'groom' ? 'Groom' : 'Bride')}
                 </motion.h1>
 
                 <motion.p variants={item} className="text-white text-2xl mt-2 font-script">
@@ -59,10 +62,9 @@ export default function HeroTop({ bride, groom }) {
                 </motion.p>
 
                 <motion.h2 variants={item} className="text-white text-7xl mt-2 font-script">
-                    {groom?.name?.split(' ')[0] || 'Groom'}
+                    {secondName?.split(' ')[0] || (side === 'groom' ? 'Bride' : 'Groom')}
                 </motion.h2>
             </motion.div>
-
         </section>
     );
 }

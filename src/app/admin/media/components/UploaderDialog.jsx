@@ -14,7 +14,7 @@ import { useImages } from '@/hooks/useImages';
 import { convertToBase64 } from '@/lib/services/convertToBase64';
 import { FolderUp, Loader2 } from 'lucide-react';
 
-export default function UploaderDialog({ open, onOpenChange }) {
+export default function UploaderDialog({ open, onOpenChange, onUploadSuccess }) {
 
     const [files, setFiles] = useState([]);
     const [previews, setPreviews] = useState([]);
@@ -29,10 +29,10 @@ export default function UploaderDialog({ open, onOpenChange }) {
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
-        const validFiles = selectedFiles.filter(file => file.size <= 1000 * 1024);
+        const validFiles = selectedFiles.filter(file => file.size <= 2048 * 1024);
 
         if (validFiles.length !== selectedFiles.length) {
-            alert('Some files exceed 1000KB and were skipped.');
+            alert('Some files exceed 2048KB (2MB) and were skipped.');
         }
 
         setFiles(validFiles);
@@ -53,11 +53,14 @@ export default function UploaderDialog({ open, onOpenChange }) {
                 files.map(file => convertToBase64(file))
             );
 
-            await Promise.all(
+            const results = await Promise.all(
                 base64Images.map(base64 =>
                     uploadImageAsync({ image: base64 })
                 )
             );
+
+            const uploadedUrls = results.map(res => res.imageURL);
+            if (onUploadSuccess) onUploadSuccess(uploadedUrls);
 
             // Reset states
             setFiles([]);

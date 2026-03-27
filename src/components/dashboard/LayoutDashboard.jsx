@@ -9,7 +9,7 @@ function LayoutDashboard({ children, sidebarLinks }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <main className='flex flex-col sm:flex-row h-screen'>
+        <main className='flex flex-col sm:flex-row h-screen overflow-hidden'>
 
             <div className="flex p-5 justify-between items-center bg-gray-900 shadow-md gap-3 sm:hidden">
                 <Image
@@ -32,7 +32,7 @@ function LayoutDashboard({ children, sidebarLinks }) {
                 <Sidebar isOpen={sidebarOpen} setIsSidebarOpen={setSidebarOpen} sidebarLinks={sidebarLinks} />
             </div>
 
-            <div className='grow h-screen overflow-auto' onClick={() => setSidebarOpen(false)}>
+            <div className='grow h-full overflow-auto' onClick={() => setSidebarOpen(false)}>
                 {children}
             </div>
         </main>

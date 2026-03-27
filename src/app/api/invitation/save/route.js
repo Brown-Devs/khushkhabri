@@ -28,6 +28,12 @@ export async function POST(req) {
             weddingDate,
             side,
             events,
+            rsvpNumber,
+            preWeddingPhotos,
+            showPreWeddingPhotos,
+            weddingVideo,
+            showWeddingVideo,
+            musicUrl,
             isCustomization,
             isCreateNew
         } = body;
@@ -71,7 +77,15 @@ export async function POST(req) {
                         groom: { name: order.mainDetails.groomName, father: order.mainDetails.groomFatherName, mother: order.mainDetails.groomMotherName },
                         weddingDate: order.mainDetails.weddingDate,
                     },
-                    events: events || []
+                    events: events || [],
+                    rsvpNumber: rsvpNumber || '',
+                    mainDetails: {
+                        preWeddingPhotos: preWeddingPhotos || [],
+                        showPreWeddingPhotos: showPreWeddingPhotos !== undefined ? showPreWeddingPhotos : true,
+                        weddingVideo: weddingVideo || '',
+                        showWeddingVideo: showWeddingVideo !== undefined ? showWeddingVideo : true,
+                        musicUrl: musicUrl || '',
+                    }
                 });
             } else if (inviteId) {
                 invitation = await Invitation.findById(inviteId);
@@ -79,11 +93,33 @@ export async function POST(req) {
 
                 if (side) invitation.weddingDetails.side = side;
                 if (events) invitation.events = events;
+                if (rsvpNumber !== undefined) {
+                    invitation.rsvpNumber = rsvpNumber;
+                    // Force mark as modified if needed
+                    invitation.markModified('rsvpNumber');
+                }
 
-                // Also ensures it matches latest order details if edited
-                invitation.weddingDetails.bride = { name: order.mainDetails.brideName, father: order.mainDetails.brideFatherName, mother: order.mainDetails.brideMotherName };
-                invitation.weddingDetails.groom = { name: order.mainDetails.groomName, father: order.mainDetails.groomFatherName, mother: order.mainDetails.groomMotherName };
-                invitation.weddingDetails.weddingDate = order.mainDetails.weddingDate;
+                if (!invitation.mainDetails) invitation.mainDetails = {};
+                if (preWeddingPhotos !== undefined) invitation.mainDetails.preWeddingPhotos = preWeddingPhotos;
+                if (showPreWeddingPhotos !== undefined) invitation.mainDetails.showPreWeddingPhotos = showPreWeddingPhotos;
+                if (weddingVideo !== undefined) invitation.mainDetails.weddingVideo = weddingVideo;
+                if (showWeddingVideo !== undefined) invitation.mainDetails.showWeddingVideo = showWeddingVideo;
+                if (musicUrl !== undefined) invitation.mainDetails.musicUrl = musicUrl;
+
+                // Ensure wedding details are up to date from order
+                if (order.mainDetails) {
+                    invitation.weddingDetails.bride = { 
+                        name: order.mainDetails.brideName, 
+                        father: order.mainDetails.brideFatherName, 
+                        mother: order.mainDetails.brideMotherName 
+                    };
+                    invitation.weddingDetails.groom = { 
+                        name: order.mainDetails.groomName, 
+                        father: order.mainDetails.groomFatherName, 
+                        mother: order.mainDetails.groomMotherName 
+                    };
+                    invitation.weddingDetails.weddingDate = order.mainDetails.weddingDate;
+                }
 
                 await invitation.save();
             }
@@ -101,8 +137,35 @@ export async function POST(req) {
                     groomFatherName,
                     groomMotherName,
                     weddingDate: new Date(weddingDate),
+                    preWeddingPhotos: preWeddingPhotos || [],
+                    showPreWeddingPhotos: showPreWeddingPhotos !== undefined ? showPreWeddingPhotos : true,
+                    weddingVideo: weddingVideo || '',
+                    showWeddingVideo: showWeddingVideo !== undefined ? showWeddingVideo : true,
+                    musicUrl: musicUrl || '',
                 }
             }, { new: true });
+
+            // Sync changes to all invitations under this order
+            await Invitation.updateMany({ order: orderId }, {
+                $set: {
+                    "weddingDetails.bride": { 
+                        name: brideName, 
+                        father: brideFatherName, 
+                        mother: brideMotherName 
+                    },
+                    "weddingDetails.groom": { 
+                        name: groomName, 
+                        father: groomFatherName, 
+                        mother: groomMotherName 
+                    },
+                    "weddingDetails.weddingDate": new Date(weddingDate),
+                    "mainDetails.preWeddingPhotos": preWeddingPhotos || [],
+                    "mainDetails.showPreWeddingPhotos": showPreWeddingPhotos !== undefined ? showPreWeddingPhotos : true,
+                    "mainDetails.weddingVideo": weddingVideo || '',
+                    "mainDetails.showWeddingVideo": showWeddingVideo !== undefined ? showWeddingVideo : true,
+                    "mainDetails.musicUrl": musicUrl || '',
+                }
+            });
 
             console.log("Updated order result:", updatedOrder.mainDetails);
             return NextResponse.json({ success: true, order: updatedOrder });

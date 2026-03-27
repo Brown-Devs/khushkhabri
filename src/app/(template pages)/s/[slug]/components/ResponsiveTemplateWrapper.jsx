@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import SikhTemplateMobile from "./mobile/SikhTemplateMobile";
 import SikhTemplateDesktop from "./desktop/SikhTemplateDesktop";
+import MusicPlayer from "@/components/MusicPlayer";
 
 export default function ResponsiveTemplateWrapper(props) {
     const [isMobile, setIsMobile] = useState(null);
@@ -21,7 +22,14 @@ export default function ResponsiveTemplateWrapper(props) {
 
     if (isMobile === null) return null; // prevent hydration mismatch
 
-    return isMobile
-        ? <SikhTemplateMobile {...props} />
-        : <SikhTemplateDesktop {...props} />;
+    return (
+        <>
+            {isMobile ? (
+                <SikhTemplateMobile {...props} />
+            ) : (
+                <SikhTemplateDesktop {...props} />
+            )}
+            <MusicPlayer url={props.invitation?.mainDetails?.musicUrl} />
+        </>
+    );
 }

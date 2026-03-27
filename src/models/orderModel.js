@@ -24,13 +24,18 @@ const orderSchema = new mongoose.Schema(
         groomFatherName: String,
         groomMotherName: String,
         weddingDate: Date,
+        preWeddingPhotos: [String],
+        showPreWeddingPhotos: { type: Boolean, default: true },
+        weddingVideo: String,
+        showWeddingVideo: { type: Boolean, default: true },
+        musicUrl: String,
     },
   },
   { timestamps: true }
 );
 
 const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
-if (Order.schema.path('mainDetails') === undefined) {
+if (Order.schema.path('mainDetails') === undefined || Order.schema.path('mainDetails.musicUrl') === undefined) {
     delete mongoose.models.Order;
 }
 export default mongoose.models.Order || mongoose.model("Order", orderSchema);

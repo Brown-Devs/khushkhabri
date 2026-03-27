@@ -23,6 +23,11 @@ const invitationSchema = new mongoose.Schema(
             date: Date,
             time: String,
             venue: String,
+            preWeddingPhotos: [String],
+            showPreWeddingPhotos: { type: Boolean, default: true },
+            weddingVideo: String,
+            showWeddingVideo: { type: Boolean, default: true },
+            musicUrl: String,
         },
 
         // 🔹 WEDDING ONLY
@@ -43,7 +48,8 @@ const invitationSchema = new mongoose.Schema(
                 enum: ["bride", "groom"],
             },
         },
-        rsvpNumber: String,
+
+        rsvpNumber: { type: String, required: false },
 
         events: [
             {
@@ -60,4 +66,7 @@ const invitationSchema = new mongoose.Schema(
 );
 
 const Invitation = mongoose.models.Invitation || mongoose.model("Invitation", invitationSchema);
-export default Invitation;
+if (Invitation.schema.path('rsvpNumber') === undefined || Invitation.schema.path('mainDetails.musicUrl') === undefined) {
+    delete mongoose.models.Invitation;
+}
+export default mongoose.models.Invitation || mongoose.model("Invitation", invitationSchema);

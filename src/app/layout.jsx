@@ -124,7 +124,7 @@ export default function RootLayout({ children }) {
         className={`${poppins.variable} ${montserrat.variable} ${dmSans.variable} ${anton.variable} antialiased`}
       >
         <AuthProvider>
-          <main>{children}</main>
+          {children}
         </AuthProvider>
 
         {/* <div className="max-[1024px]:hidden">

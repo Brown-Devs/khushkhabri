@@ -2,21 +2,22 @@
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { Settings2, Save, Calendar, Clock, MapPin } from 'lucide-react';
+import { Settings2, Save, Calendar, Clock, MapPin, X } from 'lucide-react';
 
 const DEFAULT_EVENTS = [
-    { name: 'Engagement', enabled: false, date: '', time: '', venue: '' },
-    { name: 'Haldi', enabled: false, date: '', time: '', venue: '' },
-    { name: 'Mehendi', enabled: false, date: '', time: '', venue: '' },
-    { name: 'Cocktail', enabled: false, date: '', time: '', venue: '' },
-    { name: 'Wedding', enabled: true, date: '', time: '', venue: '' },
-    { name: 'Reception', enabled: false, date: '', time: '', venue: '' },
+    { name: 'Engagement', enabled: false, date: '', time: '', venue: '', mapLink: '' },
+    { name: 'Haldi', enabled: false, date: '', time: '', venue: '', mapLink: '' },
+    { name: 'Mehendi', enabled: false, date: '', time: '', venue: '', mapLink: '' },
+    { name: 'Cocktail', enabled: false, date: '', time: '', venue: '', mapLink: '' },
+    { name: 'Wedding', enabled: true, date: '', time: '', venue: '', mapLink: '' },
+    { name: 'Reception', enabled: false, date: '', time: '', venue: '', mapLink: '' },
 ];
 
 export default function CustomizationForm({ invitation, orderId }) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [side, setSide] = useState(invitation?.weddingDetails?.side || 'bride');
+    const [rsvpNumber, setRsvpNumber] = useState(invitation?.rsvpNumber || '');
     const [events, setEvents] = useState(
         invitation?.events?.length > 0
             ? invitation.events.map(e => ({
@@ -51,6 +52,7 @@ export default function CustomizationForm({ invitation, orderId }) {
                     inviteId: invitation?._id,
                     side,
                     events,
+                    rsvpNumber,
                     isCustomization: true
                 }),
             });
@@ -58,7 +60,7 @@ export default function CustomizationForm({ invitation, orderId }) {
             const data = await res.json();
             if (res.ok) {
                 toast.success("Invitation saved! 🎉", { id: toastId });
-                router.refresh();
+                router.push(`/user/templates/${orderId}`);
             } else {
                 toast.error(data.error || "Failed to save invitation", { id: toastId });
             }
@@ -72,6 +74,26 @@ export default function CustomizationForm({ invitation, orderId }) {
 
     return (
         <div className="space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* Header with Title and Cancel */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#8b2c3c]/5 p-6 rounded-[32px] border border-[#8b2c3c]/10">
+                <div>
+                    <h2 className="text-sm font-bold text-[#8b2c3c] uppercase tracking-widest mb-1 flex items-center gap-2">
+                        Editing Invitation
+                        <span className="bg-[#8b2c3c]/10 px-2 py-0.5 rounded text-[10px] font-mono tracking-normal lowercase">{invitation?.slug}</span>
+                    </h2>
+                    <h3 className="text-xl font-bold text-gray-900">
+                        {invitation?.weddingDetails?.groom?.name} & {invitation?.weddingDetails?.bride?.name}
+                    </h3>
+                </div>
+                <button
+                    onClick={() => router.push(`/user/templates/${orderId}`)}
+                    className="px-6 py-3 bg-white text-gray-600 rounded-2xl font-bold border border-gray-100 hover:bg-gray-50 transition-all flex items-center gap-2 w-fit"
+                >
+                    <X size={20} />
+                    Cancel Editing
+                </button>
+            </div>
+
             {/* Side Selection */}
             <div className="bg-white rounded-[40px] p-8 md:p-12 shadow-sm border border-gray-100">
                 <div className="mb-8">
@@ -86,8 +108,8 @@ export default function CustomizationForm({ invitation, orderId }) {
                     <button
                         onClick={() => setSide('bride')}
                         className={`p-6 rounded-3xl border-2 transition-all flex flex-col items-center gap-4 group ${side === 'bride'
-                                ? 'border-[#8b2c3c] bg-[#8b2c3c]/5'
-                                : 'border-gray-100 hover:border-gray-200 bg-gray-50'
+                            ? 'border-[#8b2c3c] bg-[#8b2c3c]/5'
+                            : 'border-gray-100 hover:border-gray-200 bg-gray-50'
                             }`}
                     >
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${side === 'bride' ? 'bg-[#8b2c3c] text-white' : 'bg-gray-200 text-gray-500'
@@ -101,8 +123,8 @@ export default function CustomizationForm({ invitation, orderId }) {
                     <button
                         onClick={() => setSide('groom')}
                         className={`p-6 rounded-3xl border-2 transition-all flex flex-col items-center gap-4 group ${side === 'groom'
-                                ? 'border-[#8b2c3c] bg-[#8b2c3c]/5'
-                                : 'border-gray-100 hover:border-gray-200 bg-gray-50'
+                            ? 'border-[#8b2c3c] bg-[#8b2c3c]/5'
+                            : 'border-gray-100 hover:border-gray-200 bg-gray-50'
                             }`}
                     >
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${side === 'groom' ? 'bg-[#8b2c3c] text-white' : 'bg-gray-200 text-gray-500'
@@ -129,8 +151,8 @@ export default function CustomizationForm({ invitation, orderId }) {
                         <div
                             key={event.name}
                             className={`bg-white rounded-[32px] p-6 border transition-all duration-300 ${event.enabled
-                                    ? 'border-[#8b2c3c]/30 shadow-md ring-1 ring-[#8b2c3c]/5'
-                                    : 'border-gray-100 opacity-70 grayscale-[0.5]'
+                                ? 'border-[#8b2c3c]/30 shadow-md ring-1 ring-[#8b2c3c]/5'
+                                : 'border-gray-100 opacity-70 grayscale-[0.5]'
                                 }`}
                         >
                             <div className="flex items-center justify-between mb-6">
@@ -184,9 +206,43 @@ export default function CustomizationForm({ invitation, orderId }) {
                                         className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:border-[#8b2c3c] outline-none transition-all resize-none"
                                     />
                                 </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-bold text-gray-400 uppercase ml-1 flex items-center gap-1.5">
+                                        <MapPin size={10} /> Map Link
+                                    </label>
+                                    <input
+                                        type="url"
+                                        value={event.mapLink || ''}
+                                        onChange={(e) => handleEventChange(index, 'mapLink', e.target.value)}
+                                        placeholder="Google Maps link..."
+                                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:border-[#8b2c3c] outline-none transition-all"
+                                    />
+                                </div>
                             </div>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            {/* RSVP Number Section */}
+            <div className="bg-white rounded-[40px] p-8 md:p-12 shadow-sm border border-gray-100">
+                <div className="mb-8">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+                        <MapPin className="text-[#8b2c3c]" />
+                        RSVP Contact Number
+                    </h3>
+                    <p className="text-gray-500">Provide a phone number for guests to RSVP.</p>
+                </div>
+
+                <div className="max-w-md">
+                    <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">Phone Number</label>
+                    <input
+                        type="tel"
+                        value={rsvpNumber}
+                        onChange={(e) => setRsvpNumber(e.target.value)}
+                        placeholder="e.g., +91 98765 43210"
+                        className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-[#8b2c3c]/10 focus:border-[#8b2c3c] outline-none transition-all"
+                    />
                 </div>
             </div>
 

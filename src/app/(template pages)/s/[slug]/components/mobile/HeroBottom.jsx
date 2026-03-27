@@ -44,14 +44,14 @@ export default function HeroBottom({ invitation }) {
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1.2, ease: "easeOut" }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
             />
 
             <motion.div
                 variants={container}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: false, margin: "-100px" }}
                 className="space-y-7"
             >
 

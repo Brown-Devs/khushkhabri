@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import FloralTemplateMobile from "./mobile/FloralTemplateMobile";
+import MusicPlayer from "@/components/MusicPlayer";
 
 export default function ResponsiveTemplateWrapper(props) {
     const [isMobile, setIsMobile] = useState(null);
@@ -20,7 +21,10 @@ export default function ResponsiveTemplateWrapper(props) {
 
     if (isMobile === null) return null; // prevent hydration mismatch
 
-    return isMobile
-        ? <FloralTemplateMobile {...props} />
-        : <div>Desktop</div>
+    return (
+        <>
+            {isMobile ? <FloralTemplateMobile {...props} /> : <div>Desktop</div>}
+            <MusicPlayer url={props.invitation?.mainDetails?.musicUrl} />
+        </>
+    );
 }
