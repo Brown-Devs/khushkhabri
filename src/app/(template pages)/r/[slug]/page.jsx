@@ -27,6 +27,7 @@ export default async function SikhTemplatePage({ params }) {
             date: e.date ? new Date(e.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '',
             location: e.venue,
             time: e.time,
+            mapLink: e.mapLink,
         };
     });
 

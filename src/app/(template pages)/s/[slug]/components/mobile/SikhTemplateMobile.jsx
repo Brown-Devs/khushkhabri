@@ -9,6 +9,10 @@ import SmoothScroll from "@/components/website/common/SmoothScroll";
 import RSVPSticker from "./RSVPSticker";
 
 export default function SikhTemplateMobile({ invitation, events, weddingDate }) {
+    const showGallery = invitation?.mainDetails?.showPreWeddingPhotos && invitation?.mainDetails?.preWeddingPhotos?.length > 0;
+    const showVideo = invitation?.mainDetails?.showWeddingVideo && invitation?.mainDetails?.weddingVideo;
+    const isGalleryVisible = showGallery || showVideo;
+
     return (
         <SmoothScroll>
             <div className="w-full max-w-[680px] mx-auto bg-white shadow-lg overflow-x-hidden">
@@ -34,27 +38,30 @@ export default function SikhTemplateMobile({ invitation, events, weddingDate }) 
 
                         <div className="relative">
                             <EventsSection events={events} />
-                            <RSVPSticker rsvpNumber={invitation.rsvpNumber} />
-
-                            {/* <motion.div
-                                initial={{ opacity: 0, y: 80 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1.2 }}
-                                viewport={{ once: true }}
-                                className="absolute left-0 bottom-[0%] w-full z-50 translate-y-1/2 pointer-events-none"
-                            >
-                                <img
-                                    src="/templates/sikh/routeSticker.png"
-                                    alt="route"
-                                    className="w-full object-contain"
-                                />
-                            </motion.div> */}
+                            {invitation.rsvpNumber ?
+                                <RSVPSticker rsvpNumber={invitation.rsvpNumber} />
+                                : <motion.div
+                                    initial={{ opacity: 0, y: 80 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 1.2 }}
+                                    viewport={{ once: true }}
+                                    className="absolute left-0 bottom-[0%] w-full z-50 translate-y-1/2 pointer-events-none"
+                                >
+                                    <img
+                                        src="/templates/sikh/routeSticker.png"
+                                        alt="route"
+                                        className="w-full object-contain"
+                                    />
+                                </motion.div>
+                            }
                         </div>
-                        <GallerySection invitation={invitation} />
+                        {isGalleryVisible && (
+                            <GallerySection invitation={invitation} />
+                        )}
                         <CountdownSection weddingDate={weddingDate} />
                     </div>
                 </main>
             </div>
         </SmoothScroll>
     );
-}
+}

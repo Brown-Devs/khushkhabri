@@ -10,6 +10,12 @@ export default function HeroTop({ bride, groom }) {
 
     const textY = useTransform(scrollY, [0, 500], [0, 160]);
 
+    // Car scroll animation
+    const carX = useTransform(scrollY, [0, 800], ["0vw", "70vw"]);
+    const carY = useTransform(scrollY, [0, 800], ["55vh", "30vh"]);
+    const carScale = useTransform(scrollY, [0, 800], [1.2, 0.5]);
+    const carRotate = useTransform(scrollY, [0, 800], [0, -10]);
+
     const container = {
         hidden: {},
         show: {
@@ -63,6 +69,18 @@ export default function HeroTop({ bride, groom }) {
                 </motion.h2>
             </motion.div>
 
+
+            <motion.img
+                src="/templates/royal/startCar.png"
+                alt="car"
+                style={{
+                    x: carX,
+                    y: carY,
+                    scale: carScale,
+                    rotate: carRotate,
+                }}
+                className="absolute w-[350px] z-10"
+            />
         </section>
     );
 }

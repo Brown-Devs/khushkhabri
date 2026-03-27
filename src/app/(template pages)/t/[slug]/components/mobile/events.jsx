@@ -122,26 +122,20 @@ const formatEventTime = (timeStr) => {
 };
 
 function EventItem({ event, meta }) {
-    const ref = useRef(null);
-    const isInView = useInView(ref, {
-        once: true,
-        margin: "-100px",
-    });
-
+    // console.log(event)
     return (
-        <motion.div
-            ref={ref}
-            variants={container}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="relative flex flex-col items-center z-10 overflow-hidden"
-        >
-
+        <div className="relative flex flex-col items-center z-10 overflow-hidden w-full">
             {/* icons */}
             <FloatingEventIcons icon={meta.icon} />
-            {/* Image */}
 
-            <motion.div variants={item} className="w-[400px] relative z-10">
+            {/* Image */}
+            <motion.div
+                variants={item}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: false, margin: "-100px" }}
+                className="w-[450px] relative z-10"
+            >
                 <img
                     src={meta.image}
                     alt={meta.title}
@@ -149,37 +143,46 @@ function EventItem({ event, meta }) {
                 />
             </motion.div>
 
-            {/* Title */}
-            <motion.h3 variants={item} className="text-white text-6xl -mt-2 font-script relative z-10">
-                {meta.title}
-            </motion.h3>
+            {/* Text Content Group */}
+            <motion.div
+                variants={container}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: false, margin: "-100px" }}
+                className="relative z-10 flex flex-col items-center text-center"
+            >
+                {/* Title */}
+                <motion.h3 variants={item} className="text-white text-6xl mt-0 font-script">
+                    {meta.title}
+                </motion.h3>
 
-            {/* Details */}
-            <motion.p variants={item} className="text-white text-xl mt-3 font-medium relative z-10">
-                {event.date}
-            </motion.p>
+                {/* Details */}
+                <motion.p variants={item} className="text-white text-xl mt-3 font-medium">
+                    {event.date}
+                </motion.p>
 
-            <motion.p variants={item} className="text-white text-xl mt-1 relative z-10">
-                at {event.location}
-            </motion.p>
+                <motion.p variants={item} className="text-white text-xl mt-1">
+                    at {event.location}
+                </motion.p>
 
-            <motion.p variants={item} className="text-white text-xl mt-1 mb-2 relative z-10">
-                {formatEventTime(event.time)}
-            </motion.p>
+                <motion.p variants={item} className="text-white text-xl mt-1 mb-2">
+                    {formatEventTime(event.time)}
+                </motion.p>
 
-            {event.mapLink && (
-                <motion.a
-                    variants={item}
-                    href={event.mapLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-white/90 text-lg mt-2 bg-white/10 px-4 py-1.5 rounded-full border border-white/20 backdrop-blur-sm z-30"
-                >
-                    <MapPin size={18} />
-                    <span>See Location</span>
-                </motion.a>
-            )}
-        </motion.div>
+                {event.mapLink && (
+                    <motion.a
+                        variants={item}
+                        href={event.mapLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-white/90 text-lg mt-4 bg-white/10 px-6 py-2 rounded-full border border-white/20 backdrop-blur-sm z-30 hover:bg-white/20 transition-colors"
+                    >
+                        <MapPin size={18} />
+                        <span>See Location</span>
+                    </motion.a>
+                )}
+            </motion.div>
+        </div>
     );
 }
 
@@ -218,14 +221,14 @@ export default function EventsSection({ events = [], invitation }) {
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                 />
 
                 <motion.div
                     variants={containerDetails}
                     initial="hidden"
                     whileInView="show"
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: false, margin: "-100px" }}
                     className="space-y-7 text-white mb-10"
                 >
                     <motion.p variants={itemDetails} className="text-2xl leading-relaxed">
