@@ -23,8 +23,8 @@ export async function generateMetadata({ params }) {
             ? `${brideName} is inviting you to join their wedding celebration`
             : `${groomName} is inviting you to join their wedding celebration`;
 
-    const imageUrl =
-        "https://khushkhabri.vercel.app/templates/floral/seo.png";
+    // const imageUrl =
+    //     "https://khushkhabri.vercel.app/templates/floral/floralseo.png";
 
     return {
         title,
@@ -35,9 +35,9 @@ export async function generateMetadata({ params }) {
             url: `https://khushkhabri.vercel.app/f/${slug}`,
             images: [
                 {
-                    url: imageUrl,
-                    width: 1200,
-                    height: 630,
+                    url: "/floralseo.png",
+                    width: 1000,
+                    height: 810,
                     alt: title,
                 },
             ],
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }) {
             card: "summary_large_image",
             title,
             description,
-            images: [imageUrl],
+            images: ["/floralseo.png"],
         },
     };
 }
