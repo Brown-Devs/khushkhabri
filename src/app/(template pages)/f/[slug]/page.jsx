@@ -1,11 +1,53 @@
-// app/(template pages)/s/[slug]/page.jsx
+// app/(template pages)/f/[slug]/page.jsx
 
 import { connectDB } from "@/lib/mongodb";
 import Invitation from "@/models/invitationModel";
 import { notFound } from "next/navigation";
 import ResponsiveTemplateWrapper from "./components/ResponsiveTemplateWrapper";
 
-export default async function SikhTemplatePage({ params }) {
+export async function generateMetadata({ params }) {
+    const { slug } = await params;
+    await connectDB();
+    const invitation = await Invitation.findOne({ slug }).lean();
+
+    if (!invitation) return {};
+
+    const groomName = invitation.weddingDetails?.groom?.name || "Groom";
+    const brideName = invitation.weddingDetails?.bride?.name || "Bride";
+    const side = invitation.weddingDetails?.side || "groom";
+
+    const title = `${groomName} Weds ${brideName}`;
+    const description = side === "bride"
+        ? `${brideName} is inviting you to join their wedding celebration`
+        : `${groomName} is inviting you to join their wedding celebration`;
+
+    const imageUrl = "/templates/floral/seo.png";
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            images: [
+                {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [imageUrl],
+        },
+    };
+}
+
+export default async function FloralTemplatePage({ params }) {
     const { slug } = await params;
 
     await connectDB();
