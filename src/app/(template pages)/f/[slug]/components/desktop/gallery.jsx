@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 export default function GallerySection({ invitation }) {
-    const { bride, groom } = invitation?.weddingDetails || {};
 
     const preWeddingPhotos = invitation?.mainDetails?.preWeddingPhotos || [];
     const showPreWeddingPhotos = invitation?.mainDetails?.showPreWeddingPhotos ?? true;
@@ -33,13 +32,14 @@ export default function GallerySection({ invitation }) {
     };
 
     const videoId = getYouTubeId(weddingVideo);
+
     return (
-        <section className="relative w-full overflow-visible font-serif">
+        <section className="relative w-full overflow-visible font-serif max-h-[2000px]">
 
             <div
-                className="pt-55 pb-35 bg-cover bg-center bg-no-repeat text-center"
+                className="pt-45 pb-25 bg-cover bg-center bg-no-repeat text-center"
                 style={{
-                    backgroundImage: "url('/bg/darkBlue4.png')",
+                    backgroundImage: "url('/bg/blue-texture.png')",
                 }}
             >
 
@@ -61,14 +61,14 @@ export default function GallerySection({ invitation }) {
                         </motion.div>
 
                         {/* ===== SLIDER ===== */}
-                        <div className="mt-10 px-0">
+                        <div className="mt-2 px-0">
 
                             <Swiper
                                 modules={[Autoplay, Pagination]}
                                 spaceBetween={20}
                                 slidesPerView={1.2}
                                 centeredSlides={true}
-                                loop={images.length > 1} // Only loop if more than 1 image
+                                loop={images.length > 1}
                                 grabCursor={true}
 
                                 autoplay={{
@@ -82,12 +82,22 @@ export default function GallerySection({ invitation }) {
                             >
                                 {images.map((img, index) => (
                                     <SwiperSlide key={index}>
-                                        <div className="flex justify-center">
-                                            <img
-                                                src={img}
-                                                alt="couple"
-                                                className="w-[300px] h-[520px] object-cover rounded-[18px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
-                                            />
+                                        <div className="flex justify-center items-center py-4">
+                                            <div className="relative w-[350px] h-[560px] flex items-center justify-center">
+                                                {/* Frame Overlay */}
+                                                <img
+                                                    src="/templates/floral/frame3.png"
+                                                    alt="frame"
+                                                    className="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none drop-shadow-lg"
+                                                />
+
+                                                {/* Couple Image */}
+                                                <img
+                                                    src={img}
+                                                    alt="couple"
+                                                    className="w-[255px] h-[460px] object-cover rounded-[110px] shadow-[0_20px_50px_rgba(0,0,0,0.4)] z-0"
+                                                />
+                                            </div>
                                         </div>
                                     </SwiperSlide>
                                 ))}
@@ -120,7 +130,7 @@ export default function GallerySection({ invitation }) {
                         initial={{ opacity: 0, y: 60 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
-                        className="mt-20 px-6"
+                        className="mt-15 px-6"
                     >
                         <p className="text-white text-2xl italic">
                             Watch our
@@ -130,92 +140,66 @@ export default function GallerySection({ invitation }) {
                             Pre Wedding
                         </h2>
 
-                        <div className="mt-8 flex justify-center">
-                            <div className="w-[300px] h-[520px] rounded-[18px] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.4)] bg-black">
+                        <div className="mt-8 flex justify-center py-4">
+                            <div className="relative w-[400px] h-[620px] flex items-center justify-center group">
+
+                                {/* Video / Fallback — clipped to frame corners */}
                                 {videoId ? (
                                     <iframe
-                                        className="w-full h-full border-0"
+                                        className="absolute z-0 border-0 video-frame-clip"
+                                        style={{
+                                            width: "82%",
+                                            height: "90%",
+                                            borderRadius: "52px 16px 52px 16px",
+                                            overflow: "hidden",
+                                        }}
                                         src={`https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`}
                                         title="Pre Wedding Video"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     ></iframe>
                                 ) : (
-                                    <>
+                                    <div
+                                        className="absolute z-0 overflow-hidden"
+                                        style={{
+                                            width: "82%",
+                                            height: "90%",
+                                            borderRadius: "52px 16px 52px 16px",
+                                        }}
+                                    >
                                         <img
                                             src={images[0] || "/templates/sikh/couple2.jpeg"}
                                             alt="pre wedding"
-                                            className="w-full h-full object-cover opacity-60"
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60"
                                         />
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center text-white/40">
-                                                ?
+                                        <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                                            <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg text-[#8b2c3c]">
+                                                ▶
                                             </div>
                                         </div>
-                                    </>
+                                    </div>
                                 )}
+
+                                {/* Frame Overlay — on top */}
+                                <img
+                                    src="/templates/floral/vidFrame2.png"
+                                    alt="video frame"
+                                    className="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none drop-shadow-lg"
+                                />
                             </div>
                         </div>
+
+                        {/* Force iframe corner clipping via CSS */}
+                        <style>{`
+                            .video-frame-clip {
+                                border-radius: 52px 16px 52px 16px !important;
+                                overflow: hidden !important;
+                                isolation: isolate;
+                            }
+                        `}</style>
                     </motion.div>
                 )}
-
-                {/* ===== Blessing ===== */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1.2 }}
-                    className="mt-24 px-6 text-center"
-                >
-
-                    <motion.img
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 100 }}
-                        src="/templates/sikh/onkar.png"
-                        alt="symbol"
-                        className="w-46 mx-auto mb-6"
-                    />
-
-                    <p className="text-white text-2xl italic">
-                        With the blessings of
-                    </p>
-
-                    <p className="text-white text-2xl mt-1">
-                        Waheguru Ji
-                    </p>
-
-                    <h2 className="text-[#D1CBA9] text-7xl font-script mt-6 leading-tight">
-                        {bride?.name?.split(' ')[0] || 'Bride'}
-                    </h2>
-
-                    <p className="text-white text-3xl">&</p>
-
-                    <h2 className="text-[#D1CBA9]  text-7xl font-script leading-tight">
-                        {groom?.name?.split(' ')[0] || 'Groom'}
-                    </h2>
-
-                    <p className="text-white text-2xl mt-6 italic">
-                        begin their forever...
-                    </p>
-
-                </motion.div>
-
             </div>
-
-            {/* Sticker */}
-            {/* <motion.div
-                initial={{ opacity: 0, x: 50, rotate: 20 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                transition={{ duration: 1 }}
-                className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 z-10 w-full"
-            >
-                <img
-                    src="/templates/sikh/scooter2.png"
-                    alt="sticker"
-                    className="w-full"
-                />
-            </motion.div> */}
-
         </section>
     );
 }

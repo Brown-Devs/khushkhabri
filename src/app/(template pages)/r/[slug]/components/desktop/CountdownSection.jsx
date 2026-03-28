@@ -45,9 +45,9 @@ export default function CountdownSection({ weddingDate }) {
         <section className="relative w-full overflow-hidden font-serif">
             {/* Background */}
             <div
-                className="pt-25 pb-24 text-center bg-cover bg-center font-script"
+                className="pt-55 pb-24 text-center bg-cover bg-center font-script"
                 style={{
-                    backgroundImage: "url('/bg/bgRed.png')",
+                    backgroundImage: "url('/bg/maroon.png')",
                 }}
             >
 
@@ -56,7 +56,7 @@ export default function CountdownSection({ weddingDate }) {
                 </p>
 
                 {/* Countdown */}
-                <div className="flex justify-center gap-6 mt-12 text-[#D1CBA9]">
+                <div className="flex justify-center gap-6 mt-9 text-[#D1CBA9]">
 
                     <TimeBox value={timeLeft.days} label="days" />
                     <TimeBox value={timeLeft.hours} label="hours" />
@@ -70,7 +70,7 @@ export default function CountdownSection({ weddingDate }) {
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ type: "spring", stiffness: 100 }}
-                    className="mt-14 flex justify-center mb-10"
+                    className="mt-10 flex justify-center mb-10"
                 >
                     <img
                         src="/templates/sikh/clock.png"

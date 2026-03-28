@@ -37,7 +37,7 @@ export default function GallerySection({ invitation }) {
         <section className="relative w-full overflow-visible font-serif max-h-[2000px]">
 
             <div
-                className="pt-25 pb-25 bg-cover bg-center bg-no-repeat text-center"
+                className="pt-40 pb-25 bg-cover bg-center bg-no-repeat text-center"
                 style={{
                     backgroundImage: "url('/bg/blue-texture.png')",
                 }}
@@ -141,35 +141,46 @@ export default function GallerySection({ invitation }) {
                         </h2>
 
                         <div className="mt-8 flex justify-center py-4">
-                            <div className="relative w-[340px] h-[520px] flex items-center justify-center group overflow-hidden bg-black">
+                            <div className="relative w-[350px] h-[540px] flex items-center justify-center group">
+
+                                {/* Video / Fallback — clipped to frame corners */}
                                 {videoId ? (
                                     <iframe
-                                        className="w-full h-full border-0 z-0"
+                                        className="absolute z-0 border-0 video-frame-clip"
+                                        style={{
+                                            width: "82%",
+                                            height: "90%",
+                                            borderRadius: "52px 16px 52px 16px",
+                                            overflow: "hidden",
+                                        }}
                                         src={`https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`}
                                         title="Pre Wedding Video"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     ></iframe>
                                 ) : (
-                                    <>
-                                        {/* Inner Image Container (Fallback) */}
-                                        <div className="relative w-[280px] h-[460px] rounded-tl-[48px] rounded-br-[48px] rounded-tr-[16px] rounded-bl-[16px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)] z-0">
-                                            <img
-                                                src={images[0] || "/templates/sikh/couple2.jpeg"}
-                                                alt="pre wedding"
-                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60"
-                                            />
-
-                                            <div className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors group-hover:bg-black/20">
-                                                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg text-[#8b2c3c] transition-transform group-hover:scale-110">
-                                                    ?
-                                                </div>
+                                    <div
+                                        className="absolute z-0 overflow-hidden"
+                                        style={{
+                                            width: "82%",
+                                            height: "90%",
+                                            borderRadius: "52px 16px 52px 16px",
+                                        }}
+                                    >
+                                        <img
+                                            src={images[0] || "/templates/sikh/couple2.jpeg"}
+                                            alt="pre wedding"
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60"
+                                        />
+                                        <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                                            <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg text-[#8b2c3c]">
+                                                ▶
                                             </div>
                                         </div>
-                                    </>
+                                    </div>
                                 )}
-                                
-                                {/* Frame Overlay */}
+
+                                {/* Frame Overlay — on top */}
                                 <img
                                     src="/templates/floral/vidFrame2.png"
                                     alt="video frame"
@@ -177,6 +188,15 @@ export default function GallerySection({ invitation }) {
                                 />
                             </div>
                         </div>
+
+                        {/* Force iframe corner clipping via CSS */}
+                        <style>{`
+                            .video-frame-clip {
+                                border-radius: 52px 16px 52px 16px !important;
+                                overflow: hidden !important;
+                                isolation: isolate;
+                            }
+                        `}</style>
                     </motion.div>
                 )}
             </div>

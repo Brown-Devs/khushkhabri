@@ -5,7 +5,7 @@ import Invitation from "@/models/invitationModel";
 import { notFound } from "next/navigation";
 import ResponsiveTemplateWrapper from "./components/ResponsiveTemplateWrapper";
 
-export default async function SikhTemplatePage({ params }) {
+export default async function TempleTemplatePage({ params }) {
     const { slug } = await params;
 
     await connectDB();
@@ -27,6 +27,7 @@ export default async function SikhTemplatePage({ params }) {
             date: e.date ? new Date(e.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '',
             location: e.venue,
             time: e.time,
+            mapLink: e.mapLink,
         };
     });
 

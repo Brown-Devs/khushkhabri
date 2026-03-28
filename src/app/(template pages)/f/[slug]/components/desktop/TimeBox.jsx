@@ -6,13 +6,13 @@ function TimeBox({ value, label }) {
             <div className="relative h-[50px] overflow-hidden">
                 <div
                     key={value}
-                    className="text-6xl font-semibold transition-transform duration-500 ease-in-out"
+                    className="text-4xl font-semibold transition-transform duration-500 ease-in-out"
                 >
                     {String(value).padStart(2, "0")}
                 </div>
             </div>
 
-            <p className="text-4xl mt-1 italic">{label}</p>
+            <p className="text-2xl mt-1 italic">{label}</p>
 
         </div>
     );

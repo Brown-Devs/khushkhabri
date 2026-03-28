@@ -33,13 +33,14 @@ export default function GallerySection({ invitation }) {
     };
 
     const videoId = getYouTubeId(weddingVideo);
+
     return (
         <section className="relative w-full overflow-visible font-serif">
 
             <div
-                className="pt-55 pb-35 bg-cover bg-center bg-no-repeat text-center"
+                className="pt-55 pb-55 bg-cover bg-center bg-no-repeat text-center"
                 style={{
-                    backgroundImage: "url('/bg/darkBlue4.png')",
+                    backgroundImage: "url('/bg/purple.png')",
                 }}
             >
 
@@ -68,7 +69,7 @@ export default function GallerySection({ invitation }) {
                                 spaceBetween={20}
                                 slidesPerView={1.2}
                                 centeredSlides={true}
-                                loop={images.length > 1} // Only loop if more than 1 image
+                                loop={images.length > 1}
                                 grabCursor={true}
 
                                 autoplay={{
@@ -159,47 +160,6 @@ export default function GallerySection({ invitation }) {
                     </motion.div>
                 )}
 
-                {/* ===== Blessing ===== */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1.2 }}
-                    className="mt-24 px-6 text-center"
-                >
-
-                    <motion.img
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 100 }}
-                        src="/templates/sikh/onkar.png"
-                        alt="symbol"
-                        className="w-46 mx-auto mb-6"
-                    />
-
-                    <p className="text-white text-2xl italic">
-                        With the blessings of
-                    </p>
-
-                    <p className="text-white text-2xl mt-1">
-                        Waheguru Ji
-                    </p>
-
-                    <h2 className="text-[#D1CBA9] text-7xl font-script mt-6 leading-tight">
-                        {bride?.name?.split(' ')[0] || 'Bride'}
-                    </h2>
-
-                    <p className="text-white text-3xl">&</p>
-
-                    <h2 className="text-[#D1CBA9]  text-7xl font-script leading-tight">
-                        {groom?.name?.split(' ')[0] || 'Groom'}
-                    </h2>
-
-                    <p className="text-white text-2xl mt-6 italic">
-                        begin their forever...
-                    </p>
-
-                </motion.div>
-
             </div>
 
             {/* Sticker */}
@@ -210,7 +170,7 @@ export default function GallerySection({ invitation }) {
                 className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 z-10 w-full"
             >
                 <img
-                    src="/templates/sikh/scooter2.png"
+                    src="/templates/temple/routeSticker2.png"
                     alt="sticker"
                     className="w-full"
                 />

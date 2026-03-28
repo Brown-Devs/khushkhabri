@@ -27,7 +27,17 @@ export default function ResponsiveTemplateWrapper(props) {
             {isMobile ? (
                 <SikhTemplateMobile {...props} />
             ) : (
-                <SikhTemplateDesktop {...props} />
+                <div className="min-h-screen w-full bg-[#fdf6ee]"
+                    style={{
+                        backgroundImage: `url('/bg/pinkbg.png')`,
+                        backgroundRepeat: 'repeat',
+                        backgroundSize: '200px',
+                        backgroundOpacity: 0.3
+                    }}>
+                    <div className="w-full max-w-[940px] mx-auto">
+                        <SikhTemplateDesktop {...props} />
+                    </div>
+                </div>
             )}
             <MusicPlayer url={props.invitation?.mainDetails?.musicUrl} />
         </>

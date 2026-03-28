@@ -134,7 +134,7 @@ function EventItem({ event, meta }) {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: false, margin: "-100px" }}
-                className="w-[350px] relative z-10"
+                className="w-[450px] relative z-10"
             >
                 <img
                     src={meta.image}
@@ -161,7 +161,7 @@ function EventItem({ event, meta }) {
                     {event.date}
                 </motion.p>
 
-                <motion.p variants={item} className="text-white max-w-[300px] text-xl mt-1">
+                <motion.p variants={item} className="text-white max-w-[400px] text-xl mt-1">
                     at {event.location}
                 </motion.p>
 

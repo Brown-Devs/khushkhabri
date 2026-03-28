@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import TempleTemplateMobile from "./mobile/TempleTemplateMobile";
 import MusicPlayer from "@/components/MusicPlayer";
+import TempleTemplateDesktop from "./desktop/TempleTemplateDesktop";
 
 export default function ResponsiveTemplateWrapper(props) {
     const [isMobile, setIsMobile] = useState(null);
@@ -23,7 +24,20 @@ export default function ResponsiveTemplateWrapper(props) {
 
     return (
         <>
-            {isMobile ? <TempleTemplateMobile {...props} /> : <div>Desktop</div>}
+            {isMobile ? <TempleTemplateMobile {...props} /> :
+                <div className="min-h-screen w-full bg-[#fdf6ee]"
+                    style={{
+                        backgroundImage: `url('/bg/pinkbg.png')`,
+                        backgroundRepeat: 'repeat',
+                        backgroundSize: '200px',
+                        backgroundOpacity: 0.3
+                    }}>
+                    <div className="w-full max-w-[940px] mx-auto">
+                        <TempleTemplateDesktop {...props} />
+                    </div>
+                </div>
+
+            }
             <MusicPlayer url={props.invitation?.mainDetails?.musicUrl} />
         </>
     );
