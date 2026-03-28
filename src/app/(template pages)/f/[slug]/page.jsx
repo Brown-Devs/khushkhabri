@@ -7,6 +7,7 @@ import ResponsiveTemplateWrapper from "./components/ResponsiveTemplateWrapper";
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
+
     await connectDB();
     const invitation = await Invitation.findOne({ slug }).lean();
 
@@ -17,11 +18,13 @@ export async function generateMetadata({ params }) {
     const side = invitation.weddingDetails?.side || "groom";
 
     const title = `${groomName} Weds ${brideName}`;
-    const description = side === "bride"
-        ? `${brideName} is inviting you to join their wedding celebration`
-        : `${groomName} is inviting you to join their wedding celebration`;
+    const description =
+        side === "bride"
+            ? `${brideName} is inviting you to join their wedding celebration`
+            : `${groomName} is inviting you to join their wedding celebration`;
 
-    const imageUrl = "/templates/floral/seo.png";
+    const imageUrl =
+        "https://khushkhabri.vercel.app/templates/floral/seo.png";
 
     return {
         title,
@@ -29,6 +32,7 @@ export async function generateMetadata({ params }) {
         openGraph: {
             title,
             description,
+            url: `https://khushkhabri.vercel.app/f/${slug}`,
             images: [
                 {
                     url: imageUrl,
