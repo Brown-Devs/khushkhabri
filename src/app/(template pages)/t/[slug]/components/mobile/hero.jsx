@@ -13,19 +13,19 @@ export default function Hero({ invitation }) {
         <section ref={containerRef} className="relative w-full font-serif h-[90vh]  overflow-hidden">
 
             {/* ✅ MAIN IMAGE (NOT BACKGROUND) */}
-            {/* <img
+            <img
                 src="/templates/temple/hero.png"
                 alt="bg"
                 className="w-full h-full object-cover"
-            /> */}
-            <Image
+            />
+            {/* <Image
                 src="/templates/temple/hero.png"
                 alt="bg"
                 width={1920}
                 height={1080}
                 className="w-full h-auto object-cover"
                 priority
-            />
+            /> */}
 
             {/* ✅ OVERLAY CONTENT */}
             <div className="absolute inset-0 z-10 flex flex-col">
