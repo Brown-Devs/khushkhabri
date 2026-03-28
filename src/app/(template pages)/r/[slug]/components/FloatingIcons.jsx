@@ -13,6 +13,7 @@ export default function FloatingIcons({ count = 10, icons = [1, 2, 3, 4, 5], sec
         size: 20 + Math.random() * 30,
     }));
 
+    // sfa
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             {floatingElements.map((el) => (
