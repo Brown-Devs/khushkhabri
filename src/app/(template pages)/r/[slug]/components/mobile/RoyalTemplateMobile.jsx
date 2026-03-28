@@ -53,7 +53,7 @@ export default function RoyalTemplateMobile({ invitation, events, weddingDate })
                                     className="absolute left-0 bottom-[0%] w-full z-50 translate-y-1/2 pointer-events-none"
                                 >
                                     <img
-                                        src="/templates/temple/routeSticker2.png"
+                                        src="/templates/royal/sep.png"
                                         alt="cover"
                                         className="w-full object-contain"
                                     />
@@ -70,10 +70,10 @@ export default function RoyalTemplateMobile({ invitation, events, weddingDate })
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1.2 }}
                                 viewport={{ once: true }}
-                                className="absolute left-0 bottom-[-10%] w-full z-50 translate-y-1/2 pointer-events-none"
+                                className="absolute left-0 bottom-[0%] w-full z-50 translate-y-1/2 pointer-events-none"
                             >
                                 <img
-                                    src="/templates/temple/sticker2.png"
+                                    src="/templates/royal/sep.png"
                                     alt="cover"
                                     className="w-full object-contain"
                                 />

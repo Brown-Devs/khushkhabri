@@ -83,7 +83,7 @@ export default function TempleTemplateMobile({ invitation, events, weddingDate }
                                     className="absolute left-0 bottom-[0%] w-full z-50 translate-y-1/2 pointer-events-none"
                                 >
                                     <img
-                                        src="/templates/temple/routeSticker3.png"
+                                        src="/templates/royal/sep.png"
                                         alt="cover"
                                         className="w-full object-contain"
                                     />
