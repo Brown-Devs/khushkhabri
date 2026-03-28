@@ -5,6 +5,49 @@ import Invitation from "@/models/invitationModel";
 import { notFound } from "next/navigation";
 import ResponsiveTemplateWrapper from "./components/ResponsiveTemplateWrapper";
 
+export async function generateMetadata({ params }) {
+    const { slug } = await params;
+
+    await connectDB();
+    const invitation = await Invitation.findOne({ slug }).lean();
+
+    if (!invitation) return {};
+
+    const groomName = invitation.weddingDetails?.groom?.name || "Groom";
+    const brideName = invitation.weddingDetails?.bride?.name || "Bride";
+    const side = invitation.weddingDetails?.side || "groom";
+
+    const title = `${groomName} Weds ${brideName}`;
+    const description =
+        side === "bride"
+            ? `${brideName} is inviting you to join their wedding celebration`
+            : `${groomName} is inviting you to join their wedding celebration`;
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            url: `https://khushkhabri.vercel.app/s/${slug}`,
+            images: [
+                {
+                    url: "/sikhseo.png",
+                    width: 1024,
+                    height: 770,
+                    alt: title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: ["/sikhseo.png"],
+        },
+    };
+}
+
 export default async function SikhTemplatePage({ params }) {
     const { slug } = await params;
 
