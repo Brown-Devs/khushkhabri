@@ -4,6 +4,7 @@ import { useRef } from "react";
 import HeroTop from "./HeroTop";
 import HeroBottom from "./HeroBottom";
 import FloatingIcons from "./FloatingIcons";
+import Image from "next/image";
 
 export default function Hero({ invitation }) {
     const { bride, groom } = invitation?.weddingDetails || {};

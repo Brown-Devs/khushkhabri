@@ -13,6 +13,7 @@ import Link from 'next/link';
 import InviteForm from '../../components/InviteForm';
 import InvitationList from '../../components/InvitationList';
 import CustomizationForm from '../../components/CustomizationForm';
+import SatsangInviteForm from '../../components/SatsangInviteForm';
 
 export default async function TemplatePage({ params, searchParams }) {
     const { orderId } = await params;
@@ -67,6 +68,8 @@ export default async function TemplatePage({ params, searchParams }) {
         category: "Template",
         description: "Your personalized invitation theme."
     };
+
+    const isSatsang = themeInfo.category === "Guruji Satsang" || order.themeName === "guruji1";
 
     return (
         <InnerDashboardLayout>
@@ -138,29 +141,35 @@ export default async function TemplatePage({ params, searchParams }) {
                 </div>
 
                 {/* Form Section */}
-                <InviteForm order={order} />
+                {isSatsang ? (
+                    <SatsangInviteForm order={order} existingInvite={existingInvite} />
+                ) : (
+                    <>
+                        <InviteForm order={order} />
 
-                {/* Customizations Section */}
-                {order.mainDetails && (
-                    <div className="space-y-12 pt-10 border-t border-gray-100">
-                        <InvitationList invitations={allInvites} />
-                        
-                        {allInvites.length === 0 && (
-                            <div className="bg-gray-50 border-2 border-dashed border-gray-100 rounded-[40px] p-12 text-center">
-                                <p className="text-gray-400 font-medium">No Invitations yet. Click "Create Invitation" above to start.</p>
+                        {/* Customizations Section */}
+                        {order.mainDetails && (
+                            <div className="space-y-12 pt-10 border-t border-gray-100">
+                                <InvitationList invitations={allInvites} />
+                                
+                                {allInvites.length === 0 && (
+                                    <div className="bg-gray-50 border-2 border-dashed border-gray-100 rounded-[40px] p-12 text-center">
+                                        <p className="text-gray-400 font-medium">No Invitations yet. Click "Create Invitation" above to start.</p>
+                                    </div>
+                                )}
+
+                                {inviteId && existingInvite && (
+                                    <div className="pt-10 border-t border-gray-100">
+                                        <div className="mb-8">
+                                            <h3 className="text-2xl font-bold text-gray-900 mb-2">Edit Invitation</h3>
+                                            <p className="text-gray-500">Update event details and side selection for this invitation.</p>
+                                        </div>
+                                        <CustomizationForm invitation={existingInvite} orderId={order._id} />
+                                    </div>
+                                )}
                             </div>
                         )}
-
-                        {inviteId && existingInvite && (
-                            <div className="pt-10 border-t border-gray-100">
-                                <div className="mb-8">
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Edit Invitation</h3>
-                                    <p className="text-gray-500">Update event details and side selection for this invitation.</p>
-                                </div>
-                                <CustomizationForm invitation={existingInvite} orderId={order._id} />
-                            </div>
-                        )}
-                    </div>
+                    </>
                 )}
 
                 {/* Status Indicator */}

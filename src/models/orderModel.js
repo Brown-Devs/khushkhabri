@@ -16,6 +16,16 @@ const orderSchema = new mongoose.Schema(
       enum: ["created", "paid", "expired"],
       default: "created",
     },
+    satsangDetails: {
+        invitorName: String,
+        date: Date,
+        time: String,
+        venue: String,
+        musicUrl: String,
+        contacts: [
+            { name: String, phone: String }
+        ]
+    },
     mainDetails: {
         brideName: String,
         brideFatherName: String,

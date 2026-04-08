@@ -35,7 +35,9 @@ export async function POST(req) {
             showWeddingVideo,
             musicUrl,
             isCustomization,
-            isCreateNew
+            isCreateNew,
+            isSatsang,
+            satsangDetails
         } = body;
 
         if (!orderId) {
@@ -47,7 +49,36 @@ export async function POST(req) {
             return NextResponse.json({ error: "Order not found" }, { status: 404 });
         }
 
-        if (isCustomization) {
+        if (isSatsang) {
+            const updatedOrder = await Order.findByIdAndUpdate(orderId, {
+                satsangDetails
+            }, { new: true });
+
+            let invitation = await Invitation.findOne({ order: orderId });
+            
+            if (!invitation) {
+                const baseSlug = satsangDetails.invitorName ? satsangDetails.invitorName.toLowerCase().replace(/[^a-z0-9]+/g, '-') : 'invitation';
+                const xyz = Math.random().toString(36).substring(2, 5);
+                const slug = `guruji-satsang-by-${baseSlug}-${xyz}`;
+                
+                const theme = await Theme.findOne({ name: order.themeName || themeName });
+                const themeType = theme?.type || "satsang";
+
+                invitation = await Invitation.create({
+                    user: session.user.id,
+                    order: orderId,
+                    themeName: order.themeName || themeName,
+                    type: themeType,
+                    slug,
+                    satsangDetails
+                });
+            } else {
+                invitation.satsangDetails = satsangDetails;
+                await invitation.save();
+            }
+
+            return NextResponse.json({ success: true, invitation, order: updatedOrder });
+        } else if (isCustomization) {
             // Handle Customization (Invitations)
             let invitation;
 
