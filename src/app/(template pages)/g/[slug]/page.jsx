@@ -35,6 +35,7 @@ export async function generateMetadata({ params }) {
             card: "summary_large_image",
             title,
             description,
+            images: ["/satsangseo.png"],
         },
     };
 }
