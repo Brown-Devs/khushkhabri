@@ -24,8 +24,15 @@ export default function ResponsiveTemplateWrapper(props) {
     return (
         <>
             {isMobile ? <GurujiTemplateMobile {...props} /> :
-                <div className="min-h-screen w-full bg-[#fdf6ee]">
-                    <div className="w-full max-w-[940px] mx-auto min-h-screen border-x border-[#8b2c3c]/5 shadow-2xl relative bg-white">
+
+                <div className="min-h-screen w-full bg-[#fdf6ee]"
+                    style={{
+                        backgroundImage: `url('/bg/pinkbg.png')`,
+                        backgroundRepeat: 'repeat',
+                        backgroundSize: '200px',
+                        backgroundOpacity: 0.3
+                    }}>
+                    <div className="w-full max-w-[440px] mx-auto">
                         <GurujiTemplateDesktop {...props} />
                     </div>
                 </div>
