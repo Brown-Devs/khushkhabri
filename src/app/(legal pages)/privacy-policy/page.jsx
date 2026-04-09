@@ -5,6 +5,35 @@ import ReactMarkdown from 'react-markdown';
 import styles from './components/post.module.css';
 import rehypeRaw from 'rehype-raw';
 
+export const metadata = {
+    title: "Privacy Policy | Khushkhabri - Digital Invitations",
+    description:
+        "Read Khushkhabri's privacy policy to understand how we collect, use, and protect your personal information for digital invitations and event planning services.",
+    keywords: [
+        "Privacy Policy",
+        "Khushkhabri Privacy",
+        "Data Protection",
+        "Privacy Policy India",
+        "Digital Invitation Privacy",
+        "User Data Protection"
+    ],
+    alternates: {
+        canonical: "https://khushkhabri.in/privacy-policy",
+    },
+    openGraph: {
+        title: "Privacy Policy - Khushkhabri",
+        description:
+            "Understand how Khushkhabri protects your privacy while creating beautiful digital invitations.",
+        url: "https://khushkhabri.in/privacy-policy",
+        type: "website",
+    },
+    twitter: {
+        title: "Privacy Policy - Khushkhabri",
+        description:
+            "Read Khushkhabri's privacy policy for digital invitation services.",
+    },
+};
+
 export default async function page() {
     const privacyPolicy = await getPrivacyPolicy();
 
@@ -21,7 +50,7 @@ export default async function page() {
             {/* FOREGROUND CONTENT */}
             <div className="relative z-10 flex flex-col min-h-screen">
                 <NavBar />
-                
+
                 {privacyPolicy && (
                     <>
                         {/* Header Section */}
@@ -55,4 +84,4 @@ export default async function page() {
             </div>
         </div>
     )
-}
+}

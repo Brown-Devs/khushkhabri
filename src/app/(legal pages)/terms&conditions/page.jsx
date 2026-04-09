@@ -5,6 +5,34 @@ import ReactMarkdown from 'react-markdown';
 import styles from './components/post.module.css';
 import rehypeRaw from 'rehype-raw';
 
+export const metadata = {
+    title: "Terms and Conditions | Khushkhabri - Digital Invitations",
+    description:
+        "Read Khushkhabri's terms and conditions to understand the rules and guidelines for using our digital invitation and event planning services.",
+    keywords: [
+        "Terms and Conditions",
+        "Khushkhabri Terms",
+        "Terms of Service",
+        "Digital Invitation Terms",
+        "E-Invite Terms and Conditions"
+    ],
+    alternates: {
+        canonical: "https://khushkhabri.in/terms-and-conditions",
+    },
+    openGraph: {
+        title: "Terms and Conditions - Khushkhabri",
+        description:
+            "Understand the terms and conditions for using Khushkhabri's digital invitation services.",
+        url: "https://khushkhabri.in/terms-and-conditions",
+        type: "website",
+    },
+    twitter: {
+        title: "Terms and Conditions - Khushkhabri",
+        description:
+            "Read Khushkhabri's terms and conditions for digital invitation services.",
+    },
+};
+
 export default async function page() {
     const termsConditions = await getTermsConditions();
 
@@ -21,7 +49,7 @@ export default async function page() {
             {/* FOREGROUND CONTENT */}
             <div className="relative z-10 flex flex-col min-h-screen">
                 <NavBar />
-                
+
                 {termsConditions && (
                     <>
                         {/* Header Section */}
@@ -55,4 +83,4 @@ export default async function page() {
             </div>
         </div>
     )
-}
+}

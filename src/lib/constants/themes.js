@@ -6,7 +6,7 @@ export const THEMES = [
         category: "Sikh Wedding",
         description: "A graceful and spiritual design inspired by Anand Karaj traditions, featuring elegant tones and sacred aesthetics perfect for a Sikh wedding.",
         image: "/templates/sikh/preview.png",
-        demoUrl: "/s/sikh1",
+        demoUrl: "s/gurpreet-weds-simran-dc8",
     },
     {
         id: 2,

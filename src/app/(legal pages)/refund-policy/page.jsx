@@ -5,6 +5,34 @@ import ReactMarkdown from 'react-markdown';
 import styles from './components/post.module.css';
 import rehypeRaw from 'rehype-raw';
 
+export const metadata = {
+    title: "Refund Policy | Khushkhabri - Digital Invitations",
+    description:
+        "Read Khushkhabri's refund policy to understand our refund process for digital invitations and event planning services.",
+    keywords: [
+        "Refund Policy",
+        "Khushkhabri Refund",
+        "Refund Policy India",
+        "Digital Invitation Refund",
+        "Cancellation Policy"
+    ],
+    alternates: {
+        canonical: "https://khushkhabri.in/refund-policy",
+    },
+    openGraph: {
+        title: "Refund Policy - Khushkhabri",
+        description:
+            "Understand Khushkhabri's refund policy for digital invitation services.",
+        url: "https://khushkhabri.in/refund-policy",
+        type: "website",
+    },
+    twitter: {
+        title: "Refund Policy - Khushkhabri",
+        description:
+            "Read Khushkhabri's refund policy for digital invitation services.",
+    },
+};
+
 export default async function page() {
     const refundPolicy = await getRefundPolicy();
 
@@ -21,7 +49,7 @@ export default async function page() {
             {/* FOREGROUND CONTENT */}
             <div className="relative z-10 flex flex-col min-h-screen">
                 <NavBar />
-                
+
                 {refundPolicy && (
                     <>
                         {/* Header Section */}
@@ -55,4 +83,4 @@ export default async function page() {
             </div>
         </div>
     )
-}
+}

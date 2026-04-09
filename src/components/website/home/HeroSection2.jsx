@@ -43,7 +43,7 @@ export default function HeroSection2() {
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
                         <Link
-                            href="#templates"
+                            href="/templates"
                             className="group flex items-center justify-between sm:justify-center gap-6 w-full sm:w-auto pl-8 pr-2 py-2 bg-[#8b2c3c] text-white rounded-full font-medium text-lg hover:bg-[#6e222b] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                         >
                             <span>View Live Templates</span>
@@ -53,7 +53,7 @@ export default function HeroSection2() {
                                 </svg>
                             </div>
                         </Link>
-                        <Link
+                        <a
                             href="#how-it-works"
                             className="group flex items-center justify-between sm:justify-center gap-6 w-full sm:w-auto pl-8 pr-2 py-2 bg-white text-[#8b2c3c] rounded-full font-medium text-lg border-2 border-[#8b2c3c] hover:bg-[#fff5f6] transition-all shadow-sm hover:shadow-md"
                         >
@@ -63,7 +63,7 @@ export default function HeroSection2() {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                                 </svg>
                             </div>
-                        </Link>
+                        </a>
                     </div>
                 </motion.div>
 

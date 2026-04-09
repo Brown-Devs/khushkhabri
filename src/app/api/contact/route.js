@@ -4,24 +4,24 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
-  try {
-    const body = await request.json();
+    try {
+        const body = await request.json();
 
-    // Validate required fields
-    if (!body.name || !body.email || !body.phone || !body.description) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+        // Validate required fields
+        if (!body.name || !body.email || !body.phone || !body.description) {
+            return NextResponse.json(
+                { error: "Missing required fields" },
+                { status: 400 }
+            );
+        }
 
-    // Professional HTML email template with emerald green theme
-    const emailHtml = `
+        // Professional HTML email template with emerald green theme
+        const emailHtml = `
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="UTF-8">
-            <title>New Contact Form Submission - Trivenika</title>
+            <title>New Contact Form Submission - Khushkhabri</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         </head>
         <body style="margin:0; padding:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0fdf4;">
@@ -35,7 +35,7 @@ export async function POST(request) {
                                 <td bgcolor="#064e3b" style="padding: 30px; text-align: center; background: linear-gradient(135deg, #064e3b 0%, #047857 100%);">
                                     <h1 style="margin:0; color: #ffffff; font-size: 28px; font-weight: 600;">
                                         <i class="fas fa-leaf" style="margin-right: 10px; color: #a7f3d0;"></i>
-                                        Trivenika
+                                        Khushkhabri
                                     </h1>
                                     <p style="color: #d1fae5; margin: 12px 0 0; font-size: 16px; letter-spacing: 0.5px;">
                                         New Contact Form Submission
@@ -118,19 +118,19 @@ export async function POST(request) {
         </html>
         `;
 
-    const { data, error } = await resend.emails.send({
-      from: "Trivenika Contact <trivenika@resend.dev>",
-      to: "tusharmohan0416@gmail.com",
-      subject: `New Contact Submission from ${body.name}`,
-      html: emailHtml,
-    });
+        const { data, error } = await resend.emails.send({
+            from: "Trivenika Contact <trivenika@resend.dev>",
+            to: "tusharmohan0416@gmail.com",
+            subject: `New Contact Submission from ${body.name}`,
+            html: emailHtml,
+        });
 
-    if (error) {
-      return NextResponse.json({ error }, { status: 500 });
+        if (error) {
+            return NextResponse.json({ error }, { status: 500 });
+        }
+
+        return NextResponse.json(data);
+    } catch (error) {
+        return NextResponse.json({ error }, { status: 500 });
     }
-
-    return NextResponse.json(data);
-  } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
-  }
 }

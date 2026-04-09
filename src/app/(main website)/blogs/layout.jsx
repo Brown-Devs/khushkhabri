@@ -3,34 +3,33 @@
 import SmoothScroll from "@/components/website/common/SmoothScroll";
 
 export const metadata = {
-    title: "Technology Blogs | Web, App, AI & Digital Growth Insights - Brown Devs",
+    title: "Digital Invitation & Event Planning Blogs | Khushkhabri",
     description:
-        "Explore expert insights from Brown Devs on web development, mobile apps, AI engineering, e commerce solutions, blockchain, performance marketing and software innovation.",
+        "Explore expert tips and inspiration from Khushkhabri on digital wedding invitations, event planning, e-invites, and making your special moments memorable.",
     keywords: [
-        "Brown Devs Blog",
-        "Web Development Blog",
-        "App Development Blog",
-        "AI Development Articles",
-        "E Commerce Insights",
-        "Blockchain Technology Blog",
-        "Performance Marketing Strategies",
-        "Software Development Trends"
+        "Khushkhabri Blog",
+        "Digital Invitation Tips",
+        "Wedding Planning Blog India",
+        "E-Invite Inspiration",
+        "Online Wedding Cards Guide",
+        "Event Management Insights",
+        "Digital Invitation Trends"
     ],
     alternates: {
-        canonical: "https://www.browndevs.com/blogs",
+        canonical: "https://khushkhabri.in/blogs",
     },
     openGraph: {
-        title: "Technology & Software Development Blogs - Brown Devs",
+        title: "Digital Invitation & Event Planning Blogs - Khushkhabri",
         description:
-            "Stay updated with the latest trends in web development, mobile apps, AI systems, e commerce platforms and digital marketing.",
-        url: "https://www.browndevs.com/blogs",
+            "Stay updated with the latest trends in digital invitations, wedding planning, and event management with Khushkhabri.",
+        url: "https://khushkhabri.in/blogs",
         type: "website",
     },
     twitter: {
         card: "summary_large_image",
-        title: "Brown Devs Blog | Tech & Digital Growth Insights",
+        title: "Khushkhabri Blog | Digital Invitation & Event Insights",
         description:
-            "Insights on web apps, AI, blockchain, marketing and scalable software systems.",
+            "Insights on digital wedding invites, e-cards, and seamless event planning.",
     },
 };
 
@@ -44,16 +43,16 @@ export default function Layout({ children }) {
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "Blog",
-                        name: "Brown Devs Blog",
-                        url: "https://www.browndevs.com/blogs",
+                        name: "Khushkhabri Blog",
+                        url: "https://khushkhabri.in/blogs",
                         description:
-                            "Technology, AI, software development and digital marketing insights by Brown Devs.",
+                            "Digital invitation trends, wedding planning tips, and event management insights by Khushkhabri.",
                         publisher: {
                             "@type": "Organization",
-                            name: "Brown Devs",
+                            name: "Khushkhabri",
                             logo: {
                                 "@type": "ImageObject",
-                                url: "https://www.browndevs.com/logo.png"
+                                url: "https://khushkhabri.in/logo.png"
                             }
                         }
                     }),

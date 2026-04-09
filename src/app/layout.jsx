@@ -1,9 +1,7 @@
 // app/layout.jsx
 import "./globals.css";
 import { Poppins, Montserrat, DM_Sans, Anton } from "next/font/google";
-import Script from "next/script";
 import AuthProvider from "@/components/auth/AuthProvider";
-import SmoothScroll from "@/components/website/common/SmoothScroll";
 
 const dmSans = DM_Sans({
   variable: "--font-sans",
@@ -30,7 +28,7 @@ const anton = Anton({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://khushkhabri.vercel.app"),
+  metadataBase: new URL("https://khushkhabri.in"),
   title: {
     default: "Khushkhabri - Create & Send Beautiful Digital Invitations",
     template: "%s | Khushkhabri",
@@ -51,7 +49,7 @@ export const metadata = {
     title: "Khushkhabri - Digital Invitation Platform",
     description:
       "Design and share beautiful digital invitations for weddings and events with Khushkhabri. Easy to create, customize and send.",
-    url: "https://khushkhabri.vercel.app",
+    url: "https://khushkhabri.in",
     siteName: "Khushkhabri",
     images: [
       {
@@ -72,7 +70,7 @@ export const metadata = {
     images: ["/logo.png"],
   },
   alternates: {
-    canonical: "https://khushkhabri.vercel.app",
+    canonical: "https://khushkhabri.in",
   },
   icons: {
     icon: "/favicon.ico",

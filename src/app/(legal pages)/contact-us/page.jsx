@@ -5,6 +5,35 @@ import ContactSection from '@/components/website/common/ContactSection';
 import ContactHero from '@/components/website/home/ContactHero';
 import SmoothScroll from '@/components/website/common/SmoothScroll';
 
+export const metadata = {
+    title: "Contact Us | Khushkhabri - Digital Invitations",
+    description:
+        "Get in touch with Khushkhabri for any queries about digital invitations, wedding planning, event management, or custom e-invite solutions.",
+    keywords: [
+        "Contact Khushkhabri",
+        "Digital Invitation Support",
+        "Wedding Planning Help",
+        "E-Invite Assistance",
+        "Event Management Support",
+        "Custom Invitation Queries"
+    ],
+    alternates: {
+        canonical: "https://khushkhabri.in/contact-us",
+    },
+    openGraph: {
+        title: "Contact Us - Khushkhabri",
+        description:
+            "Get in touch with Khushkhabri for any queries about digital invitations and event planning.",
+        url: "https://khushkhabri.in/contact-us",
+        type: "website",
+    },
+    twitter: {
+        title: "Contact Us - Khushkhabri",
+        description:
+            "Get in touch with Khushkhabri for any queries about digital invitations.",
+    },
+};
+
 export default async function page() {
     return (
         <SmoothScroll>

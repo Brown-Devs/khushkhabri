@@ -28,12 +28,12 @@ export async function generateMetadata({ params }) {
 
     if (!blog) {
         return {
-            title: "Blog Not Found | Brown Devs",
+            title: "Blog Not Found | Khushkhabri",
             description: "The requested blog does not exist.",
         };
     }
 
-    const siteUrl = "https://www.browndevs.com";
+    const siteUrl = "https://khushkhabri.in";
 
     const blogUrl = `${siteUrl}/blogs/${blog.slug}`;
 
@@ -41,15 +41,15 @@ export async function generateMetadata({ params }) {
     const categoryKeywords = blog?.categories?.map(cat => cat.name) || [];
 
     return {
-        title: `${blog.title} | Brown Devs Blog`,
+        title: `${blog.title} | Khushkhabri Blog`,
         description: blog.shortDescription,
         keywords: [
             blog.title,
             ...tagKeywords,
             ...categoryKeywords,
-            "Brown Devs Blog",
-            "Web Development Insights",
-            "App Development Articles",
+            "Khushkhabri Blog",
+            "Digital Invitation Insights",
+            "Wedding Planning Articles",
         ],
         alternates: {
             canonical: blogUrl,
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
             title: blog.title,
             description: blog.shortDescription,
             url: blogUrl,
-            siteName: "Brown Devs",
+            siteName: "Khushkhabri",
             locale: "en_IN",
             type: "article",
             images: [
@@ -90,7 +90,7 @@ export default async function Page({ params }) {
     if (!blog) return null;
 
     const siteUrl =
-        process.env.NEXT_PUBLIC_SITE_URL || "https://www.browndevs.com";
+        process.env.NEXT_PUBLIC_SITE_URL || "https://khushkhabri.in";
 
     const blogUrl = `${siteUrl}/blogs/${blog.slug}`;
 
@@ -105,11 +105,11 @@ export default async function Page({ params }) {
         image: blog.imageURL,
         author: {
             "@type": "Organization",
-            name: "Brown Devs",
+            name: "Khushkhabri",
         },
         publisher: {
             "@type": "Organization",
-            name: "Brown Devs",
+            name: "Khushkhabri",
             logo: {
                 "@type": "ImageObject",
                 url: `${siteUrl}/logo.png`,
