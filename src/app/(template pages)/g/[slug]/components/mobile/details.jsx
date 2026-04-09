@@ -1,12 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Dancing_Script, Cormorant_Upright } from 'next/font/google';
+import { MapPin } from "lucide-react";
 
 const dancingScript = Dancing_Script({ subsets: ['latin'] });
 const cormorantUpright = Cormorant_Upright({
     subsets: ['latin'],
     weight: ['300', '400', '500', '600', '700']
 });
+
+const item = {
+    hidden: {
+        opacity: 0,
+        y: 60,
+        filter: "blur(8px)",
+    },
+    show: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: {
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+        },
+    },
+};
 
 export default function Details({ invitation }) {
     const details = invitation?.satsangDetails || {};
@@ -39,10 +57,10 @@ export default function Details({ invitation }) {
                 <motion.img
                     src="/icons/1.png"
                     className="absolute top-[10%] left-[5%] w-24 h-auto opacity-70"
-                    animate={{ 
-                        y: [0, -20, 0], 
+                    animate={{
+                        y: [0, -20, 0],
                         x: [0, 10, 0],
-                        rotate: [0, 10, 0] 
+                        rotate: [0, 10, 0]
                     }}
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -50,10 +68,10 @@ export default function Details({ invitation }) {
                 <motion.img
                     src="/icons/2.png"
                     className="absolute top-[25%] right-[8%] w-20 h-auto opacity-60"
-                    animate={{ 
-                        y: [0, 30, 0], 
+                    animate={{
+                        y: [0, 30, 0],
                         x: [0, -15, 0],
-                        rotate: [0, -15, 0] 
+                        rotate: [0, -15, 0]
                     }}
                     transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -61,10 +79,10 @@ export default function Details({ invitation }) {
                 <motion.img
                     src="/icons/3.png"
                     className="absolute top-[50%] left-[10%] w-28 h-auto opacity-60"
-                    animate={{ 
-                        y: [0, -25, 0], 
+                    animate={{
+                        y: [0, -25, 0],
                         x: [0, 20, 0],
-                        rotate: [0, 20, 0] 
+                        rotate: [0, 20, 0]
                     }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -72,10 +90,10 @@ export default function Details({ invitation }) {
                 <motion.img
                     src="/icons/4.png"
                     className="absolute top-[75%] right-[5%] w-24 h-auto opacity-60"
-                    animate={{ 
-                        y: [0, -30, 0], 
+                    animate={{
+                        y: [0, -30, 0],
                         x: [0, -10, 0],
-                        rotate: [0, 15, 0] 
+                        rotate: [0, 15, 0]
                     }}
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -90,14 +108,14 @@ export default function Details({ invitation }) {
                             left: `${(i * 13) % 90}%`,
                             width: `${30 + (i % 5) * 5}px`, // Increased: 30px to 50px
                         }}
-                        animate={{ 
-                            y: [0, 100 + (i % 3) * 50, 0], 
+                        animate={{
+                            y: [0, 100 + (i % 3) * 50, 0],
                             x: [0, (i % 2 === 0 ? 30 : -30), 0],
-                            rotate: [0, i % 2 === 0 ? 360 : -360] 
+                            rotate: [0, i % 2 === 0 ? 360 : -360]
                         }}
-                        transition={{ 
-                            duration: 10 + (i % 5) * 2, 
-                            repeat: Infinity, 
+                        transition={{
+                            duration: 10 + (i % 5) * 2,
+                            repeat: Infinity,
                             ease: i % 3 === 0 ? "linear" : "easeInOut",
                             delay: i * 0.5
                         }}
@@ -106,7 +124,7 @@ export default function Details({ invitation }) {
             </div>
 
             {/* Content Layer */}
-            <div className="relative z-10 flex flex-col items-center w-full px-0 pt-[30vh] pb-24">
+            <div className="relative z-10 flex flex-col items-center w-full px-0 pt-[30vh] pb-4">
 
                 {/* Ganesh Ji */}
                 <motion.img
@@ -174,6 +192,18 @@ export default function Details({ invitation }) {
                             <span className="text-2xl font-bold w-full whitespace-pre-wrap leading-tight">{details.venue || 'Khanna Residence\nAshoka Society\nNew Delhi'}</span>
                         </div>
                     </div>
+                    {details.mapLink && (
+                        <motion.a
+                            variants={item}
+                            href={details.mapLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-green-900/90 shadow-sm text-lg mt-4 bg-white/10 px-6 py-2 rounded-full border border-white/20 backdrop-blur-sm z-30 hover:bg-white/20 transition-colors"
+                        >
+                            <MapPin size={18} />
+                            <span>See Location</span>
+                        </motion.a>
+                    )}
                 </motion.div>
             </div>
         </section>

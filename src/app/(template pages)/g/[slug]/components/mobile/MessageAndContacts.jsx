@@ -19,10 +19,10 @@ export default function MessageAndContacts({ invitation }) {
                 <motion.img
                     src="/icons/1.png"
                     className="absolute top-[5%] left-[10%] w-16 h-auto opacity-70"
-                    animate={{ 
-                        y: [0, -20, 0], 
+                    animate={{
+                        y: [0, -20, 0],
                         x: [0, 10, 0],
-                        rotate: [0, 10, 0] 
+                        rotate: [0, 10, 0]
                     }}
                     transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -30,10 +30,10 @@ export default function MessageAndContacts({ invitation }) {
                 <motion.img
                     src="/icons/2.png"
                     className="absolute top-[30%] right-[10%] w-14 h-auto opacity-60"
-                    animate={{ 
-                        y: [0, 30, 0], 
+                    animate={{
+                        y: [0, 30, 0],
                         x: [0, -15, 0],
-                        rotate: [0, -15, 0] 
+                        rotate: [0, -15, 0]
                     }}
                     transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -41,10 +41,10 @@ export default function MessageAndContacts({ invitation }) {
                 <motion.img
                     src="/icons/3.png"
                     className="absolute top-[60%] left-[8%] w-18 h-auto opacity-60"
-                    animate={{ 
-                        y: [0, -25, 0], 
+                    animate={{
+                        y: [0, -25, 0],
                         x: [0, 20, 0],
-                        rotate: [0, 20, 0] 
+                        rotate: [0, 20, 0]
                     }}
                     transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -52,10 +52,10 @@ export default function MessageAndContacts({ invitation }) {
                 <motion.img
                     src="/icons/4.png"
                     className="absolute top-[80%] right-[8%] w-16 h-auto opacity-60"
-                    animate={{ 
-                        y: [0, -30, 0], 
+                    animate={{
+                        y: [0, -30, 0],
                         x: [0, -10, 0],
-                        rotate: [0, 15, 0] 
+                        rotate: [0, 15, 0]
                     }}
                     transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -71,14 +71,14 @@ export default function MessageAndContacts({ invitation }) {
                             left: `${(i * 17) % 90}%`,
                             width: `${30 + (i % 5) * 6}px`, // Larger petals: 30-54px
                         }}
-                        animate={{ 
-                            y: [0, 120 + (i % 3) * 60, 0], 
+                        animate={{
+                            y: [0, 120 + (i % 3) * 60, 0],
                             x: [0, (i % 2 === 0 ? 40 : -40), 0],
-                            rotate: [0, i % 2 === 0 ? 360 : -360] 
+                            rotate: [0, i % 2 === 0 ? 360 : -360]
                         }}
-                        transition={{ 
-                            duration: 12 + (i % 5) * 2.5, 
-                            repeat: Infinity, 
+                        transition={{
+                            duration: 12 + (i % 5) * 2.5,
+                            repeat: Infinity,
                             ease: i % 3 === 0 ? "linear" : "easeInOut",
                             delay: i * 0.4
                         }}
@@ -87,7 +87,7 @@ export default function MessageAndContacts({ invitation }) {
             </div>
 
             {/* Upper Section: Message */}
-            <div className="relative w-full pt-60 pb-[45vh] flex flex-col items-center text-center px-0">
+            <div className="relative w-full pt-30 pb-[45vh] flex flex-col items-center text-center px-0">
                 {/* Background */}
                 <div className="absolute inset-0 z-0">
                     <img
@@ -124,8 +124,8 @@ export default function MessageAndContacts({ invitation }) {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     animate={{ y: [0, -15, 0] }}
                     viewport={{ once: false, amount: 0.1 }}
-                    transition={{ 
-                        duration: 2.0, 
+                    transition={{
+                        duration: 2.0,
                         ease: "easeOut",
                         y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
                     }}

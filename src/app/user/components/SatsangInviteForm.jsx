@@ -18,6 +18,7 @@ export default function SatsangInviteForm({ order, existingInvite }) {
         date: sourceData.date ? new Date(sourceData.date).toISOString().split('T')[0] : '',
         time: sourceData.time || '1:00 PM Onwards',
         venue: sourceData.venue || '',
+        mapLink: sourceData.mapLink || '',
         musicUrl: sourceData.musicUrl || '',
         contacts: sourceData.contacts?.length > 0 ? sourceData.contacts : [{ name: '', phone: '' }]
     });
@@ -218,6 +219,17 @@ export default function SatsangInviteForm({ order, existingInvite }) {
                                         rows={3}
                                         placeholder="e.g. Khanna Residence, Ashoka Society, New Delhi"
                                         className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-[#8b2c3c]/10 focus:border-[#8b2c3c] outline-none transition-all resize-none"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">Location Map Link (Google Maps)</label>
+                                    <input
+                                        type="url"
+                                        name="mapLink"
+                                        value={formData.mapLink}
+                                        onChange={handleChange}
+                                        placeholder="e.g. https://goo.gl/maps/..."
+                                        className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-[#8b2c3c]/10 focus:border-[#8b2c3c] outline-none transition-all"
                                     />
                                 </div>
                             </div>
