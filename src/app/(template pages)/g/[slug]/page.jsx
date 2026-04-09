@@ -25,8 +25,8 @@ export async function generateMetadata({ params }) {
             images: [
                 {
                     url: "/satsangseo.png", // fallback placeholder
-                    width: 1000,
-                    height: 810,
+                    width: 700,
+                    height: 547,
                     alt: title,
                 },
             ],
